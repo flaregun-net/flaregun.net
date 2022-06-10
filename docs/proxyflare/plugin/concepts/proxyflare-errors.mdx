@@ -1,0 +1,27 @@
+---
+title: How does Proxyflare handle errors?
+description: Learn how Proxyflare handles error
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - errors
+slug: error-handling
+sidebar_position: 5
+---
+
+If your `Configuration` includes a `Route` that causes Proxyflare to throw an exception, Proxyflare calls [event.passThroughOnException](https://developers.cloudflare.com/workers/runtime-apis/fetch-event/#passthroughonexception).
+
+> The passThroughOnException command prevents a runtime error response when [Proxyflare] throws an unhandled exception. Instead, the script will fail open, which will proxy the request to the origin server as though [Proxyflare] was never invoked.
+
+:::caution TLDR
+
+Because it fails open, Proxyflare will never break your domain if it encounters an error internally or in your `Configuration`.
+
+:::
+
+Proxyflare is critical infrastructure in your networking stack. We take best practices and testing seriously with hundeds of integration and acceptance tests. However, new versions of the software may introduce new bugs.
+
+Check out the [debugging Proxyflare](/docs/latest/proxyflare/plugin/tutorials/debugging-proxyflare/) article for more information about debugging your `Configuration`.
+
+If you discover a bug, please [report the issue in our Discord](https://discord.gg/YcDwujEH).

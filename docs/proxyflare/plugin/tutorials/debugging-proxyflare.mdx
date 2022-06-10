@@ -1,0 +1,140 @@
+---
+title: How do I debug Proxyflare?
+description: Enable debug mode to append diagnostic response headers to incoming traffic
+keywords:
+  - flaregun
+  - proxyflare
+  - docs
+  - API
+  - Configuration Options
+slug: debugging-proxyflare
+sidebar_position: 10
+---
+
+So you deployed your website deployed on Cloudflare Pages, installed Proxyflare, set up a `Route`, deployed a new build, and...nothing. Don't worry, we have you covered. Let's figure out what's going on with your `Configuration`.
+
+## We <3 Typescript
+
+If you're using Typescript, Proxyflare includes [robust type definitions](/docs/latest/proxyflare/plugin/reference/type-definitions) to help diagnose `Configuration` problems before your code ships.
+
+![Typescript error in Proxyflare Configuration](/img/debug-mode-typescript-error-in-configuration.png)
+
+## Using Debug Mode
+
+Enable Debug Mode to learn how Proxyflare is operating on traffic and whether it is throwing an error.
+
+```ts title="functions/_middleware.ts"
+import proxyflare from "@flaregun-net/proxyflare-for-pages"
+
+const routes: Route[] = []
+
+export const onRequest: PagesFunction[] = [
+  (context) =>
+    proxyflare({
+      config: {
+        // debug mode is enabled
+        global: { debug: true },
+        routes,
+      },
+    })(context),
+]
+```
+
+When Debug Mode is on, Proxyflare appends diagnostic response headers to incoming traffic. The video below demonstrates how to find these headers in your browser's **Developer Tools > Network** tab.
+
+<div className="video-frame">
+  <video controls>
+    <source src="/videos/inspect-debug-headers.webm" />
+  </video>
+  <p>
+    We enabled Debug Mode to attach useful diagnostics to the response headers
+    of our proxied traffic.
+  </p>
+</div>
+
+In Debug Mode, the following headers are appended to `ProxiedResponse`.
+
+> `x-proxyflare: "running"` signals that Proxyflare is installed and operational on your domain
+
+> `x-proxyflare-error: string` describes an error if it occured, usually because of a configuration issue
+
+> `x-proxyflare-matched-index: number | "none"` is a zero-indexed `Route` that matched the request or "none"
+
+> `x-proxyflare-matched-pathname: string` is the pathname of the matched `Route["from.pattern"]`
+
+> `x-proxyflare-proxied-pathname: string` is the pathname of the `ProxiedRequest`
+
+:::caution
+
+Make sure to disable Debug Mode when you are done debugging to avoid exposing potentially sensitive proxy location information.
+
+:::
+
+### Practical debugging in Debug Mode
+
+If your `Configuration` seems broken:
+
+1. Enable Debug Mode by setting `Configuration["global.debug"] = true`
+2. Deploy your change
+   - In your Cloudflare dashboard, _confirm the deployment was successful_
+3. Once deployed, navigate to your website and open your browser's **Developer Tools > Network**
+4. In the Network panel, open the **Search** window
+   - In Chrome, press `cmd + f` on Mac or `ctrl + f` on Windows
+   - In Firefox, press `cmd + shift + f` on Mac or `ctrl + shift + f` on Windows
+5. In the search bar, type `x-proxyflare` and press Enter
+   - You should see something like this
+     ![Search for x-proxyflare](/img/debug-mode-search-x-proxyflare.png)
+
+With this information,
+
+- We can confirm Proxyflare is properly installed and running on our domain
+  - If you do not see `x-proxyflare: running`, refer to the [Common installation issues](#fixing-installation-issues) section
+- We can confirm Proxyflare is not throwing an error because `x-proxyflare-error` is absent
+
+If `x-proxyflare-error: <error message>` is present, carefully inspect the error message to diagnose the issue in your `Configuration`. The error message might look something like this:
+
+```json
+{
+  "routes": {
+    "0": {
+      "to": {
+        "website": {
+          "mode": {
+            "_errors": [
+              "Invalid literal value, expected true",
+              "Invalid literal value, expected \"spa\""
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+While the formatting is somewhat cryptic, we can deduce the error is in `Route[0]["to.website"]`. Let's look at our `Configuration`.
+
+```ts title="functions/_middleware.ts"
+const routes: Route[] = [
+  {
+    from: { pattern: `${host}/docs/*` },
+    to: {
+      url: "https://docusaurus-on-proxyflare.vercel.app/",
+      website: {
+        mode: false,
+        resources: [`${host}/docs/assets/*`],
+      },
+    },
+  },
+]
+```
+
+Oops! Referring to Proxyflare's [type definitions](/docs/latest/proxyflare/plugin/reference/type-definitions#route), we see that `Route["to.website"]: true | "spa"`, not `false`.
+
+### Fixing installation issues
+
+Proxyflare is compatible with websites deployed on Cloudflare Pages. If your website isn't on Cloudflare Pages, Proxyflare won't work. However, it might be easier than you think to switch to [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started/). This website is deployed on Cloudflare Pages and it was really easy!
+
+If your website is already on Cloudflare Pages, carefully follow the instructions in the [Plug In section](/docs/latest/proxyflare/plugin/getting-started/#plug-in). Ensure the file containing your Proxyflare configuration is named is exactly as instructed because Cloudflare Pages uses the filename internally for proper routing.
+
+Once you've double checked your set up, make sure you deploy a new version of your website, and that the deployment succeeded. If you're fairly certain you're set up and in Debug Mode but still don't see `x-proxyflare="running"`, drop us a message in Discord and we'll help figure out what's going on.

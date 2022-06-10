@@ -1,0 +1,30 @@
+---
+title: Only match some request methods
+description: Learn how to connect to other services around the internet
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - filter request methods
+  - docs
+slug: request-method-filtering
+sidebar_position: 1
+---
+
+In some cases, you may want to create a `Route` that only matches certain request methods. Let's say we're serving a static response that should only be available on a `GET` request.
+
+```ts title="functions/_middleware.ts"
+const routes = [
+  {
+    from: {
+      pattern: "proxyflare.works/robots.txt",
+      methods: ["GET"],
+    },
+    to: {
+      text: "User-agent: Googlebot\nDisallow: /nogooglebot/\nUser-agent: *\nAllow: /\n",
+    },
+  },
+]
+```
+
+Any valid HTTP request method can be added to `Route["from.methods"]` to prevent it from matching requests with unlisted methods.

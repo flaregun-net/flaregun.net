@@ -1,0 +1,75 @@
+---
+title: Enable Early Hints on your website
+description: Learn how to supercharge your website with Early Hints
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - early hints
+slug: enabling-early-hints
+sidebar_position: 5
+---
+
+For website routes, Proxyflare includes support for [Early Hints](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103) to improve load times by up to 30%.
+
+Please refer to [this excellent article](https://nitropack.io/blog/post/early-hints) for more information on how early hints can be used to supercharge your website.
+
+## Configuration
+
+Set `Route["to.website.earlyHints"]=true`, early hints are sent for all script tags, stylesheets, and images on your website.
+
+```ts title="functions/_middleware.ts"
+const routes = [
+  {
+    from: { pattern: "proxyflare.works/docs/*" },
+    to: {
+      url: "https://docusaurus-on-proxyflare.vercel.app",
+      website: {
+        mode: "spa",
+        earlyHints: true,
+      },
+    },
+  },
+]
+```
+
+For more fine-grained support, provide an array with the following options.
+
+```ts
+const routes = [
+  {
+    from: { pattern: "proxyflare.works/docs/*" },
+    to: {
+      url: "https://docusaurus-on-proxyflare.vercel.app",
+      website: {
+        mode: "spa",
+        earlyHints: [
+          "provide-images",
+          "provide-stylesheets",
+          "provide-scripts",
+        ],
+      },
+    },
+  },
+]
+```
+
+If provided, `provide-stylesheets` and `provide-scripts` will send early hints for all stylesheets and scripts on your website, respectively.
+
+`provide-images` will provide early hints for any image tagged with a `data-early-hints` attribute. In the markup below, early hints will be sent for the first image, but not the second:
+
+```html
+<div>
+  <img data-early-hints="true" src="/cheetah.jpg" />
+  <img src="/fat-cat.jpg" />
+</div>
+```
+
+:::info Cloudflare support
+
+Be aware that Cloudflare announced [Early Hints support](https://blog.cloudflare.com/early-hints/) directly in your Cloudflare dashboard.
+:::
+
+## Testing Early Hints
+
+There are many tools to test your Early Hints configuration. We recommend [debugbear.com](https://www.debugbear.com/resource-hint-validator).

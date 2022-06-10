@@ -1,0 +1,44 @@
+---
+title: Attach CORS headers to requests
+description: Learn how to enable CORS on Routes
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - loose matching
+  - www subdomain requests
+  - root domain requests
+slug: enabling-cors
+sidebar_position: 4
+---
+
+Proxyflare includes support for [cross origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+> Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources.
+
+## Configuration
+
+Provide your desired settings in the `Route["to.cors"]` field. Refer to the [`CORSOptions` documentation](http://localhost:3000/docs/latest/proxyflare/plugin/reference/type-definitions#corsoptions) for more information.
+
+```ts title="functions/_middleware.ts"
+const routes = [
+  {
+    from: { pattern: "proxyflare.works/api/*" },
+    to: {
+      url: "ec2-5-55-555-55.compute-1.amazonaws.com:8787",
+      cors: {
+        origin: true,
+        methods: "*",
+        exposedHeaders: [],
+        allowedHeaders: [],
+        credentials: true,
+        maxAge: 3600,
+      },
+    },
+  },
+]
+```
+
+## Testing CORS
+
+There are many tools to test your CORS configuration. We recommend [codehappy.dev](https://cors-test.codehappy.dev/).

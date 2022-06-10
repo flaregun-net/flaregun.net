@@ -1,0 +1,26 @@
+---
+title: Match both root and www requests
+description: Learn how to attach request and response headers to routes
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - loose matching
+  - www subdomain requests
+  - root domain requests
+slug: loose-matching-www
+sidebar_position: 2
+---
+
+In some cases, you may want a `Route` to match incoming requests to the root domain and the corresponding `www` subdomain.
+
+Instead of creating a separate `Route` for each one, we can supply `alsoMatchWWWSubdomain` to match both root and www subdomain requests. This `Route` will send both `proxyflare.works/api/*` and `www.proxyflare.works/api/*` to `Route["to.url"]`.
+
+```ts title="functions/_middleware.ts"
+const routes = [
+  {
+    from: { pattern: "proxyflare.works/api/*", alsoMatchWWWSubdomain: true },
+    to: { url: "ec2-5-55-555-55.compute-1.amazonaws.com:8787" },
+  },
+]
+```

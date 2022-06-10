@@ -1,0 +1,75 @@
+---
+title: What is a Route?
+description: Learn how Proxyflare defines a route
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - routes
+slug: routes
+sidebar_position: 1
+---
+
+Proxyflare moves traffic around your domain by trying to match incoming requests against a `Route` list in your `Configuration`. A `Route` can send traffic to another service on your domain or anywhere else on the internet.
+
+Each `Route` tells Proxyflare which incoming traffic to match and where to send it. When a `Route` is matched, Proxyflare handles the request by generating a `ProxiedRequest` and handling the `ProxiedResponse`.
+
+The fundamental building blocks of a `Route` are `Route["from"]` and `Route["to"]`.
+
+## Route\["from"\]
+
+`Route["from"]` tells Proxyflare to match the `Route` against traffic _from_ the selected part of your domain.
+
+> "Send traffic _from_ this part of my domain..."
+
+```ts title="functions/_middleware.ts"
+const routes: Route[] = [
+  {
+    from: {
+      pattern: "proxyflare.works/hello",
+    },
+    ...
+  },
+]
+```
+
+## Route\["to"\]
+
+`Route["to"]` tells Proxyflare where to send the matched traffic _to_, which is normally another URL on your domain or elsewhere on the internet.
+The following articles outline some Proxyflare use cases.
+
+> "...to this URL anywhere on the internet."
+
+```ts title="functions/_middleware.ts"
+const routes: Route[] = [
+  {
+    ...
+    to: {
+      url: "https://example.com",
+    },
+  },
+]
+```
+
+:::warning TLDR
+
+> Proxyflare: "Send traffic from the `Route["from"]` part of my domain to the `Route["to"]` location on the internet."
+
+:::
+
+## Putting it all together
+
+> "Send traffic from `proxyflare.works/hello` to `https://example.com`"
+
+```ts title="functions/_middleware.ts"
+const routes: Route[] = [
+  {
+    from: {
+      pattern: "proxyflare.works/hello",
+    },
+    to: {
+      url: "https://example.com",
+    },
+  },
+]
+```

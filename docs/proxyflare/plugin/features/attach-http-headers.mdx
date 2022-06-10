@@ -1,0 +1,41 @@
+---
+title: Attach HTTP headers to requests
+description: Learn how to attach request and response headers to routes
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - attach headers
+  - request headers
+  - response headers
+  - docs
+slug: attaching-http-headers
+sidebar_position: 3
+---
+
+Proxyflare makes it easy to add HTTP headers to a `Route`.
+
+```ts title="functions/_middleware.ts"
+const routes = [
+  {
+    from: { pattern: "proxyflare.works/api/*" },
+    to: { url: "ec2-5-55-555-55.compute-1.amazonaws.com:8787" },
+    headers: {
+      request: {
+        "some-request-header": "header-value",
+        "another-request-header": "header-value",
+      },
+      response: {
+        "some-response-header": "header-value",
+      },
+    },
+  },
+]
+```
+
+When an incoming request matches a `Route`, any configured request and response headers are added to `ProxiedRequest` and `ProxiedResponse`, respectively.
+
+:::caution
+
+A common `Configuration` error is accidently nesting `headers` inside the `to` node. When setting `headers`, ensure it is set at the top level of your `Route`, or use Typescript to catch this pitfall automatically!
+:::

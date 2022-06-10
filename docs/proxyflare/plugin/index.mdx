@@ -1,0 +1,132 @@
+---
+title: Proxyflare for Pages Documentation
+keywords:
+  - flaregun
+  - proxyflare
+  - docs
+  - manual
+  - reverse proxy
+  - cloudflare pages
+slug: index
+sidebar_label: Table of Contents
+sidebar_position: 100
+---
+
+import Link from "@docusaurus/Link"
+import VersionedLink from "@site/src/components/VersionedLink"
+import {
+  CustomTOCList,
+  CustomTOCListSection,
+  CustomTOCListHead,
+  CustomTOCListContent,
+} from "@site/src/components/CustomTOCList"
+
+# Proxyflare for Pages Documentation
+
+<CustomTOCList>
+  <CustomTOCListSection>
+    <CustomTOCListContent>
+      <VersionedLink to="/proxyflare/plugin/getting-started">
+        Getting started
+      </VersionedLink>
+    </CustomTOCListContent>
+  </CustomTOCListSection>
+
+<CustomTOCListSection>
+  <CustomTOCListHead>Concepts</CustomTOCListHead>
+
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/concepts/routes">
+      What is a Route?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/concepts/pattern-matching">
+      How do Routes match requests?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/concepts/constructing-proxied-requests">
+      How is ProxiedRequest constructed?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/concepts/error-handling">
+      How does Proxyflare handle errors?
+    </VersionedLink>
+  </CustomTOCListContent>
+</CustomTOCListSection>
+
+<CustomTOCListSection>
+  <CustomTOCListHead>Tutorials</CustomTOCListHead>
+
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/proxying-services">
+      How do I proxy traffic to another service?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/proxying-websites">
+      How do I proxy traffic to another website?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/redirecting-traffic">
+      How do I redirect traffic to other places?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/serving-static-responses">
+      How do I serve static responses?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/debugging-proxyflare">
+      How do I debug Proxyflare?
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/tutorials/using-environment-variables">
+      How do I use environment variables?
+    </VersionedLink>
+  </CustomTOCListContent>
+</CustomTOCListSection>
+
+<CustomTOCListSection>
+  <CustomTOCListHead>Features</CustomTOCListHead>
+
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/features/request-method-filtering">
+      Only match some request methods
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/features/loose-matching-www">
+      Matching both root and www requests
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/features/attaching-http-headers">
+      Attach HTTP headers to Routes
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/features/enabling-cors">
+      Attach CORS headers to Routes
+    </VersionedLink>
+  </CustomTOCListContent>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/features/enabling-early-hints">
+      Enabling Early Hints on your website
+    </VersionedLink>
+  </CustomTOCListContent>
+</CustomTOCListSection>
+<CustomTOCListSection>
+  <CustomTOCListHead>Reference</CustomTOCListHead>
+  <CustomTOCListContent>
+    <VersionedLink to="/proxyflare/plugin/reference/type-definitions">
+      Type definitions
+    </VersionedLink>
+  </CustomTOCListContent>
+</CustomTOCListSection>
+</CustomTOCList>

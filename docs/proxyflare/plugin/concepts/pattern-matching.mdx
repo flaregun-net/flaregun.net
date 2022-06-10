@@ -1,0 +1,122 @@
+---
+title: How do Routes match requests?
+description: Learn how Proxyflare matches routes
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - routes
+  - pathname score
+  - request pattern matching
+slug: pattern-matching
+sidebar_position: 2
+---
+
+## Request matching basics
+
+This article descibes how Proxyflare matches an incoming request to a `Route` in your `Configuration` using the concept of _pathname score_.
+
+Let's test your intuition with a basic setup.
+
+Proxyflare is installed on _proxyflare.works_ with the `Configuration` below and a request arrives — `GET https://proxyflare.works/api/users/john`.
+
+Each `Route` matches the incoming request. Which `Route` does Proxyflare run?
+
+```ts title="functions/_middleware.ts"
+// incoming request: GET https://proxyflare.works/api/users/john
+
+const routes: Route[] = [
+  {
+    from: { pattern: "proxyflare.works/api/*" },
+    ...
+  },
+  {
+    from: { pattern: "proxyflare.works/api/users/*" },
+    ...
+  },
+]
+```
+
+:::info Answer
+
+The second route runs! But why?
+
+Proxyflare sorts each `Route` by the pathname score of `Route["from.pattern"]`. The second route runs because it contains more pathname parts.
+
+:::
+
+## How pathname score works
+
+If an incoming request matches multiple `Routes`, Proxyflare runs the `Route` with the higher pathname score. Every `Route` is assigned a pathname score using the value of `Route["from.pattern"]`.
+
+### Assigning pathname depth
+
+Pathname score increases with _pathname depth_. The more forward-slash `/` separated path slugs in `Route["from.pattern"]`, the higher the rank.
+
+For example, `Route["from.pattern"]=ex.com/shallow/deeper` has a pathname depth of two with path slugs `shallow` and `deeper`.
+
+| Pathname depth | Pathname score | `Route["from.pattern"]`    |
+| -------------- | -------------- | -------------------------- |
+| 3              | 3              | ex.com/shallow/deeper/deep |
+| 2              | 2              | ex.com/shallow/deeper      |
+| 1              | 1              | ex.com/shallow             |
+
+### Breaking pathname depth ties
+
+Given two patterns with the same pathname depth, rank is allocated by _last slug length_.
+For example, given `Route["from.pattern"]=ex.com/shallow/deep` and `Route["from.pattern"]=ex.com/shallow/deeper`, the latter wins because `deeper` is longer slug than `deep`.
+
+| Pathname depth | Last slug length | Pathname score | `Route["from.pattern"]` |
+| -------------- | ---------------- | -------------- | ----------------------- |
+| 2              | 6                | 2              | ex.com/shallow/deeper   |
+| 2              | 4                | 1              | ex.com/shallow/deep     |
+
+Proxyflare supports wildcard patterns for matching subrequests on a particular pathname. Some pathname patterns would be identical when wildcards are removed. In this case, _pattern type_ is used to break the tie:
+
+1. Absolute path `ex.com/shallow`
+2. Inline wildcard `ex.com/shallow*`
+3. Slash wildcard `ex.com/shallow/*`
+
+| Pathname depth | Last slug length | Pattern type | Pathname score | `Route["from.pattern"]` |
+| -------------- | ---------------- | ------------ | -------------- | ----------------------- |
+| 1              | 7                | absolute     | 3              | ex.com/shallow          |
+| 1              | 7                | inline \*    | 2              | ex.com/shallow\*        |
+| 1              | 7                | slash \*     | 1              | ex.com/shallow/\*       |
+
+In other words, if multiple `Routes` are identical after wildcards are removed, the absolute path outranks the inline wildcard and the inline wildcard outranks the slash wildcard.
+
+:::warning TLDR
+
+The `Route` with the highest pathname depth wins.
+
+If multiple routes have the same pathname depth, the longer last path slug wins.
+
+If multiple routes have the same last path slug after removing wildcards, absolute paths beat inline wildcards and inline wildcards beat slash wildcards.
+
+:::
+
+The following table shows this ranking strategy with complex `Route["from.pattern"]`s listed by pathname score.
+The last column shows an incoming request that would match each pattern.
+
+| Pathname score | `Route["from.pattern"]`  | Example Matching Request        |
+| -------------- | ------------------------ | ------------------------------- |
+| 14             | ex.com/shallow/deeper    | ex.com/shallow/deeper           |
+| 13             | ex.com/shallow/deeper\*  | ex.com/shallow/deeper-in        |
+| 12             | ex.com/shallow/deeper/\* | ex.com/shallow/deeper/down      |
+| 11             | ex.com/shallow/deep      | ex.com/shallow/deep             |
+| 10             | ex.com/shallow/deep\*    | ex.com/shallow/deep-in          |
+| 9              | ex.com/shallow/deep/\*   | ex.com/shallow/deep/down        |
+| 8              | ex.com/shallower         | ex.com/shallower                |
+| 7              | ex.com/shallower\*       | ex.com/shallower-yet            |
+| 6              | ex.com/shallower/\*      | ex.com/shallower/still          |
+| 5              | ex.com/shallow           | ex.com/shallow                  |
+| 4              | ex.com/shallow\*         | ex.com/shallow-lakes            |
+| 3              | ex.com/shallow/\*        | ex.com/shallow/water            |
+| 2              | ex.com/                  | ex.com/                         |
+| 1              | ex.com/\*                | ex.com/anything-still-unmatched |
+
+:::info Tip
+
+Set the `Configuration["global.debug"]` flag to attach a `x-proxyflare-proxied-pathname` response header to matched requests. This [debug header](/docs/latest/proxyflare/plugin/tutorials/debugging-proxyflare/) contains the matched pathname.
+
+:::

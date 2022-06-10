@@ -1,0 +1,44 @@
+---
+title: How do I use environment variables?
+description: Setting environment variables in Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - docs
+  - setting secrets
+  - setting environment variables
+slug: using-environment-variables
+sidebar_position: 9
+---
+
+You might want to set environment variables and secrets in Proxyflare. Wrapping Proxyflare in a `PagesFunction` provides access to a `Context` with environment variables on `ctx.env`.
+
+Environment variables can be managed from your [Cloudflare Pages dashboard](https://dash.cloudflare.com?account=pages).
+
+```ts title="functions/_middleware.ts"
+import proxyflare from "@flaregun-net/proxyflare-for-pages"
+
+const routes: Route[] = []
+
+// Set API_SERVICE_TOKEN in your Pages dashboard.
+type Env = { API_SERVICE_TOKEN: string }
+
+export const onRequest: PagesFunction<Env>[] = [
+  (ctx) =>
+    proxyflare({
+      config: {
+        routes: [
+          {
+            from: { pattern: "proxyflare.works/api/*" },
+            to: { url: "my-api.com" },
+            headers: {
+              request: `Bearer ${ctx.env.API_SERVICE_TOKEN}`,
+            },
+          },
+        ],
+      },
+    })(ctx),
+]
+```
+
+Refer to the [Cloudflare docs](https://developers.cloudflare.com/pages/platform/functions/bindings/#environment-variables) to learn more about environment variables best practices.

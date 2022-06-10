@@ -1,0 +1,31 @@
+---
+title: How do I redirect traffic to other places?
+description: Learn how to set up redirects in Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: redirecting-traffic
+sidebar_position: 3
+---
+
+Proxyflare can redirect traffic from absolute or wildcard pathnames on your domain to other places.
+
+```ts title="functions/_middleware.ts"
+const redirectRoute: Route = {
+  from: { pattern: "proxyflare.works/redirect" },
+  to: {
+    url: "example.com",
+    // permanently redirect traffic to example.com
+    statusCode: 301,
+  },
+}
+
+const routes = [redirectRoute]
+```
+
+This route redirects traffic on `proxyflare.works/redirect` to `example.com` because it contains a `3xx` `statusCode`.
+
+Providing a `statusCode` is useful for redirects or any time you want to lock the response status code on a `Route`.

@@ -1,0 +1,159 @@
+---
+title: How do I proxy traffic to another website?
+description: Learn how to mount a website on your domain
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: proxying-websites
+sidebar_position: 2
+---
+
+Imagine we have separate websites for the company documentation and blog. We want to consolidate them on our root domain at `proxyflare.works/docs` and `proxyflare.works/blog`. Proxyflare can proxy these content rich websites with a little additional setup.
+
+1. On your website, set the Base URL or equivalent configuration option
+1. In your Proxyflare configuration, set the website mode
+1. In your Proxyflare configuration, populate the website resources
+
+:::info
+
+If your website appears partially loaded or broken, one or more static resources may not be correctly configured in `Route["to.website.resources"]`. Read on to [learn how to populate website resources](#identifying-website-resource-patterns).
+
+:::
+
+## Setting the base URL for your website
+
+Most modern website engines such as WordPress and Docusaurus allow you to set the base URL. The base URL is the root path after the hostname. For example, `/docs/` is the base URL of the working Docusaurus-powered website mounted on https://proxyflare.works/docs.
+
+The mounted website's base URL must match your Proxyflare `Route["from.pattern"]` in order for your website to correctly route traffic and generate accurate links. For our own documentation site, we set:
+
+- In _docusaurus.config.js_, `baseUrl = /blog/`
+- In our Proxyflare route, `Route["from.pattern"]: proxyflare.works/blog/*`
+
+To learn how to set the base URL for your site, please refer to the website engine's documentation.
+
+- [In Docusaurus](https://docusaurus.io/docs/api/docusaurus-config#baseUrl), set `baseURL`
+- [In WordPress](https://wordpress.org/support/article/changing-the-site-url/), set `siteurl`
+- [In Redocly](https://redocly.com/docs/developer-portal/settings/custom-domain/), set a custom domain
+- [In Django](https://pypi.org/project/django-base-url/), set `django-base-url`
+
+## Selecting the website mode
+
+> `Route["to.website.mode"]: true | "spa"`
+
+This option determines how Proxyflare handles website requests. If your website engine outputs statically rendered content, such as WordPress or Django, no configuration is needed (the default value `true` will be used).
+
+For websites and website engines that run on modern single page app frameworks like React, Svelte, and Vue, set `to.website.mode="spa"` to leverage client-side routing.
+
+:::info Note
+
+Check your website engine documentation if you are not sure whether it utilizes client-side routing or statically renders content.
+
+:::
+
+## Populating website resources
+
+> `Route["to.website.resources"]: string[]`
+
+When a web page loads, the browser makes additional requests for page resources like images, scripts, and stylesheets. If any of these resource requests fail, the website may appear partially loaded or even broken. In order to load the website, Proxyflare needs to know how to match incoming traffic to page resources.
+
+For example, when `https://proxyflare.works/blog` loads, the browser sends the following stylesheet request — `GET https://proxyflare.works/wp-content/style.css`.
+
+How does Proxyflare know whether to send this request to the blog or the origin server? It has no way of knowing without more information from us.
+
+We must tell Proxyflare to match requests for this stylesheet to our website by listing it in `Route["to.website.resources"]`.
+
+```ts title="functions/_middleware.ts"
+const blogRoute: Route = {
+  from: { pattern: "proxyflare.works/blog/*" },
+  to: {
+    url: "https://wordpress-on-proxyflare.xyz",
+    website: {
+      // list resource requests for your website below
+      resources: [
+        "proxyflare.works/wp-content/*",
+        "proxyflare.works/wp-includes/*",
+      ],
+    },
+  },
+}
+
+const routes = [blogRoute]
+```
+
+We could hardcode the full stylesheet URL, but this would grow cumbersome as the number of page resources increases.
+
+Rather than hardcoding the full URL, we can use wildcard patterns to make `Route["to.website.resources"]` more manageable. In this way, we're saved from exhaustively listing every resource necessary to render the page content.
+
+Using wildcards, any file within `proxyflare.works/wp-content/*` and `proxyflare.works/wp-includes/*` is automatically proxied to the blog server.
+
+### Identifying website resource patterns
+
+In the section above, we added two wildcard patterns to `Route["to.website.resources"]`, but how did we know what patterns to add? Let's walk through the process step by step using our example documentation site.
+
+1. Deploy a website `Route` without populating `Route["to.website.resources"]`
+
+```ts title="functions/_middleware.ts"
+const docsRoute: Route = {
+  from: { pattern: "proxyflare.works/docs/*" },
+  to: {
+    url: "https://docusaurus-on-proxyflare.vercel.app",
+    website: {
+      // Docusaurus is a React-powered single page app
+      mode: "spa",
+      // resources is empty for now
+      resources: [],
+    },
+  },
+}
+
+const routes = [docsRoute]
+```
+
+1. Visit your website `Route`. If it appears partially loaded or broken, continue on
+   - Our docs page doesn't look quite right. We finished setting `baseUrl` but still need to populate website resources
+     ![Docusaurus before populating website resources](/img/website-resources-missing-resources.png)
+1. Open your browser **Developer Tools > Network panel** and refresh the page, carefully taking note of the URLs of any failing requests or unexpected responses
+   - Failing requests will have 400 or 500 level status codes
+   - Unexpected responses will not match the content type of the file. Below, the CSS file has a HTML body!
+     ![An unexpected stylesheet response containing HTML](/img/website-resources-unexpected-response.png)
+1. Once you have a list of failing request URLs, identify any common pathname patterns
+   - In most web frameworks, images, stylesheets, and other resources are served from a small handful of common pathname patterns
+
+| Failing page resources URLs for proxyflare.xyz/docs        |
+| ---------------------------------------------------------- |
+| **proxyflare.xyz/docs/img**/favicon.ico                    |
+| **proxyflare.xyz/docs/img**/logo.svg                       |
+| **proxyflare.xyz/docs/assets**/js/main.c2f5f667.js         |
+| **proxyflare.xyz/docs/assets**/js/runtime~main.c2f5f667.js |
+| **proxyflare.xyz/docs/assets**/css/styles.fd1ce6da.css     |
+
+In the table above, we can visually parse out the common pathname patterns - `proxyflare.xyz/docs/img` and `proxyflare.xyz/docs/assets`. Let's add wildcards because we want to match any subresource requests with these pattern prefixes.
+
+```ts title="functions/_middleware.ts"
+const docsRoute: Route = {
+  from: { pattern: "proxyflare.works/docs/*" },
+  to: {
+    url: "https://docusaurus-on-proxyflare.vercel.app",
+    website: {
+      mode: "spa",
+      // resource patterns are wildcarded to proxy subresources of the common prefixes
+      resources: [
+        "proxyflare.works/docs/img/*",
+        "proxyflare.works/docs/assets/*",
+      ],
+    },
+  },
+}
+const routes = [docsRoute]
+```
+
+Next, we redeploy our Pages site and repeat the process until the website renders completely. Make sure to click through your website to make sure you are not forgetting any patterns!
+
+:::caution CHALLENGE
+
+Inspect the **Developer Tools > Network** panel on https://proxyflare.works/docs to see if you can identify why the patterns in `docsRoute["to.website.resources"]` are listed.
+
+:::

@@ -1,0 +1,60 @@
+---
+title: How do I proxy traffic to another service?
+description: Learn how to connect to other services around the internet
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: proxying-services
+sidebar_position: 1
+---
+
+## On another domain
+
+Proxyflare can send incoming traffic on your domain to other places on the internet.
+
+Let's take an example. We have Proxyflare installed on our domain and will build a simple `Route` that moves traffic from a wildcarded `Route["from.pattern"]` to a remotely hosted service.
+
+```ts title="functions/_middleware.ts"
+const apiRoute: Route = {
+  from: { pattern: "proxyflare.works/api/*" },
+  to: { url: "my-api.com" },
+}
+
+const routes = [apiRoute]
+```
+
+In the above `apiRoute`, Proxyflare sends traffic from `proxyflare.works/api/*` to `my-api.com`.
+
+Notice the wildcard pathname in `apiRoute["from.pattern"]`. This means that traffic on subpaths of `proxyflare.works/api/` such as `proxyflare.works/api/users/1` is proxied to `my-api.com/users/1`.
+
+:::info Note
+
+In <code>Route["to.url"]</code>, <i>https:</i> is assumed unless <i>http:</i> is specified
+
+:::
+
+## On a custom port
+
+Proxyflare can send traffic from your domain to other services running on custom ports (e.g. other than `80` or `443`). The following `Route` sends traffic on `proxyflare.works/api/*` to the service listening on `ec2-5-55-555-55.compute-1.amazonaws.com:8787`.
+
+```ts title="functions/_middleware.ts"
+const apiRoute: Route = {
+  from: { pattern: "proxyflare.works/api/*" },
+  to: { url: "ec2-5-55-555-55.compute-1.amazonaws.com:8787" },
+}
+
+const routes = [apiRoute]
+```
+
+:::caution Is your service available?
+
+Proxyflare uses the internet to move traffic, which means _any service it proxies must also be accessible on the internet_.
+
+A quick way to tell if your service is accessible is to disconnect from all VPNs and navigate to your service in a browser. If you can't connect, you will need to modify your firewall rules to expose your service to the internet.
+
+For example, an AWS service deployed at `my-api.ec2.amazonaws.com:8787` would have to create a [Security group rule](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that opens port 8787 on the EC2 virtual machine before using Proxyflare. Once `my-api.ec2.amazonaws.com:8787` is accessible from a browser, Proxyflare can connect it to your domain.
+
+:::

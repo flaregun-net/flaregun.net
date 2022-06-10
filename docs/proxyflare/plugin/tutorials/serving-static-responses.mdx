@@ -1,0 +1,60 @@
+---
+title: How do I serve static responses?
+description: Learn how to serve static responses with Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - text files
+  - static response
+  - robots.txt
+  - cloudflare pages
+  - docs
+slug: serving-static-responses
+sidebar_position: 4
+---
+
+Proxyflare can serve static responses from any part of your domain.
+
+```ts title="functions/_middleware.ts"
+const robotsFile: Route = {
+  from: {
+    pattern: "proxyflare.works/robots.txt",
+    methods: ["GET"],
+  },
+  to: {
+    text: "User-agent: Googlebot\nDisallow: /nogooglebot/\nUser-agent: *\nAllow: /\n",
+  },
+}
+
+const routes = [robotsFile]
+```
+
+In the above `robotsFile`, Proxyflare serves the content in `Route["to.text"]` on `GET proxyflare.works/robots.txt`. Note that `Route["from.methods"]` defines which HTTP methods will trigger the route.
+
+```ts title="functions/_middleware.ts"
+const manifestFile: Route = {
+  from: {
+    pattern: "proxyflare.works/manifest.json",
+    methods: ["GET"],
+  },
+  to: {
+    text: '{"$schema": "https://json.schemastore.org/web-manifest-combined.json", "name": "Proxyflare Works!"}',
+  },
+  headers: {
+    response: {
+      "Content-Type": "application/json",
+    },
+  },
+}
+
+const routes = [manifestFile]
+```
+
+In the `manifestFile` route, Proxyflare serves a `manifest.json` file to describe different parts of your internet property in a JSON response.
+
+:::caution File size considerations
+
+Please limit the size of text files served by Proxyflare to avoid exceeding [Workers file size limitations](https://developers.cloudflare.com/workers/platform/limits/#worker-size).
+
+:::
