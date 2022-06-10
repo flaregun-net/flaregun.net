@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "dev": "yarn start",
     "start": "docusaurus start",
     "fresh-start": "yarn clear && yarn start",
     "build": "docusaurus build",
