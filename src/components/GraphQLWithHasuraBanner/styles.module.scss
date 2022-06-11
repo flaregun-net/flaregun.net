@@ -2,7 +2,7 @@
   text-decoration: none;
 }
 
-.graphql-with-hasura-wrapper {
+.app-with-flaregun-wrapper {
   background-image: url("@site/static/img/hasura-free.png");
   background-color: #eaf0f6;
   color: var(--color-gray-90);
@@ -35,8 +35,10 @@
   display: none;
 }
 
-.graphql-with-hasura-wrapper {
-  .desc, ul {
+.app-with-flaregun-wrapper {
+
+  .desc,
+  ul {
     padding-inline-start: 0px;
   }
 
@@ -74,10 +76,11 @@
 }
 
 html[data-theme='dark'] {
-  .graphql-with-hasura-wrapper {
+  .app-with-flaregun-wrapper {
     background-color: var(--color-gray-82);
     color: var(--ifm-color-content-secondary);
   }
+
   .try-hasura-div {
     color: var(--ifm-link-color);
 
@@ -88,7 +91,7 @@ html[data-theme='dark'] {
 }
 
 @media (max-width: 767px) {
-  .graphql-with-hasura-wrapper {
+  .app-with-flaregun-wrapper {
     background-image: none;
 
     .p40 {

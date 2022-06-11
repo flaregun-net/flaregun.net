@@ -1,0 +1,15 @@
+---
+description: Hasura security vulnerability protocol
+keywords:
+  - flaregun
+  - docs
+  - security
+  - security disclosure
+  - vulnerability
+sidebar_position: 16
+# adding to avoid redirect ad this was only index file under the directory
+slug: security-disclosure/index
+---
+
+# Security Vulnerability Protocol
+

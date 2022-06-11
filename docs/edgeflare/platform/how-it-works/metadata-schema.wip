@@ -1,0 +1,11 @@
+---
+description: Hasura metadata catalogue
+keywords:
+  - flaregun
+  - docs
+  - metadata catalogue
+  - how it works
+---
+
+import Thumbnail from "@site/src/components/Thumbnail"
+

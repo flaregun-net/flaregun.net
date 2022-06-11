@@ -5,29 +5,30 @@
  * LICENSE file in the root directory of this source tree.
  */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useEffect, useState, useReducer, useRef } from "react";
-import algoliaSearch from "algoliasearch/lite";
-import algoliaSearchHelper from "algoliasearch-helper";
-import clsx from "clsx";
-import Head from "@docusaurus/Head";
-import Link from "@docusaurus/Link";
-import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment"
+import Head from "@docusaurus/Head"
+import Link from "@docusaurus/Link"
+import { useAllDocsData } from "@docusaurus/plugin-content-docs/client"
 import {
   HtmlClassNameProvider,
-  useTitleFormatter,
-  usePluralForm,
   isRegexpStringMatch,
   useDynamicCallback,
+  usePluralForm,
   useSearchPage,
-} from "@docusaurus/theme-common";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { useAllDocsData } from "@docusaurus/plugin-content-docs/client";
-import Layout from "@theme/Layout";
-import Translate, { translate } from "@docusaurus/Translate";
-import styles from "./styles.module.css";
+  useTitleFormatter,
+} from "@docusaurus/theme-common"
+import Translate, { translate } from "@docusaurus/Translate"
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import { useProduct } from "@site/src/utils/useProduct"
+import Layout from "@theme/Layout"
+import algoliaSearchHelper from "algoliasearch-helper"
+import algoliaSearch from "algoliasearch/lite"
+import clsx from "clsx"
+import React, { useEffect, useReducer, useRef, useState } from "react"
+import styles from "./styles.module.css"
 // Very simple pluralization: probably good enough for now
 function useDocumentsFoundPlural() {
-  const { selectMessage } = usePluralForm();
+  const { selectMessage } = usePluralForm()
   return (count) =>
     selectMessage(
       count,
@@ -38,12 +39,12 @@ function useDocumentsFoundPlural() {
             'Pluralized label for "{count} documents found". Use as much plural forms (separated by "|") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)',
           message: "One document found|{count} documents found",
         },
-        { count }
-      )
-    );
+        { count },
+      ),
+    )
 }
 function useDocsSearchVersionsHelpers() {
-  const allDocsData = useAllDocsData();
+  const allDocsData = useAllDocsData()
   // State of the version select menus / algolia facet filters
   // docsPluginId -> versionName map
   const [searchVersions, setSearchVersions] = useState(() =>
@@ -52,48 +53,48 @@ function useDocsSearchVersionsHelpers() {
         ...acc,
         [pluginId]: pluginData.versions[0].name,
       }),
-      {}
-    )
-  );
+      {},
+    ),
+  )
   // Set the value of a single select menu
   const setSearchVersion = (pluginId, searchVersion) =>
-    setSearchVersions((s) => ({ ...s, [pluginId]: searchVersion }));
+    setSearchVersions((s) => ({ ...s, [pluginId]: searchVersion }))
   const versioningEnabled = Object.values(allDocsData).some(
-    (docsData) => docsData.versions.length > 1
-  );
+    (docsData) => docsData.versions.length > 1,
+  )
   return {
     allDocsData,
     versioningEnabled,
     searchVersions,
     setSearchVersion,
-  };
+  }
 }
 // We want to display one select per versioned docs plugin instance
 function SearchVersionSelectList({ docsSearchVersionsHelpers }) {
   const versionedPluginEntries = Object.entries(
-    docsSearchVersionsHelpers.allDocsData
+    docsSearchVersionsHelpers.allDocsData,
   )
     // Do not show a version select for unversioned docs plugin instances
-    .filter(([, docsData]) => docsData.versions.length > 1);
+    .filter(([, docsData]) => docsData.versions.length > 1)
   return (
     <div
       className={clsx(
         "col",
         "col--3",
         "padding-left--none",
-        styles.searchVersionColumn
+        styles.searchVersionColumn,
       )}
     >
       {versionedPluginEntries.map(([pluginId, docsData]) => {
         const labelPrefix =
-          versionedPluginEntries.length > 1 ? `${pluginId}: ` : "";
+          versionedPluginEntries.length > 1 ? `${pluginId}: ` : ""
         return (
           <select
             key={pluginId}
             onChange={(e) =>
               docsSearchVersionsHelpers.setSearchVersion(
                 pluginId,
-                e.target.value
+                e.target.value,
               )
             }
             defaultValue={docsSearchVersionsHelpers.searchVersions[pluginId]}
@@ -107,22 +108,22 @@ function SearchVersionSelectList({ docsSearchVersionsHelpers }) {
               />
             ))}
           </select>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 function SearchPageContent() {
   const {
     siteConfig: { themeConfig },
     i18n: { currentLocale },
-  } = useDocusaurusContext();
+  } = useDocusaurusContext()
   const {
     algolia: { appId, apiKey, indexName, externalUrlRegex },
-  } = themeConfig;
-  const documentsFoundPlural = useDocumentsFoundPlural();
-  const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers();
-  const { searchQuery, setSearchQuery } = useSearchPage();
+  } = themeConfig
+  const documentsFoundPlural = useDocumentsFoundPlural()
+  const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers()
+  const { searchQuery, setSearchQuery } = useSearchPage()
   const initialSearchResultState = {
     items: [],
     query: null,
@@ -131,19 +132,19 @@ function SearchPageContent() {
     lastPage: null,
     hasMore: null,
     loading: null,
-  };
+  }
   const [searchResultState, searchResultStateDispatcher] = useReducer(
     (prevState, data) => {
       switch (data.type) {
         case "reset": {
-          return initialSearchResultState;
+          return initialSearchResultState
         }
         case "loading": {
-          return { ...prevState, loading: true };
+          return { ...prevState, loading: true }
         }
         case "update": {
           if (searchQuery !== data.value.query) {
-            return prevState;
+            return prevState
           }
           return {
             ...data.value,
@@ -151,50 +152,50 @@ function SearchPageContent() {
               data.value.lastPage === 0
                 ? data.value.items
                 : prevState.items.concat(data.value.items),
-          };
+          }
         }
         case "advance": {
-          const hasMore = prevState.totalPages > prevState.lastPage + 1;
+          const hasMore = prevState.totalPages > prevState.lastPage + 1
           return {
             ...prevState,
             lastPage: hasMore ? prevState.lastPage + 1 : prevState.lastPage,
             hasMore,
-          };
+          }
         }
         default:
-          return prevState;
+          return prevState
       }
     },
-    initialSearchResultState
-  );
-  const algoliaClient = algoliaSearch(appId, apiKey);
+    initialSearchResultState,
+  )
+  const algoliaClient = algoliaSearch(appId, apiKey)
   const algoliaHelper = algoliaSearchHelper(algoliaClient, indexName, {
     hitsPerPage: 15,
     advancedSyntax: true,
     disjunctiveFacets: ["language", "docusaurus_tag"],
-  });
+  })
   algoliaHelper.on(
     "result",
     ({ results: { query, hits, page, nbHits, nbPages } }) => {
       if (query === "" || !Array.isArray(hits)) {
-        searchResultStateDispatcher({ type: "reset" });
-        return;
+        searchResultStateDispatcher({ type: "reset" })
+        return
       }
       const sanitizeValue = (value) =>
         value.replace(
           /algolia-docsearch-suggestion--highlight/g,
-          "search-result-match"
-        );
+          "search-result-match",
+        )
       const items = hits.map(
         ({
           url,
           _highlightResult: { hierarchy },
           _snippetResult: snippet = {},
         }) => {
-          const parsedURL = new URL(url);
+          const parsedURL = new URL(url)
           const titles = Object.keys(hierarchy).map((key) =>
-            sanitizeValue(hierarchy[key].value)
-          );
+            sanitizeValue(hierarchy[key].value),
+          )
           return {
             title: titles.pop(),
             url: isRegexpStringMatch(externalUrlRegex, parsedURL.href)
@@ -204,9 +205,9 @@ function SearchPageContent() {
               ? `${sanitizeValue(snippet.content.value)}...`
               : "",
             breadcrumbs: titles,
-          };
-        }
-      );
+          }
+        },
+      )
       searchResultStateDispatcher({
         type: "update",
         value: {
@@ -218,11 +219,11 @@ function SearchPageContent() {
           hasMore: nbPages > page + 1,
           loading: false,
         },
-      });
-    }
-  );
-  const [loaderRef, setLoaderRef] = useState(null);
-  const prevY = useRef(0);
+      })
+    },
+  )
+  const [loaderRef, setLoaderRef] = useState(null)
+  const prevY = useRef(0)
   const observer = useRef(
     ExecutionEnvironment.canUseDOM &&
       new IntersectionObserver(
@@ -230,15 +231,15 @@ function SearchPageContent() {
           const {
             isIntersecting,
             boundingClientRect: { y: currentY },
-          } = entries[0];
+          } = entries[0]
           if (isIntersecting && prevY.current > currentY) {
-            searchResultStateDispatcher({ type: "advance" });
+            searchResultStateDispatcher({ type: "advance" })
           }
-          prevY.current = currentY;
+          prevY.current = currentY
         },
-        { threshold: 1 }
-      )
-  );
+        { threshold: 1 },
+      ),
+  )
   const getTitle = () =>
     searchQuery
       ? translate(
@@ -249,52 +250,54 @@ function SearchPageContent() {
           },
           {
             query: searchQuery,
-          }
+          },
         )
       : translate({
           id: "theme.SearchPage.emptyResultsTitle",
           message: "Search the documentation",
           description: "The search page title for empty query",
-        });
+        })
   const makeSearch = useDynamicCallback((page = 0) => {
-    algoliaHelper.addDisjunctiveFacetRefinement("docusaurus_tag", "default");
-    algoliaHelper.addDisjunctiveFacetRefinement("language", currentLocale);
+    algoliaHelper.addDisjunctiveFacetRefinement("docusaurus_tag", "default")
+    algoliaHelper.addDisjunctiveFacetRefinement("language", currentLocale)
     Object.entries(docsSearchVersionsHelpers.searchVersions).forEach(
       ([pluginId, searchVersion]) => {
         algoliaHelper.addDisjunctiveFacetRefinement(
           "docusaurus_tag",
-          `docs-${pluginId}-${searchVersion}`
-        );
-      }
-    );
-    algoliaHelper.setQuery(searchQuery).setPage(page).search();
-  });
+          `docs-${pluginId}-${searchVersion}`,
+        )
+      },
+    )
+    algoliaHelper.setQuery(searchQuery).setPage(page).search()
+  })
   useEffect(() => {
     if (!loaderRef) {
-      return undefined;
+      return undefined
     }
-    const currentObserver = observer.current;
+    const currentObserver = observer.current
     if (currentObserver) {
-      currentObserver.observe(loaderRef);
-      return () => currentObserver.unobserve(loaderRef);
+      currentObserver.observe(loaderRef)
+      return () => currentObserver.unobserve(loaderRef)
     }
-    return () => true;
-  }, [loaderRef]);
+    return () => true
+  }, [loaderRef])
   useEffect(() => {
-    searchResultStateDispatcher({ type: "reset" });
+    searchResultStateDispatcher({ type: "reset" })
     if (searchQuery) {
-      searchResultStateDispatcher({ type: "loading" });
+      searchResultStateDispatcher({ type: "loading" })
       setTimeout(() => {
-        makeSearch();
-      }, 300);
+        makeSearch()
+      }, 300)
     }
-  }, [searchQuery, docsSearchVersionsHelpers.searchVersions, makeSearch]);
+  }, [searchQuery, docsSearchVersionsHelpers.searchVersions, makeSearch])
   useEffect(() => {
     if (!searchResultState.lastPage || searchResultState.lastPage === 0) {
-      return;
+      return
     }
-    makeSearch(searchResultState.lastPage);
-  }, [makeSearch, searchResultState.lastPage]);
+    makeSearch(searchResultState.lastPage)
+  }, [makeSearch, searchResultState.lastPage])
+  const { productName } = useProduct()
+
   return (
     <Layout>
       <Head>
@@ -355,7 +358,7 @@ function SearchPageContent() {
               "col",
               "col--4",
               "text--right",
-              styles.searchLogoColumn
+              styles.searchLogoColumn,
             )}
           >
             <a
@@ -405,7 +408,7 @@ function SearchPageContent() {
                       <ul
                         className={clsx(
                           "breadcrumbs",
-                          styles.searchResultItemPath
+                          styles.searchResultItemPath,
                         )}
                       >
                         {breadcrumbs.map((html, index) => (
@@ -432,14 +435,14 @@ function SearchPageContent() {
                   {/* Customization START
                     In the event of re-swizzling, just change this component others can be updated as whatever they are in new version.
                   */}
-                  {url.includes("/graphql/cloud/") && (
-                    <span className="docIdentifier badge badge--success">
-                      cloud
-                    </span>
-                  )}
+
+                  <span className="docIdentifier badge badge--success">
+                    {productName}
+                  </span>
+
                   {/* Customization END */}
                 </article>
-              )
+              ),
             )}
           </main>
         ) : (
@@ -472,12 +475,12 @@ function SearchPageContent() {
         )}
       </div>
     </Layout>
-  );
+  )
 }
 export default function SearchPage() {
   return (
     <HtmlClassNameProvider className="search-page-wrapper">
       <SearchPageContent />
     </HtmlClassNameProvider>
-  );
+  )
 }

@@ -138,12 +138,12 @@ const config = {
         // searchParameters: {},
       },
       announcementBar: {
-        id: "announcementBar-2", // Increment on change
-        content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus" >Twitter</a>`,
+        id: "announcementBar-1", // Increment on change
+        content: `⭐️ We're just getting started, stay in touch for our upcoming platform launch by joining our Discord server <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/ukPanmZPsq">Discord</a> and following us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/flaregun-net" >Twitter</a>`,
       },
       navbar: {
-        hideOnScroll: false,
-        title: "",
+        hideOnScroll: true,
+        title: "Flaregun",
         logo: {
           target: "_self",
           alt: "Flaregun Logo",
@@ -179,54 +179,43 @@ const config = {
               },
             ],
           },
-          {
-            to: "https://flaregun.net/blog/",
-            label: "Blog",
-            position: "left",
-          },
-          {
-            to: "https://flaregun.net/learn/",
-            label: "Tutorials",
-            position: "left",
-          },
           // {
-          //   type: 'docsVersionDropdown',
-          //   position: 'right',
-          //   dropdownActiveClassDisabled: true,
-          //   dropdownItemsAfter: [
-          //     {
-          //       href: 'https://hasura.io/docs/1.0/graphql/core/index.html',
-          //       label: 'v1.x',
-          //     },
-          //   ],
+          //   to: "https://flaregun.net/blog/",
+          //   label: "Blog",
+          //   position: "left",
+          // },
+          // {
+          //   to: "https://flaregun.net/learn/",
+          //   label: "Tutorials",
+          //   position: "left",
           // },
           {
             type: "search",
             position: "right",
           },
           {
-            href: "https://github.com/flaregun-net",
+            href: "https://discord.gg/ukPanmZPsq",
             position: "right",
-            className: "header-github-link",
-            "aria-label": "Flaregun on GitHub",
+            className: "header-discord-link",
+            "aria-label": "Flaregun on Discord",
           },
-          {
-            to: "https://flaregun.net/pricing/",
-            label: "Pricing",
-            position: "right",
-          },
-          {
-            to: "https://flaregun.net/login",
-            label: "Login",
-            position: "right",
-            className: "nav-link_login",
-          },
-          {
-            to: "https://flaregun.net/signup",
-            label: "Get Started",
-            position: "right",
-            className: "nav-link_getting-started",
-          },
+          // {
+          //   to: "https://flaregun.net/pricing/",
+          //   label: "Pricing",
+          //   position: "right",
+          // },
+          // {
+          //   to: "https://flaregun.net/login",
+          //   label: "Login",
+          //   position: "right",
+          //   className: "nav-link_login",
+          // },
+          // {
+          //   to: "https://flaregun.net/signup",
+          //   label: "Get Started",
+          //   position: "right",
+          //   className: "nav-link_getting-started",
+          // },
         ],
       },
     }),

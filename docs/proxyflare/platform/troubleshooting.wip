@@ -1,0 +1,17 @@
+---
+sidebar_label: Troubleshooting
+sidebar_position: 14
+description: Troubleshoot Proxyflare Platform errors
+keywords:
+  - flaregun
+  - proxyflare
+  - platform
+  - docs
+  - error
+  - troubleshooting
+# adding to avoid redirect as this was only index file under the directory
+slug: troubleshooting/index
+---
+
+# Troubleshooting Proxyflare Platform errors
+
