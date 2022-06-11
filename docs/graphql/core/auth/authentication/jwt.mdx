@@ -1,7 +1,7 @@
 ---
 description: Use authenticaton with JWT in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - authentication
   - auth
@@ -11,7 +11,7 @@ sidebar_label: Using JWT
 toc_max_heading_level: 2
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Authentication using JWT
 
@@ -47,10 +47,10 @@ mode to take effect.
 
 In JWT mode, on a secured endpoint:
 
--   JWT authentication is **enforced** when the `X-Hasura-Admin-Secret`
-    header is **not found** in the request.
--   JWT authentication is **skipped** when the `X-Hasura-Admin-Secret`
-    header **is found** in the request and admin access is granted.
+- JWT authentication is **enforced** when the `X-Hasura-Admin-Secret`
+  header is **not found** in the request.
+- JWT authentication is **skipped** when the `X-Hasura-Admin-Secret`
+  header **is found** in the request and admin access is granted.
 
 ## TL;DR
 
@@ -90,7 +90,7 @@ Example JWT claim:
   "admin": true,
   "iat": 1516239022,
   "https://hasura.io/jwt/claims": {
-    "x-hasura-allowed-roles": ["editor","user", "mod"],
+    "x-hasura-allowed-roles": ["editor", "user", "mod"],
     "x-hasura-default-role": "user",
     "x-hasura-user-id": "1234567890",
     "x-hasura-org-id": "123",
@@ -170,11 +170,11 @@ in the config.
 
 ### `key`
 
--   In case of symmetric key (i.e. HMAC based key), the key as it is.
-    (e.g. -"abcdef..."). The key must be long enough for the algorithm
-    chosen, (e.g. for HS256 it must be at least 32 characters long).
--   In case of asymmetric keys (RSA, EdDSA etc.), only the public key,
-    in a PEM encoded string or as a X509 certificate.
+- In case of symmetric key (i.e. HMAC based key), the key as it is.
+  (e.g. -"abcdef..."). The key must be long enough for the algorithm
+  chosen, (e.g. for HS256 it must be at least 32 characters long).
+- In case of asymmetric keys (RSA, EdDSA etc.), only the public key,
+  in a PEM encoded string or as a X509 certificate.
 
 This is an optional field. You can also provide a URL to fetch JWKs from
 using the `jwk_url` field.
@@ -234,11 +234,11 @@ Following is the behaviour in detail:
 
 #### Example JWK URL
 
--   Auth0 publishes their JWK url at:
-    `https://<YOUR_AUTH0_DOMAIN>.auth0.com`. But Auth0 has a bug. See
-    known issues: [Auth0](/graphql/core/auth/authentication/jwt.mdx#auth0-issues).
--   Firebase publishes their JWK url at:
-    `https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com`.
+- Auth0 publishes their JWK url at:
+  `https://<YOUR_AUTH0_DOMAIN>.auth0.com`. But Auth0 has a bug. See
+  known issues: [Auth0](/graphql/core/auth/authentication/jwt.mdx#auth0-issues).
+- Firebase publishes their JWK url at:
+  `https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com`.
 
 ### `claims_namespace`
 
@@ -264,14 +264,14 @@ set to `$.hasura.claims`:
   "admin": true,
   "iat": 1516239022,
   "hasura": {
-     "claims": {
-        "x-hasura-allowed-roles": ["editor","user", "mod"],
-        "x-hasura-default-role": "user",
-        "x-hasura-user-id": "1234567890",
-        "x-hasura-org-id": "123",
-        "x-hasura-custom": "custom-value"
-     }
-   }
+    "claims": {
+      "x-hasura-allowed-roles": ["editor", "user", "mod"],
+      "x-hasura-default-role": "user",
+      "x-hasura-user-id": "1234567890",
+      "x-hasura-org-id": "123",
+      "x-hasura-custom": "custom-value"
+    }
+  }
 }
 ```
 
@@ -283,7 +283,6 @@ default value of `claims_namespace` i.e. [https://hasura.io/jwt/claims](https://
 will be used.
 
 :::
-
 
 This is an optional field, with only the following possible values: -
 `json` - `stringified_json`
@@ -307,7 +306,7 @@ If `claims_format` is `json` then JWT claims should look like:
   "admin": true,
   "iat": 1516239022,
   "https://hasura.io/jwt/claims": {
-    "x-hasura-allowed-roles": ["editor","user", "mod"],
+    "x-hasura-allowed-roles": ["editor", "user", "mod"],
     "x-hasura-default-role": "user",
     "x-hasura-user-id": "1234567890",
     "x-hasura-org-id": "123",
@@ -414,7 +413,6 @@ An incoming JWT without an issuer specified will match a configuration even if i
 
 :::
 
-
 ### `claims_map`
 
 This is an optional field. Certain providers might not allow adding
@@ -433,13 +431,13 @@ the JSON path value, the path needs to be given in a JSON object with
 
 ```json
 {
-  "path" : "$.user.all_roles",
+  "path": "$.user.all_roles"
 }
 ```
 
 ```json
 {
-  "path" : "$.roles.default",
+  "path": "$.roles.default",
   "default": "user"
 }
 ```
@@ -456,9 +454,8 @@ the JSON path value, the path needs to be given in a JSON object with
     "id": "ujdh739kd"
   },
   "hasura": {
-    "all_roles": ["user", "editor"],
+    "all_roles": ["user", "editor"]
   }
-
 }
 ```
 
@@ -468,12 +465,12 @@ The mapping for `x-hasura-allowed-roles`, `x-hasura-default-role` and
 
 ```json
 {
-  "type":"RS512",
+  "type": "RS512",
   "key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugd\nUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUparCwlvdbH6dvEOfou0/gCFQs\nHUfQrSDv+MuSUMAe8jzKE4qW+jK+xQU9a03GUnKHkkle+Q0pX/g6jXZ7r1/xAK5D\no2kQ+X5xK9cipRgEKwIDAQAB\n-----END PUBLIC KEY-----\n",
   "claims_map": {
-    "x-hasura-allowed-roles": {"path":"$.hasura.all_roles"},
-    "x-hasura-default-role": {"path":"$.hasura.all_roles[0]"},
-    "x-hasura-user-id": {"path":"$.user.id"}
+    "x-hasura-allowed-roles": { "path": "$.hasura.all_roles" },
+    "x-hasura-default-role": { "path": "$.hasura.all_roles[0]" },
+    "x-hasura-user-id": { "path": "$.user.id" }
   }
 }
 ```
@@ -487,20 +484,19 @@ The mapping for `x-hasura-allowed-roles`, `x-hasura-default-role` and
   "admin": true,
   "iat": 1516239022,
   "hasura": {
-    "all_roles": ["user", "editor"],
+    "all_roles": ["user", "editor"]
   }
-
 }
 ```
 
 ```json
 {
-  "type":"RS512",
+  "type": "RS512",
   "key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugd\nUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUparCwlvdbH6dvEOfou0/gCFQs\nHUfQrSDv+MuSUMAe8jzKE4qW+jK+xQU9a03GUnKHkkle+Q0pX/g6jXZ7r1/xAK5D\no2kQ+X5xK9cipRgEKwIDAQAB\n-----END PUBLIC KEY-----\n",
   "claims_map": {
-    "x-hasura-allowed-roles": {"path":"$.hasura.all_roles"},
-    "x-hasura-default-role": {"path":"$.hasura.all_roles[0]"},
-    "x-hasura-user-id": {"path":"$.user.id","default":"ujdh739kd"}
+    "x-hasura-allowed-roles": { "path": "$.hasura.all_roles" },
+    "x-hasura-default-role": { "path": "$.hasura.all_roles[0]" },
+    "x-hasura-user-id": { "path": "$.user.id", "default": "ujdh739kd" }
   }
 }
 ```
@@ -526,14 +522,13 @@ The corresponding JWT config should be:
 
 ```json
 {
-  "type":"RS512",
+  "type": "RS512",
   "key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugd\nUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUparCwlvdbH6dvEOfou0/gCFQs\nHUfQrSDv+MuSUMAe8jzKE4qW+jK+xQU9a03GUnKHkkle+Q0pX/g6jXZ7r1/xAK5D\no2kQ+X5xK9cipRgEKwIDAQAB\n-----END PUBLIC KEY-----\n",
   "claims_map": {
-    "x-hasura-allowed-roles": ["user","editor"],
+    "x-hasura-allowed-roles": ["user", "editor"],
     "x-hasura-default-role": "user",
-    "x-hasura-user-id": {"path":"$.user.id"}
+    "x-hasura-user-id": { "path": "$.user.id" }
   }
-
 }
 ```
 
@@ -554,8 +549,8 @@ the JWT from. This field is an object.
 
 Following are the possible values:
 
--   `{"type": "Authorization"}`
--   `{"type": "Cookie", "name": "cookie_name" }`
+- `{"type": "Authorization"}`
+- `{"type": "Cookie", "name": "cookie_name" }`
 
 Default is `{"type": "Authorization"}`.
 
@@ -590,7 +585,7 @@ a 256-bit key. In this case, the JWT config will look like:
 
 ```json
 {
-  "type":"HS256",
+  "type": "HS256",
   "key": "3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R"
 }
 ```
@@ -607,7 +602,7 @@ key, the JWT config only needs to have the public key.
 
 ```json
 {
-  "type":"RS512",
+  "type": "RS512",
   "key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugd\nUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUparCwlvdbH6dvEOfou0/gCFQs\nHUfQrSDv+MuSUMAe8jzKE4qW+jK+xQU9a03GUnKHkkle+Q0pX/g6jXZ7r1/xAK5D\no2kQ+X5xK9cipRgEKwIDAQAB\n-----END PUBLIC KEY-----\n"
 }
 ```
@@ -616,7 +611,7 @@ key, the JWT config only needs to have the public key.
 
 ```json
 {
-  "type":"RS512",
+  "type": "RS512",
   "key": "-----BEGIN CERTIFICATE-----\nMIIDHDCCAgSgAwIBAgIINw9gva8BPPIwDQYJKoZIhvcNAQEFBQAwMTEvMC0GA1UE\nAxMmc2VjdXJldG9rZW4uc3lzdGVtLmdzZXJ2aWNlYWNjb3VudC5jb20wHhcNMTgQt7dIsMTIU9k1SUrFviZOGnmHWtIAw\nmtYBcM9I0f9/ka45JIRp5Y1NKpAMFSShs7Wv0m1JS1kXQHdJsPSmjmDKcwnBe3R/\nTU3foRRywR/3AJRM15FNjTqvUm7TeaW16LkkRoECAwEAAaM4MDYwDAYDVR0TAQH/\nBAIwADAOBgNVHQ8BAf8EBAMCB4AwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwDQYJ\nKoZIhvcNAQEFBQADggEBADfY2DEmc2gb8/pqMNWHYq/nTYfJPpK4VA9A0lFTNeoq\nzmnbGwhKj24X+Nw8trsvkrKxHvCI1alDgBaCyzjGGvgOrh8X0wLtymp1yj6PWwee\nR2ZPdUaB62TCzO0iRv7W6o39ey+mU/FyYRtxF0ecxG2a0KNsIyFkciXUAeC5UVDo\nBNp678/SDDx9Ltuxc6h56a/hpBGf9Yzhr0RvYy3DmjBs6eopiGFmjnOKNxQrZ5t2\n339JWR+yiGEAtoHqk/fINMf1An6Rung1xYowrm4guhCIVi5unAvQ89fq0I6mzPg6\nLhTpeP0o+mVYrBmtYVpDpv0e71cfYowSJCCkod/9YbY=\n-----END CERTIFICATE-----"
 }
 ```
@@ -638,7 +633,7 @@ Ed25519 variant key, the JWT config only needs to have the public key.
 
 ```json
 {
-  "type":"Ed25519",
+  "type": "Ed25519",
   "key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAG9I+toAAJicilbPt36tiC4wi7E1Dp9rMmfnwdKyVXi0=\n-----END PUBLIC KEY-----"
 }
 ```
@@ -652,7 +647,6 @@ Ed25519 variant key, the JWT config only needs to have the public key.
   "
 }
 ```
-
 
 ### Running with JWT {#running-with-jwt}
 
@@ -767,7 +761,7 @@ frGYaw+0cxO6/WvSir0eA=
 
 ### Clerk
 
-Clerk integrates with Hasura GraphQL Engine using JWTs. 
+Clerk integrates with Hasura GraphQL Engine using JWTs.
 
 Clerk publishes their JWK under: `https://<YOUR_CLERK_FRONTEND_API>/.well-known/jwks.json`
 
@@ -795,14 +789,14 @@ and command line arguments as it takes care of escaping new lines.
 Here are some sample apps that use JWT authorization. You can follow the
 instructions in the READMEs of the repositories to get started.
 
--   [Custom JWT server with Hasura actions](/graphql/core/actions/codegen/python-flask.mdx):
-    A simple Python / Flask API that implements `Signup` and `Login`
-    methods as actions returning JWTs
--   [Auth0 JWT example](https://github.com/hasura/graphql-engine/tree/master/community/sample-apps/todo-auth0-jwt):
-    A todo app that uses Hasura GraphQL engine and Auth0 JWT
--   [Firebase JWT example](https://github.com/hasura/graphql-engine/tree/master/community/sample-apps/firebase-jwt):
-    Barebones example to show how to have Firebase Auth integrated with
-    Hasura JWT mode
+- [Custom JWT server with Hasura actions](/graphql/core/actions/codegen/python-flask.mdx):
+  A simple Python / Flask API that implements `Signup` and `Login`
+  methods as actions returning JWTs
+- [Auth0 JWT example](https://github.com/hasura/graphql-engine/tree/master/community/sample-apps/todo-auth0-jwt):
+  A todo app that uses Hasura GraphQL engine and Auth0 JWT
+- [Firebase JWT example](https://github.com/hasura/graphql-engine/tree/master/community/sample-apps/firebase-jwt):
+  Barebones example to show how to have Firebase Auth integrated with
+  Hasura JWT mode
 
 :::info Additional Resources
 

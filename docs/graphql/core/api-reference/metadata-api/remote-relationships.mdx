@@ -3,12 +3,12 @@ sidebar_label: Remote Relationships
 sidebar_position: 12
 description: Manage remote relationships with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - remote joins
-   - remote relationships
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - remote joins
+  - remote relationships
 ---
 
 # Metadata API Reference: Remote Relationships
@@ -30,7 +30,6 @@ replaces the older [schema/metadata API](/graphql/core/api-reference/schema-meta
 `pg_create_remote_relationship` is used to create a new remote relationship on
 a _Postgres table_ to an existing remote schema or to a table on a different
 database.
-
 
 1. When the target is a remote schema.
 
@@ -115,12 +114,12 @@ database.
 
 ### Args syntax {#metadata-pg-create-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ### Old format
 
@@ -156,14 +155,14 @@ X-Hasura-Role: admin
 
 #### Old format args syntax {#metadata-pg-create-remote-relationship-syntax-old}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                    | Object with table name and schema                                                                                                          |
+| Key           | Required | Schema                                                                                                                                                   | Description                                                                                                                                |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                                             | Name of the remote relationship                                                                                                            |
+| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                                                                     | Name of the source database of the table (default: `default`)                                                                              |
+| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                                                                  | Object with table name and schema                                                                                                          |
 | hasura_fields | true     | [[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn) \| [ComputedFieldName](/graphql/core/api-reference/syntax-defs.mdx#computedfieldname)] | Column/Computed field(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
-| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema to join with |
-| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield) | The schema tree ending at the field in remote schema which needs to be joined with |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)                                                                         | Name of the remote schema to join with                                                                                                     |
+| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                                                                                   | The schema tree ending at the field in remote schema which needs to be joined with                                                         |
 
 ## pg_update_remote_relationship {#metadata-pg-update-remote-relationship}
 
@@ -230,12 +229,12 @@ _existing_ remote relationship defined on a Postgres table.
 
 ### Args syntax {#metadata-pg-update-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ### Old format
 
@@ -275,14 +274,14 @@ X-Hasura-Role: admin
 
 #### Old format args syntax {#metadata-pg-update-remote-relationship-syntax-old}
 
-| Key           | Required | Schema                                | Description                                                                                                                 |
-|---------------|----------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)              | Name of the remote relationship                                                                                             |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)     | Object with table name and schema                                                                                           |
-| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn)\]             | Column(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
-| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema to join with                                                                                      |
-| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                         | The schema tree ending at the field in remote schema which needs to be joined with.                                         |
+| Key           | Required | Schema                                                                                       | Description                                                                                                                 |
+| ------------- | -------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                                                                                             |
+| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                         | Name of the source database of the table (default: `default`)                                                               |
+| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                 | Object with table name and schema                                                                                           |
+| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn)\]                         | Column(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)             | Name of the remote schema to join with                                                                                      |
+| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                       | The schema tree ending at the field in remote schema which needs to be joined with.                                         |
 
 ## pg_delete_remote_relationship {#metadata-pg-delete-remote-relationship}
 
@@ -308,11 +307,11 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-pg-delete-remote-relationship-syntax}
 
-| Key   | Required | Schema                            | Description                       |
-|-------|----------|-----------------------------------|-----------------------------------|
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                    | Object with table name and schema                                                                                                          |
-| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)          | Name of the remote relationship   |
+| Key    | Required | Schema                                                                                       | Description                                                   |
+| ------ | -------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                         | Name of the source database of the table (default: `default`) |
+| table  | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                           | Object with table name and schema                             |
+| name   | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                               |
 
 ## citus_create_remote_relationship {#metadata-citus-create-remote-relationship}
 
@@ -403,19 +402,17 @@ database.
 
 ### Args syntax {#metadata-citus-create-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## citus_update_remote_relationship {#metadata-citus-update-remote-relationship}
 
 `citus_update_remote_relationship` is used to update the definition of an
 _existing_ remote relationship defined on a _Citus table_.
-
-
 
 1. When the target is a remote schema.
 
@@ -477,12 +474,12 @@ _existing_ remote relationship defined on a _Citus table_.
 
 ### Args syntax {#metadata-citus-update-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## citus_delete_remote_relationship {#metadata-citus-delete-remote-relationship}
 
@@ -508,11 +505,12 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-citus-delete-remote-relationship-syntax}
 
-| Key   | Required | Schema                            | Description                       |
-|-------|----------|-----------------------------------|-----------------------------------|
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table                                             |
-| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)          | Name of the remote relationship   |
+| Key    | Required | Schema                                                                                       | Description                                                   |
+| ------ | -------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                         | Name of the source database of the table (default: `default`) |
+| table  | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                           | Name of the table                                             |
+| name   | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                               |
+
 ## mssql_create_remote_relationship {#metadata-mssql-create-remote-relationship}
 
 `mssql_create_remote_relationship` is used to create a new remote relationship
@@ -602,18 +600,17 @@ database.
 
 ### Args syntax {#metadata-mssql-create-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## mssql_update_remote_relationship {#metadata-mssql-update-remote-relationship}
 
 `mssql_update_remote_relationship` is used to update the definition of an
 _existing_ remote relationship defined on an _MS SQL table_.
-
 
 1. When the target is a remote schema.
 
@@ -675,12 +672,12 @@ _existing_ remote relationship defined on an _MS SQL table_.
 
 ### Args syntax {#metadata-mssql-update-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## mssql_delete_remote_relationship {#metadata-mssql-delete-remote-relationship}
 
@@ -706,11 +703,11 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-mssql-delete-remote-relationship-syntax}
 
-| Key   | Required | Schema                            | Description                       |
-|-------|----------|-----------------------------------|-----------------------------------|
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table on which the relationship is being defined                                            |
-| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)          | Name of the remote relationship   |
+| Key    | Required | Schema                                                                                       | Description                                                   |
+| ------ | -------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                         | Name of the source database of the table (default: `default`) |
+| table  | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                           | Name of the table on which the relationship is being defined  |
+| name   | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                               |
 
 ## bigquery_create_remote_relationship {#metadata-bigquery-create-remote-relationship}
 
@@ -801,19 +798,17 @@ database.
 
 ### Args syntax {#metadata-bigquery-create-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## bigquery_update_remote_relationship {#metadata-bigquery-update-remote-relationship}
 
 `bigquery_update_remote_relationship` is used to update the definition of an
 _existing_ remote relationship defined on a _BigQuery table_.
-
-
 
 1. When the target is a remote schema.
 
@@ -875,12 +870,12 @@ _existing_ remote relationship defined on a _BigQuery table_.
 
 ### Args syntax {#metadata-bigquery-update-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)       | Name of the table on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key        | Required | Schema                                                                                                   | Description                                                   |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| name       | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                               |
+| source     | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                     | Name of the source database of the table (default: `default`) |
+| table      | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)                       | Name of the table on which the relationship is being defined  |
+| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                         |
 
 ## bigquery_delete_remote_relationship {#metadata-bigquery-delete-remote-relationship}
 
@@ -906,11 +901,11 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-bigquery-delete-remote-relationship-syntax}
 
-| Key   | Required | Schema                            | Description                       |
-|-------|----------|-----------------------------------|-----------------------------------|
-| source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
-| table         | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)       | Name of the table on which the relationship is being defined                                            |
-| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)          | Name of the remote relationship   |
+| Key    | Required | Schema                                                                                       | Description                                                   |
+| ------ | -------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                         | Name of the source database of the table (default: `default`) |
+| table  | true     | [BigQueryTableName](/graphql/core/api-reference/syntax-defs.mdx#bigquerytablename)           | Name of the table on which the relationship is being defined  |
+| name   | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                               |
 
 ## create_remote_schema_remote_relationship {#metadata-create-remote-schema-remote-relationship}
 
@@ -1010,12 +1005,12 @@ are supported.
 
 ### Args syntax {#metadata-create-remote-schema-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| remote_schema | true    | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)     | Name of the remote schema |
-| type         | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)       | Name of the type on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key           | Required | Schema                                                                                                   | Description                                                 |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                             |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)                         | Name of the remote schema                                   |
+| type          | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)                                   | Name of the type on which the relationship is being defined |
+| definition    | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                       |
 
 ## update_remote_schema_remote_relationship {#metadata-update-remote-schema-remote-relationship}
 
@@ -1082,12 +1077,12 @@ relationship defined on a remote schema's type.
 
 ### Args syntax {#metadata-update-remote-schema-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| remote_schema | true    | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)     | Name of the remote schema |
-| type         | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)       | Name of the type on which the relationship is being defined                                            |
-| definition | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship |
+| Key           | Required | Schema                                                                                                   | Description                                                 |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)             | Name of the remote relationship                             |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)                         | Name of the remote schema                                   |
+| type          | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)                                   | Name of the type on which the relationship is being defined |
+| definition    | true     | [RemoteRelationshipDefinition](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipdefinition) | Definition of the remote relationship                       |
 
 ## delete_remote_schema_remote_relationship {#metadata-delete-remote-schema-remote-relationship}
 
@@ -1111,10 +1106,8 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-delete-remote-schema-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                               | Description                                                                                                                                |
-|---------------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                             | Name of the remote relationship                                                                                                            |
-| remote_schema | true    | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)     | Name of the remote schema |
-| type         | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)       | Name of the type on which the relationship is being defined                                            |
-
-
+| Key           | Required | Schema                                                                                       | Description                                                 |
+| ------------- | -------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                             |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)             | Name of the remote schema                                   |
+| type          | true     | [GraphQLName](/graphql/core/api-reference/syntax-defs.mdx#graphqlname)                       | Name of the type on which the relationship is being defined |

@@ -3,15 +3,16 @@ sidebar_label: Creating an event trigger
 sidebar_position: 1
 description: Create an event trigger with Hasura
 keywords:
-   - hasura
-   - docs
-   - event trigger
-   - create
+  - flaregun
+  - docs
+  - event trigger
+  - create
 ---
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-import Thumbnail from "@site/src/components/Thumbnail";
-import TOCInline from '@theme/TOCInline';
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
+import TOCInline from "@theme/TOCInline"
 
 # Creating an event trigger
 
@@ -23,9 +24,10 @@ Event triggers can be created using the Hasura console, CLI or metadata APIs.
 <TabItem value="console" label="Console">
 
 Open the Hasura console, head to the `Events` tab and click on the `Create` button to open the page below:
+
 <Thumbnail
-src="/img/graphql/core/event-triggers/create-event-trigger.png"
-alt="Create an event trigger"
+  src="/img/graphql/core/event-triggers/create-event-trigger.png"
+  alt="Create an event trigger"
 />
 
 </TabItem>
@@ -226,17 +228,18 @@ Retry configuration is available in the "Advanced settings" when you
 create a trigger.
 
 1. `num_retries`: Number of times a failed invocation is retried.
-    Default value is **0**.
+   Default value is **0**.
 2. `interval_sec`: Number of seconds after which a failed invocation is
-    retried. Default value is **10**.
+   retried. Default value is **10**.
 3. `timeout_sec`:: Number of seconds before which client closes the
-    connection to the webhook. Default value is **60**.
+   connection to the webhook. Default value is **60**.
 
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
 
 Expand the `Advanced Settings` section on the Hasura console to define
 advanced settings for an event trigger:
+
 <Thumbnail
    src="/img/graphql/core/event-triggers/create-event-trigger-retry.png"
    alt="Retry settings for event triggers"
@@ -269,6 +272,7 @@ You can configure advanced settings for event triggers in the `tables.yaml` file
          value_from_env: EVENT_WEBHOOK_HEADER
       webhook: https://httpbin.org/post
 ```
+
 Apply the metadata by running:
 
 ```bash
@@ -338,14 +342,14 @@ Each header has 3 parameters:
    the name of the environment variable in the GraphQL engine which
    will be resolved before sending the header.
 3. `Value`: The value of the header. Either a static value or the name
-    of an environment variable.
-
+   of an environment variable.
 
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
 
 Expand the `Advanced Settings` section on the Hasura console to define
 advanced settings for an event trigger:
+
 <Thumbnail
    src="/img/graphql/core/event-triggers/create-event-trigger-headers.png"
    alt="Headers for event triggers"

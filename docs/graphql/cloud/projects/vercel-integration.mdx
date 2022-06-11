@@ -1,7 +1,7 @@
 ---
 description: Hasura Cloud Vercel Integration
 keywords:
-  - hasura
+  - flaregun
   - cloud
   - docs
   - vercel
@@ -9,7 +9,7 @@ keywords:
 sidebar_position: 13
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Vercel Integration
 
@@ -33,7 +33,6 @@ This integration does the following:
     width="1146px"
   />
 
-
 ## Creating an Integration
 
 You can configure the [official Hasura integration](https://vercel.com/integrations/hasura-v1) with your Vercel account.
@@ -44,11 +43,9 @@ You can configure the [official Hasura integration](https://vercel.com/integrati
   width="1146px"
 />
 
-
 ### Step 0: Prerequisites
 
 This integration requires you to have a Vercel account along with existing Vercel applications.
-
 
 ### Step 1: Initiate Integration
 
@@ -70,13 +67,12 @@ This integration requires you to have a Vercel account along with existing Verce
     width="400px"
   />
 
-
 ### Step 3: Select Integration Scope
 
 - Select the integration scope.
 
   | Scope             | Description                                        |
-  |-------------------|----------------------------------------------------|
+  | ----------------- | -------------------------------------------------- |
   | All Projects      | Configures all Vercel applications in the account. |
   | Specific Projects | Configures only a subset of applications.          |
 
@@ -87,7 +83,6 @@ This integration requires you to have a Vercel account along with existing Verce
   />
 
 - Click on `Add Integration` and a new window should pop up for the further steps specific to Hasura Cloud.
-
 
 ### Step 4: Configure Hasura Cloud
 
@@ -147,13 +142,12 @@ Your integration will only be successfully configured upon clicking the
 - To change the scope of you integration, you can click on `Manage Access` to add/remove vercel applications from the integration.
   Check out the [Adding and removing projects from the Scope of Integration](#vercel-change-scope) section for more details.
 
-
 ## Environment variables {#vercel-environment-variables}
 
 - List of Hasura Cloud environment variables configured by the integration for each Vercel application in the scope of the integration:
 
   | Title                               | Description                                                       |
-  |-------------------------------------|-------------------------------------------------------------------|
+  | ----------------------------------- | ----------------------------------------------------------------- |
   | HASURA_PROJECT_ENDPOINT             | GraphQL API endpoint of the Hasura Cloud project.                 |
   | NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT | GraphQL API endpoint to be exposed on the Next.js browser client. |
   | HASURA_ADMIN_SECRET                 | Admin secret key to access your GraphQL API.                      |
@@ -168,7 +162,6 @@ Your integration will only be successfully configured upon clicking the
       width="1146px"
     />
 
-
 :::info Note
 
 - If a [custom domain](/graphql/cloud/projects/domains.mdx) is added to the Hasura Cloud project, you'll have to set this custom value to
@@ -176,7 +169,6 @@ Your integration will only be successfully configured upon clicking the
 - Similarly if the Hasura Cloud project's admin secret is changed, you will have to edit the `HASURA_ADMIN_SECRET` manually in the respective Vercel project's settings.
 
 :::
-
 
 ## Adding and removing projects from the Scope of Integration {#vercel-change-scope}
 
@@ -202,7 +194,6 @@ integration.
     width="400px"
   />
 
-
 - Click on `Save` to save the changes.
 
 :::info Note
@@ -223,7 +214,6 @@ for the added projects and will be removed for the removed projects.
     width="1146px"
   />
 
-
 - Scroll down to the bottom of the page and click on `Remove Integration`. Vercel will remove the integration along with
   the set environment variables from the applications.
 
@@ -234,7 +224,6 @@ for the added projects and will be removed for the removed projects.
   />
 
 Your Hasura Cloud project will not be affected.
-
 
 ## Support
 

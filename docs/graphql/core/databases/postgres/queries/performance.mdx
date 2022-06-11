@@ -3,7 +3,7 @@ sidebar_label: Query performance
 sidebar_position: 11
 description: Performance of Hasura GraphQL queries on Postgres
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - schema
@@ -11,9 +11,9 @@ keywords:
   - performance
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Postgres: Query performance
 
@@ -29,9 +29,9 @@ Let's say we want to analyse the following query:
 
 ```graphql
 query {
-   authors(where: {name: {_eq: "Mario"}}) {
-      rating
-   }
+  authors(where: { name: { _eq: "Mario" } }) {
+    rating
+  }
 }
 ```
 
@@ -77,9 +77,9 @@ Let's say we know that `authors` table is frequently queried by `name`:
 
 ```graphql
 query {
-   authors(where: {name: {_eq: "Mario"}}) {
-      rating
-   }
+  authors(where: { name: { _eq: "Mario" } }) {
+    rating
+  }
 }
 ```
 
@@ -93,6 +93,7 @@ The following statement sets an index on `name` in the `authors` table.
 ```plsql
 CREATE INDEX ON authors (name);
 ```
+
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
 
@@ -134,7 +135,6 @@ X-Hasura-Role: admin
 
 </TabItem>
 </Tabs>
-
 
 Let's compare the performance analysis to [the one before adding the index](#pg-analysing-query-performance). What
 was a `sequential scan` in the example earlier is now an `index scan`.

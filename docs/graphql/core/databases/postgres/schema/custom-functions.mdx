@@ -3,7 +3,7 @@ sidebar_label: Extend with SQL functions
 sidebar_position: 5
 description: Customise the Hasura GraphQL schema with Postgres SQL functions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - schema
@@ -11,10 +11,10 @@ keywords:
   - stored procedures
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Postgres: Extend schema with SQL functions
 
@@ -40,15 +40,15 @@ Custom SQL functions can also be queried as
 ### Supported SQL functions {#pg-supported-sql-functions}
 
 Currently, only functions which satisfy the following constraints can be
-exposed as top level fields in the GraphQL API (*terminology from*
+exposed as top level fields in the GraphQL API (_terminology from_
 [Postgres docs](https://www.postgresql.org/docs/current/sql-createfunction.html)):
 
--   **Function behaviour**: `STABLE` or `IMMUTABLE` functions may *only*
-    be exposed as queries. `VOLATILE` functions may be exposed as
-    mutations or queries.
--   **Return type**: MUST be `SETOF <table-name>` OR `<table-name>`
-    where `<table-name>` is already tracked
--   **Argument modes**: ONLY `IN`
+- **Function behaviour**: `STABLE` or `IMMUTABLE` functions may _only_
+  be exposed as queries. `VOLATILE` functions may be exposed as
+  mutations or queries.
+- **Return type**: MUST be `SETOF <table-name>` OR `<table-name>`
+  where `<table-name>` is already tracked
+- **Argument modes**: ONLY `IN`
 
 ## Creating SQL functions {#pg-create-sql-functions}
 
@@ -58,9 +58,9 @@ as follows:
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
 
--   Head to the `Data -> SQL` section of the Hasura console
--   Enter your [create function SQL statement](https://www.postgresql.org/docs/current/sql-createfunction.html)
--   Hit the `Run` button
+- Head to the `Data -> SQL` section of the Hasura console
+- Enter your [create function SQL statement](https://www.postgresql.org/docs/current/sql-createfunction.html)
+- Hit the `Run` button
 
 </TabItem>
 <TabItem value="cli" label="CLI">
@@ -96,6 +96,7 @@ X-Hasura-Role: admin
   }
 }
 ```
+
 </TabItem>
 </Tabs>
 
@@ -218,7 +219,7 @@ follows:
     content
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "search_articles": [
       {
@@ -288,7 +289,7 @@ function as follows:
     postcode
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "search_properties": [
       {
@@ -320,8 +321,8 @@ Let's take a look at an example where the `SETOF` table is not part of
 the existing schema.
 
 Say you have 2 tables, for user and landmark location data, with the
-following definitions (*this example uses the popular spatial database
-extension,* [PostGIS](https://postgis.net/)):
+following definitions (_this example uses the popular spatial database
+extension,_ [PostGIS](https://postgis.net/)):
 
 ```sql
 -- User location data
@@ -347,37 +348,37 @@ Since our use case requires an output that isn't a "subset" of any of
 the existing tables i.e. the `SETOF` table doesn't exist, let's first
 create this table and then create our location search function.
 
--   create and track the following table:
+- create and track the following table:
 
-    ```sql
-    -- SETOF table
-    CREATE TABLE user_landmarks (
-      user_id INTEGER,
-      location GEOGRAPHY(Point),
-      nearby_landmarks JSON
-    );
-    ```
+  ```sql
+  -- SETOF table
+  CREATE TABLE user_landmarks (
+    user_id INTEGER,
+    location GEOGRAPHY(Point),
+    nearby_landmarks JSON
+  );
+  ```
 
--   create and track the following function:
+- create and track the following function:
 
-    ```plsql
-    -- function returns a list of landmarks near a user based on the
-    -- input arguments distance_kms and userid
-    CREATE FUNCTION search_landmarks_near_user(userid integer, distance_kms integer)
-    RETURNS SETOF user_landmarks AS $$
-      SELECT  A.user_id, A.location,
-      (SELECT json_agg(row_to_json(B)) FROM landmark B
-       WHERE (
-         ST_Distance(
-           ST_Transform(B.location::Geometry, 3857),
-           ST_Transform(A.location::Geometry, 3857)
-         ) /1000) < distance_kms
-       ) AS nearby_landmarks
-      FROM user_location A where A.user_id = userid
-    $$ LANGUAGE sql STABLE;
-    ```
+  ```plsql
+  -- function returns a list of landmarks near a user based on the
+  -- input arguments distance_kms and userid
+  CREATE FUNCTION search_landmarks_near_user(userid integer, distance_kms integer)
+  RETURNS SETOF user_landmarks AS $$
+    SELECT  A.user_id, A.location,
+    (SELECT json_agg(row_to_json(B)) FROM landmark B
+     WHERE (
+       ST_Distance(
+         ST_Transform(B.location::Geometry, 3857),
+         ST_Transform(A.location::Geometry, 3857)
+       ) /1000) < distance_kms
+     ) AS nearby_landmarks
+    FROM user_location A where A.user_id = userid
+  $$ LANGUAGE sql STABLE;
+  ```
 
-This function fetches user information (*for the given input* `userid`)
+This function fetches user information (_for the given input_ `userid`)
 and a list of landmarks which are less than `distance_kms` kilometers
 away from the user's location as a JSON field. We can now refer to this
 function in our GraphQL API as follows:
@@ -392,7 +393,7 @@ function in our GraphQL API as follows:
     nearby_landmarks
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "search_landmarks_near_user": [
       {
@@ -442,9 +443,7 @@ defined in the text-search example above:
 
 ```graphql
 query {
-  search_articles_aggregate(
-    args: {search: "hasura"}
-  ){
+  search_articles_aggregate(args: { search: "hasura" }) {
     aggregate {
       count
     }
@@ -462,10 +461,7 @@ defined in the text-search example above:
 
 ```graphql
 query {
-  search_articles(
-    args: {search: "hasura"},
-    limit: 5
-  ){
+  search_articles(args: { search: "hasura" }, limit: 5) {
     id
     title
     content
@@ -501,7 +497,7 @@ Search nearby landmarks with `distance_kms` default value which is 2 kms:
     nearby_landmarks
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "search_landmarks_near_user": [
       {
@@ -562,7 +558,7 @@ $$ LANGUAGE sql STABLE;
     result
   }
 }`}
-response={`{
+  response={`{
  "data": {
    "get_session_role": [
      {

@@ -2,17 +2,17 @@
 sidebar_position: 3
 description: Rest Connectors for event triggers
 keywords:
-   - hasura
-   - docs
-   - event trigger
-   - transforms
-   - rest connectors
+  - flaregun
+  - docs
+  - event trigger
+  - transforms
+  - rest connectors
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import TOCInline from "@theme/TOCInline";
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import TOCInline from "@theme/TOCInline"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # REST Connectors for event triggers
 
@@ -46,7 +46,7 @@ Go to the `Events` tab on the console and create or modify an event trigger. Scr
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add
-a [request_transform][RequestTransformation] field to the event trigger:
+a [request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {13-20}
 table:
@@ -68,13 +68,13 @@ event_triggers:
       query_params:
         query_param: xxxxx
       content_type: application/json
-      body: "{\n  \"table\": {\n    \"name\": {{$body.table.name}},\n    \"schema\": {{$body.table.schema}}\n  },\n  \"To\": {\n    \"username\": {{$body.event.data.new.name}},\n    \"email\": {{$body.event.data.new.email}}\n  }\n}"           
+      body: "{\n  \"table\": {\n    \"name\": {{$body.table.name}},\n    \"schema\": {{$body.table.schema}}\n  },\n  \"To\": {\n    \"username\": {{$body.event.data.new.name}},\n    \"email\": {{$body.event.data.new.email}}\n  }\n}"
 ```
 
 Apply the metadata by running:
 
 ```bash
-hasura metadata apply       
+hasura metadata apply
 ```
 
 </TabItem>
@@ -83,7 +83,7 @@ hasura metadata apply
 
 You can configure REST Connectors for event triggers using the
 [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {25-34}
 POST /v1/metadata HTTP/1.1
@@ -135,12 +135,11 @@ You can use context variables in the transforms to achieve dynamic behavior for 
 The context variables available in transforms are:
 
 | Context variable   | Value                                                     |
-|--------------------|-----------------------------------------------------------|
+| ------------------ | --------------------------------------------------------- |
 | $body              | Original body of event request                            |
 | $base_url          | Original configured webhook URL                           |
 | $session_variables | Session variables                                         |
 | $query_params      | Query parameters and the values to be sent to the webhook |
-
 
 #### Console sample context {#event-trigger-transforms-sample-context}
 
@@ -172,7 +171,6 @@ You can enter the mock env/session variables under `Configure REST Connectors > 
 As the sample context is only used for previews, you can still configure the transforms on the console without setting any sample context.
 
 :::
-
 
 ## Types of transforms {#event-trigger-transform-types}
 
@@ -206,7 +204,7 @@ Hit `Save Event Trigger` to apply your changes.
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add a
-[request_transform][RequestTransformation] field to the event trigger:
+[request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {15}
 table:
@@ -234,7 +232,7 @@ event_triggers:
 Apply the metadata by running:
 
 ```bash
-hasura metadata apply       
+hasura metadata apply
 ```
 
 </TabItem>
@@ -242,10 +240,10 @@ hasura metadata apply
 
 You can configure REST Connectors for event triggers using the
 [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {27}
-POST /v1/metadata HTTP/1.1   
+POST /v1/metadata HTTP/1.1
 Content-Type: application/json
 X-Hasura-Role: admin
 
@@ -318,7 +316,7 @@ Hit `Save Event Trigger` to apply your changes.
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add a
-[request_transform][RequestTransformation] field to the event trigger:
+[request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {16-18}
 table:
@@ -353,10 +351,10 @@ hasura metadata apply
 <TabItem value="api" label="API">
 
 You can configure REST Connectors for event triggers using the [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {28-31}
-POST /v1/metadata HTTP/1.1   
+POST /v1/metadata HTTP/1.1
 Content-Type: application/json
 X-Hasura-Role: admin
 
@@ -408,7 +406,7 @@ contain non-ASCII values, then you should provide the template URL as
 
 ### Request Body
 
-You can generate a custom request body by configuring a template to transform the default payload to a custom payload. Request body could be provided using the `body` field 
+You can generate a custom request body by configuring a template to transform the default payload to a custom payload. Request body could be provided using the `body` field
 as an [object](/graphql/core/api-reference/syntax-defs.mdx/#bodytransform), which additionally gives the ability to disable request body,
 transform request body to `application/json`, or transform request body to `x_www_form_urlencoded` formats.
 
@@ -438,7 +436,7 @@ Hit `Create Event Trigger` to apply your changes.
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add a
-[request_transform][RequestTransformation] field to the event trigger:
+[request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {15-16,20-23}
 table:
@@ -477,7 +475,7 @@ hasura metadata apply
 
 You can configure REST Connectors for event triggers using the
 [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {27-28,33-38}
 POST /v1/metadata HTTP/1.1
@@ -526,7 +524,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ##### Request Body with application/json format
 
 You can transform Request Body to `application/json` format using the following steps:
@@ -549,7 +546,7 @@ Hit `Create Event Trigger` to apply your changes.
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add a
-[request_transform][RequestTransformation] field to the event trigger:
+[request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {15,20-22}
 table:
@@ -587,7 +584,7 @@ hasura metadata apply
 
 You can configure REST Connectors for event triggers using the
 [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {27,33-36}
 POST /v1/metadata HTTP/1.1
@@ -634,7 +631,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ##### Request Body with x_www_form_urlencoded format
 
 While doing `x_www_form_urlencoded` transformation, please note that as all changes to the request must be made explicit when calling the API,
@@ -658,7 +654,7 @@ Hit `Create Event Trigger` to apply your changes.
 <TabItem value="cli" label="CLI">
 
 Update the `databases > [source-name] > tables > [table-name].yaml` file inside the `metadata` directory and add a
-[request_transform][RequestTransformation] field to the event trigger:
+[request_transform][requesttransformation] field to the event trigger:
 
 ```yaml {15,20-27}
 table:
@@ -682,7 +678,7 @@ event_triggers:
       query_param: xxxxx
     body:
       action: 'x_www_form_urlencoded'
-      form_template: 
+      form_template:
         username: '{{$body.table.username}}'
     request_headers:
       remove_headers: ['content-type']
@@ -701,7 +697,7 @@ hasura metadata apply
 
 You can configure REST Connectors for event triggers using the
 [pg_create_event_trigger][metadata-pg-create-event-trigger] metadata API and adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {27,33-44}
 POST /v1/metadata HTTP/1.1
@@ -755,7 +751,6 @@ X-Hasura-Role: admin
 
 </TabItem>
 </Tabs>
-
 
 ## Example: Trigger SendGrid's Mail Send API
 
@@ -878,15 +873,13 @@ You can view the **Processed Events** and **Invocation Logs** for the event trig
   width="1200px"
 />
 
-
 :::info Note
 
 Explore the Hasura Data Hub source code for [Event Connectors](https://hasura.io/data-hub/event-transforms/) with different platform integrations.
 
 :::
 
-
 <!-- Shared Link Variables -->
 
 [metadata-pg-create-event-trigger]: /graphql/core/api-reference/metadata-api/event-triggers.mdx#metadata-pg-create-event-trigger
-[RequestTransformation]: /graphql/core/api-reference/syntax-defs.mdx#requesttransformation
+[requesttransformation]: /graphql/core/api-reference/syntax-defs.mdx#requesttransformation

@@ -3,17 +3,17 @@ sidebar_label: Data validations
 sidebar_position: 10
 description: Data validations in Hasura over Postgres
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - schema
   - data validation
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Postgres: Data validations
 
@@ -25,14 +25,14 @@ inserting or updating objects.
 The best solution to implement a validation depends on the complexity of
 the validation logic and the layer where you would like to add it.
 
--   If you would like the validation logic to be a part of your database
-    schema, Postgres check constraints or triggers would be ideal
-    solutions to add your validation.
--   If you would like the validation logic to be at the GraphQL API
-    layer, Hasura permissions can be used to add your validation.
--   If the validation logic requires complex business logic and/or needs
-    information from external sources, you can use Hasura Actions to
-    perform your validation.
+- If you would like the validation logic to be a part of your database
+  schema, Postgres check constraints or triggers would be ideal
+  solutions to add your validation.
+- If you would like the validation logic to be at the GraphQL API
+  layer, Hasura permissions can be used to add your validation.
+- If the validation logic requires complex business logic and/or needs
+  information from external sources, you can use Hasura Actions to
+  perform your validation.
 
 These solutions are explained in some more detail below.
 
@@ -121,7 +121,7 @@ following error is thrown:
       affected_rows
     }
 }`}
-response={`{
+  response={`{
   "errors": [
     {
       "message": "Check constraint violation. new row for relation \"author\" violates check constraint \"authors_rating_check\",
@@ -158,10 +158,10 @@ that will call this function every time before an article is inserted or updated
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
 
--   Head to the `Data -> SQL` section of the Hasura console
--   Enter the SQL statement below to create a Postgres function and
-    trigger
--   Hit the `Run` button
+- Head to the `Data -> SQL` section of the Hasura console
+- Enter the SQL statement below to create a Postgres function and
+  trigger
+- Hit the `Run` button
 
 </TabItem>
 <TabItem value="cli" label="CLI">
@@ -239,7 +239,7 @@ words, we'll receive the following error:
     affected_rows
   }
 }`}
-response={`{
+  response={`{
   "errors": [
     {
       "message": "postgres query error",
@@ -297,11 +297,11 @@ You can add roles and permissions in the `tables.yaml` file inside the
     schema: public
     name: article
   insert_permissions:
-  - role: user
-    permission:
-      check:
-        title:
-          _ne: ''
+    - role: user
+      permission:
+        check:
+          title:
+            _ne: ""
 ```
 
 Apply the metadata by running:
@@ -354,7 +354,7 @@ If we try to insert an article with `title = ""`, we will get a `permission-erro
     affected_rows
   }
 }`}
-response={`{
+  response={`{
   "errors": [
     {
       "message": "check constraint of an insert/update permission has failed",
@@ -402,12 +402,12 @@ You can add roles and permissions in the `tables.yaml` file inside the `metadata
     schema: public
     name: article
   insert_permissions:
-  - role: user
-    permission:
-      check:
-        author:
-          is_active:
-            _eq: true
+    - role: user
+      permission:
+        check:
+          author:
+            is_active:
+              _eq: true
 ```
 
 Apply the metadata by running:
@@ -446,7 +446,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 If we try to insert an article for an author for whom `is_active = false`, we will receive a `permission-error` :
 
 <GraphiQLIDE
@@ -461,7 +460,7 @@ If we try to insert an article for an author for whom `is_active = false`, we wi
     affected_rows
   }
 }`}
-response={`{
+  response={`{
   "errors": [
     {
       "message": "check constraint of an insert/update permission has failed",
@@ -513,7 +512,7 @@ object of type `AuthorOutput`.
 
 ```graphql
 type Mutation {
-  InsertAuthor (author: AuthorInput!): AuthorOutput
+  InsertAuthor(author: AuthorInput!): AuthorOutput
 }
 
 input AuthorInput {
@@ -543,14 +542,14 @@ function insertAuthorViaHasura() {
   // run insert_author mutation & return response
 }
 
-const denylistedAuthors = getDenylistedAuthorsFromApi();
+const denylistedAuthors = getDenylistedAuthorsFromApi()
 
 if (denylistedAuthors.includes(author.name)) {
-  return res.status(400).json({ message: "Author is deny-listed" });
+  return res.status(400).json({ message: "Author is deny-listed" })
 } else {
-  const insertAuthorResponse = insertAuthorViaHasura();
+  const insertAuthorResponse = insertAuthorViaHasura()
 
-  return res.json(insertAuthorResponse);
+  return res.json(insertAuthorResponse)
 }
 ```
 
@@ -565,7 +564,7 @@ get the following error message:
     id
   }
 }`}
-response={`{
+  response={`{
   "errors": [
     {
       "extensions": {

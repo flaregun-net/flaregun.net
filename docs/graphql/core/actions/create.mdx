@@ -3,16 +3,17 @@ sidebar_label: Creating actions
 sidebar_position: 1
 description: Creating Hasura actions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - create
 ---
-import TOCInline from '@theme/TOCInline';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import Thumbnail from "@site/src/components/Thumbnail";
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+
+import TOCInline from "@theme/TOCInline"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Creating Actions
 
@@ -74,7 +75,6 @@ There is no setup required for defining actions via the [actions metadata API](/
   </TabItem>
 </Tabs>
 
-
 ## Mutation type action
 
 Let's start with a mutation that accepts a username and password, and
@@ -99,12 +99,11 @@ take you to a page like this:
   width="800px"
 />
 
-
 Define the action as follows in the `Action Definition` editor.
 
 ```graphql
 type Mutation {
-  login (username: String!, password: String!): LoginResponse
+  login(username: String!, password: String!): LoginResponse
 }
 ```
 
@@ -133,7 +132,7 @@ the following and save:
 
 ```graphql
 type Mutation {
-  login (username: String!, password: String!): LoginResponse
+  login(username: String!, password: String!): LoginResponse
 }
 
 type LoginResponse {
@@ -144,7 +143,7 @@ type LoginResponse {
 </TabItem>
 <TabItem value="api" label="API">
 
-It is essential that the custom types used in the action are defined *beforehand* via the [set_custom_types](/graphql/core/api-reference/metadata-api/custom-types.mdx#metadata-set-custom-types) metadata API:
+It is essential that the custom types used in the action are defined _beforehand_ via the [set_custom_types](/graphql/core/api-reference/metadata-api/custom-types.mdx#metadata-set-custom-types) metadata API:
 
 ```http
 POST /v1/metadata HTTP/1.1
@@ -206,14 +205,12 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 The above definition means:
 
 - This action will be available in your GraphQL schema as a mutation called `login`.
 - It accepts two arguments called `username` and `password` of type `String!`.
 - It returns an output type called `LoginResponse`.
 - `LoginResponse` is a simple object type with a field called `accessToken` of type `String!`.
-
 
 ### Step 2: Create the action handler
 
@@ -225,17 +222,16 @@ NodeJS/Express code for this handler would look something like:
 ```javascript
 const handler = (req, resp) => {
   // You can access their arguments input at req.body.input
-  const { username, password } = req.body.input;
+  const { username, password } = req.body.input
 
   // perform your custom business logic
   // check if the username and password are valid and login the user
 
   // return the response
   return resp.json({
-    accessToken: "Ew8jkGCNDGAo7p35RV72e0Lk3RGJoJKB"
+    accessToken: "Ew8jkGCNDGAo7p35RV72e0Lk3RGJoJKB",
   })
-
-};
+}
 ```
 
 You can deploy this code somewhere and get the URI. For getting started
@@ -287,7 +283,6 @@ If you are running Hasura using Docker, ensure that the Hasura Docker container 
 
 :::
 
-
 ### Step 3: Finish action creation
 
 Finally, to save the action:
@@ -310,20 +305,17 @@ An action will be created when sending a request to the [create_action metadata 
   </TabItem>
 </Tabs>
 
-
 ### Step 4: Try it out
 
 In the Hasura console, head to the `API` tab and try out the new action.
 
 <GraphiQLIDE
-  query={
-`mutation {
+  query={`mutation {
   login (username: "jondoe", password: "mysecretpassword") {
     accessToken
   }
 }`}
-  response={
-`{
+  response={`{
   "data": {
     "login": {
       "accessToken": "Ew8jkGCNDGAo7p35RV72e0Lk3RGJoJKB"
@@ -333,7 +325,6 @@ In the Hasura console, head to the `API` tab and try out the new action.
 />
 
 And that's it. You have extended your Hasura schema with a new mutation.
-
 
 ## Query type action
 
@@ -360,7 +351,7 @@ Define the action as follows in the `Action Definition` editor.
 
 ```graphql
 type Query {
-  addNumbers (numbers: [Int]): AddResult
+  addNumbers(numbers: [Int]): AddResult
 }
 ```
 
@@ -371,6 +362,7 @@ type AddResult {
   sum: Int
 }
 ```
+
 </TabItem>
 <TabItem value="cli" label="CLI">
 
@@ -385,7 +377,7 @@ For your `addNumbers` query, replace the content of this file with the following
 
 ```graphql
 type Query {
-  addNumbers (numbers: [Int]): AddResult
+  addNumbers(numbers: [Int]): AddResult
 }
 
 type AddResult {
@@ -396,7 +388,7 @@ type AddResult {
 </TabItem>
 <TabItem value="api" label="API">
 
-It is essential that the custom types used in the action are defined *beforehand* via the [set_custom_types](/graphql/core/api-reference/metadata-api/custom-types.mdx#metadata-set-custom-types) metadata API:
+It is essential that the custom types used in the action are defined _beforehand_ via the [set_custom_types](/graphql/core/api-reference/metadata-api/custom-types.mdx#metadata-set-custom-types) metadata API:
 
 ```http
 POST /v1/metadata HTTP/1.1
@@ -461,7 +453,6 @@ The above definition means:
 - It returns an output type called `AddResult`.
 - `AddResult` is a simple object type with a field called `sum` of type integer.
 
-
 ### Step 2: Create the action handler
 
 A handler is an HTTP webhook where you can perform the custom logic for the action.
@@ -471,21 +462,21 @@ In this case, it is the addition of the numbers. NodeJS/Express code for this ha
 ```javascript
 const handler = (req, resp) => {
   // You can access their arguments input at req.body.input
-  const { numbers } = req.body.input;
+  const { numbers } = req.body.input
 
   // perform your custom business logic
   // return an error or response
   try {
     return resp.json({
-      sum: numbers.reduce((s, n) => s + n, 0)
-    });
-  } catch(e) {
+      sum: numbers.reduce((s, n) => s + n, 0),
+    })
+  } catch (e) {
     console.error(e)
     return resp.status(500).json({
-      message: 'unexpected'
+      message: "unexpected",
     })
   }
-};
+}
 ```
 
 You can deploy this code somewhere and get the URI. For getting started quickly, we also have this handler ready at `https://hasura-actions-demo.glitch.me/addNumbers`.
@@ -525,7 +516,6 @@ e.g. `https://my-handler-endpoint/addNumbers` can be templated to `{{ACTION_BASE
 
 :::
 
-
 ### Step 3: Finish action creation
 
 Finally, to save the action:
@@ -548,21 +538,18 @@ An action will be created when sending a request to the [create_action metadata 
   </TabItem>
 </Tabs>
 
-
 ### Step 4: Try it out
 
 In the Hasura console, head to the `API` tab and try out the new
 action.
 
 <GraphiQLIDE
-  query={
-`query {
+  query={`query {
   addNumbers(numbers: [1, 2, 3, 4]) {
     sum
   }
 }`}
-  response={
-`{
+  response={`{
   "data": {
     "addNumbers": {
       "sum": 10

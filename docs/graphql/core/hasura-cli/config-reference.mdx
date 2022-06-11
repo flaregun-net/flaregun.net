@@ -3,7 +3,7 @@ sidebar_label: Configuration Reference
 sidebar_position: 2
 description: Hasura GraphQL CLI configuration reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - CLI
   - CLI reference
@@ -29,25 +29,25 @@ configuration file values > default.
 In order for the Hasura CLI to work, the `config.yaml` file is required (created automatically via the [hasura init](/graphql/core/hasura-cli/hasura_init.mdx) command). The configuration file can be configured with the following config keys:
 
 ```yaml
-version: 
-endpoint: 
+version:
+endpoint:
 admin_secret:
 admin_secrets:
 insecure_skip_tls_verify:
 certificate_authority:
 access_key: #deprecated
 api_paths:
-  query: 
-  graphql: 
-  config: 
-  pg_dump: 
-  version: 
+  query:
+  graphql:
+  config:
+  pg_dump:
+  version:
 metadata_directory:
 migrations_directory:
 seeds_directory:
 actions:
-  kind: 
-  handler_webhook_baseurl: 
+  kind:
+  handler_webhook_baseurl:
   codegen:
     framework:
     output_dir:
@@ -55,7 +55,7 @@ actions:
 ```
 
 | Config Key                      | Required | Supported since Config Version | Default value           |
-|---------------------------------|----------|--------------------------------|-------------------------|
+| ------------------------------- | -------- | ------------------------------ | ----------------------- |
 | version                         | false    | 1                              | 3                       |
 | endpoint                        | true     | 1                              | `http://localhost:8080` |
 | admin_secret                    | false    | 1                              |                         |
@@ -90,30 +90,28 @@ The above structure is for the `config v3` file which is supported since `v2.0.0
 
 The configuration can also be set in the form of environment variables:
 
-
-| ENV variable                                     | Config file key                   | Description                                                                                                                                     |
-|--------------------------------------------------|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `HASURA_GRAPHQL_VERSION`                         | `version`                         | Config version to be used.                                                                                                                      |
-| `HASURA_GRAPHQL_ENDPOINT`                        | `endpoint`                        | http(s) endpoint for Hasura GraphQL engine.                                                                                                     |
-| `HASURA_GRAPHQL_ADMIN_SECRET`                    | `admin_secret`                    | Admin secret for Hasura GraphQL engine.                                                                                                         |
-| `HASURA_GRAPHQL_ADMIN_SECRETS`                   | `admin_secrets`                   | [Admin secrets](/graphql/cloud/security/multiple-admin-secrets.mdx) for Hasura GraphQL engine *(Cloud/EE only)*. eg: `HASURA_GRAPHQL_ADMIN_SECRETS='["foo", "bar", "baz"]'`                                             |
-| `HASURA_GRAPHQL_ACCESS_KEY`                      | `access_key`                      | Access key for Hasura GraphQL engine. Note: Deprecated. Use admin secret instead.                                                               |
-| `HASURA_GRAPHQL_INSECURE_SKIP_TLS_VERIFY`        | `insecure_skip_tls_verify`        | Skip verifying SSL certificate for the Hasura endpoint. Useful if you have a self-singed certificate and don't have access to the CA cert.      |
-| `HASURA_GRAPHQL_CERTIFICATE_AUTHORITY`           | `certificate_authority`           | Path to the CA certificate for validating the self-signed certificate for the Hasura endpoint.                                                  |
-| `HASURA_GRAPHQL_API_PATHS_QUERY`                 | `api_paths.query`                 | Schema/ metadata API endpoint. More details at [Schema / metadata API (Deprecated)](/graphql/core/api-reference/index.mdx#schema-metadata-api). |
-| `HASURA_GRAPHQL_API_PATHS_GRAPHQL`               | `api_paths.graphql`               | GraphQL API endpoint. More details at [GraphQL API](/graphql/core/api-reference/index.mdx#graphql-api).                                         |
-| `HASURA_GRAPHQL_API_PATHS_CONFIG`                | `api_paths.config`                | Config API endpoint. More details at [Config API](/graphql/core/api-reference/index.mdx#config-api)`.                                           |
-| `HASURA_GRAPHQL_API_PATHS_PG_DUMP`               | `api_paths.pg_dump`               | PG Dump API endpoint. More details at [pg_dump API](/graphql/core/api-reference/index.mdx#pg-dump-api).                                         |
-| `HASURA_GRAPHQL_API_PATHS_VERSION`               | `api_paths.version`               | Version API endpoint. More details at [RESTified GraphQL API](/graphql/core/api-reference/index.mdx#version-api).                               |
-| `HASURA_GRAPHQL_METADATA_DIRECTORY`              | `metadata_directory`              | Defines the directory where the metadata files were stored.                                                                                     |
-| `HASURA_GRAPHQL_MIGRATIONS_DIRECTORY`            | `migrations_directory`            | Defines the directory where the migration files were stored.                                                                                    |
-| `HASURA_GRAPHQL_SEEDS_DIRECTORY`                 | `seeds_directory`                 | Defines the directory where the seed files were stored.                                                                                         |
-| `HASURA_GRAPHQL_ACTIONS_KIND`                    | `actions.kind`                    | Kind to be used for actions.                                                                                                                    |
-| `HASURA_GRAPHQL_ACTIONS_HANDLER_WEBHOOK_BASEURL` | `actions.handler_webhook_baseurl` | Webhook baseurl to be used for actions.                                                                                                         |
-| `HASURA_GRAPHQL_ACTIONS_CODEGEN_FRAMEWORK`       | `actions.codegen.framework`       | Framework to codegen for actions.                                                                                                               |
-| `HASURA_GRAPHQL_ACTION_CODEGEN_OUTPUT_DIR`       | `actions.codegen.output_dir`      | Defines the directory to create the codegen files.                                                                                              |
-| `HASURA_GRAPHQL_ACTION_CODEGEN_URI`              | `actions.codegen.uri`             | URI to codegen for actions.                                                                                                                     |
-
+| ENV variable                                     | Config file key                   | Description                                                                                                                                                                 |
+| ------------------------------------------------ | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HASURA_GRAPHQL_VERSION`                         | `version`                         | Config version to be used.                                                                                                                                                  |
+| `HASURA_GRAPHQL_ENDPOINT`                        | `endpoint`                        | http(s) endpoint for Hasura GraphQL engine.                                                                                                                                 |
+| `HASURA_GRAPHQL_ADMIN_SECRET`                    | `admin_secret`                    | Admin secret for Hasura GraphQL engine.                                                                                                                                     |
+| `HASURA_GRAPHQL_ADMIN_SECRETS`                   | `admin_secrets`                   | [Admin secrets](/graphql/cloud/security/multiple-admin-secrets.mdx) for Hasura GraphQL engine _(Cloud/EE only)_. eg: `HASURA_GRAPHQL_ADMIN_SECRETS='["foo", "bar", "baz"]'` |
+| `HASURA_GRAPHQL_ACCESS_KEY`                      | `access_key`                      | Access key for Hasura GraphQL engine. Note: Deprecated. Use admin secret instead.                                                                                           |
+| `HASURA_GRAPHQL_INSECURE_SKIP_TLS_VERIFY`        | `insecure_skip_tls_verify`        | Skip verifying SSL certificate for the Hasura endpoint. Useful if you have a self-singed certificate and don't have access to the CA cert.                                  |
+| `HASURA_GRAPHQL_CERTIFICATE_AUTHORITY`           | `certificate_authority`           | Path to the CA certificate for validating the self-signed certificate for the Hasura endpoint.                                                                              |
+| `HASURA_GRAPHQL_API_PATHS_QUERY`                 | `api_paths.query`                 | Schema/ metadata API endpoint. More details at [Schema / metadata API (Deprecated)](/graphql/core/api-reference/index.mdx#schema-metadata-api).                             |
+| `HASURA_GRAPHQL_API_PATHS_GRAPHQL`               | `api_paths.graphql`               | GraphQL API endpoint. More details at [GraphQL API](/graphql/core/api-reference/index.mdx#graphql-api).                                                                     |
+| `HASURA_GRAPHQL_API_PATHS_CONFIG`                | `api_paths.config`                | Config API endpoint. More details at [Config API](/graphql/core/api-reference/index.mdx#config-api)`.                                                                       |
+| `HASURA_GRAPHQL_API_PATHS_PG_DUMP`               | `api_paths.pg_dump`               | PG Dump API endpoint. More details at [pg_dump API](/graphql/core/api-reference/index.mdx#pg-dump-api).                                                                     |
+| `HASURA_GRAPHQL_API_PATHS_VERSION`               | `api_paths.version`               | Version API endpoint. More details at [RESTified GraphQL API](/graphql/core/api-reference/index.mdx#version-api).                                                           |
+| `HASURA_GRAPHQL_METADATA_DIRECTORY`              | `metadata_directory`              | Defines the directory where the metadata files were stored.                                                                                                                 |
+| `HASURA_GRAPHQL_MIGRATIONS_DIRECTORY`            | `migrations_directory`            | Defines the directory where the migration files were stored.                                                                                                                |
+| `HASURA_GRAPHQL_SEEDS_DIRECTORY`                 | `seeds_directory`                 | Defines the directory where the seed files were stored.                                                                                                                     |
+| `HASURA_GRAPHQL_ACTIONS_KIND`                    | `actions.kind`                    | Kind to be used for actions.                                                                                                                                                |
+| `HASURA_GRAPHQL_ACTIONS_HANDLER_WEBHOOK_BASEURL` | `actions.handler_webhook_baseurl` | Webhook baseurl to be used for actions.                                                                                                                                     |
+| `HASURA_GRAPHQL_ACTIONS_CODEGEN_FRAMEWORK`       | `actions.codegen.framework`       | Framework to codegen for actions.                                                                                                                                           |
+| `HASURA_GRAPHQL_ACTION_CODEGEN_OUTPUT_DIR`       | `actions.codegen.output_dir`      | Defines the directory to create the codegen files.                                                                                                                          |
+| `HASURA_GRAPHQL_ACTION_CODEGEN_URI`              | `actions.codegen.uri`             | URI to codegen for actions.                                                                                                                                                 |
 
 ## CLI flags
 
@@ -143,4 +141,3 @@ present at the project root directory.
 `.env` file is supported in versions `v1.2.0` and above.
 
 :::
-

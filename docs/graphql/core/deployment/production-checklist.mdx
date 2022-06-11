@@ -1,7 +1,7 @@
 ---
 description: Checklist for deploying Hasura GraphQL engine to production
 keywords:
-  - hasura
+  - flaregun
   - docs
   - deployment
   - production
@@ -9,8 +9,8 @@ keywords:
 sidebar_position: 10
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import TOCInline from "@theme/TOCInline";
+import Thumbnail from "@site/src/components/Thumbnail"
+import TOCInline from "@theme/TOCInline"
 
 # Production checklist
 
@@ -179,7 +179,7 @@ flag or the `HASURA_GRAPHQL_ENABLED_LOG_TYPES` env var.
 
 If you are collecting your logs using an agent and you're interested in
 capturing the request logs along with the SQL that is generated, you
-should enable `query-log` *(it is not enabled by default)*.
+should enable `query-log` _(it is not enabled by default)_.
 
 ```bash
 # enable all log types

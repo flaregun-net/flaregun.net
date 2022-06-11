@@ -3,14 +3,14 @@ sidebar_label: Simple object queries
 sidebar_position: 1
 description: Make simple object queries on Postgres in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - query
   - object query
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Simple object queries
 
@@ -30,7 +30,7 @@ simple object query.
     name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -65,7 +65,7 @@ response={`{
     name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors_by_pk": {
       "id": 1,
@@ -90,7 +90,7 @@ JSONB address column:
     phone: address(path: "$.phone_numbers.[0]")
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors_by_pk": {
       "id": 1,

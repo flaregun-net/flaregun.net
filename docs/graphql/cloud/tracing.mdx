@@ -1,20 +1,20 @@
 ---
 description: Distributed tracing with Hasura Cloud
 keywords:
-  - hasura
+  - flaregun
   - docs
   - cloud
   - tracing
 sidebar_position: 8
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Distributed tracing
 
 ## Introduction
 
-Hasura Cloud has support for *distributed tracing*, a technique for
+Hasura Cloud has support for _distributed tracing_, a technique for
 debugging Hasura in production in the context of the services it works
 with. These services might include your own Postgres database, any
 remote schemas, event trigger webhook providers, action providers or
@@ -44,8 +44,8 @@ schemas, event trigger webhooks and action handlers.
 
 ## APM system integration
 
-Hasura will report trace information to your APM or *application
-performance monitoring* system, where it can be correlated with similar
+Hasura will report trace information to your APM or _application
+performance monitoring_ system, where it can be correlated with similar
 sources of data from other components of your service architecture.
 
 If you are considering integrating Hasura with your APM system, please
@@ -55,8 +55,8 @@ get in touch so that we can help to coordinate that effort.
 
 At the boundaries between different services, tracing information needs
 to be shared in order for trace fragments from different systems to be
-correlated with each other in the APM system. This is called *trace
-propagation*.
+correlated with each other in the APM system. This is called _trace
+propagation_.
 
 There are several subtly-incompatible proposals for trace propagation,
 which can make it difficult to arrange for any two services to work

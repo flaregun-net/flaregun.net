@@ -1,7 +1,7 @@
 ---
 description: Hasura metadata API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - metadata API
   - API reference
@@ -46,9 +46,9 @@ The structure of args depends on the type and version.
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#metadata-query">Query</a>
-</code>
+  <code>
+    <a href="#metadata-query">Query</a>
+  </code>
 </pre>
 
 </div>
@@ -56,7 +56,7 @@ The structure of args depends on the type and version.
 #### Query {#metadata-query}
 
 | Key              | Required | Schema     | Description                                                    |
-|------------------|----------|------------|----------------------------------------------------------------|
+| ---------------- | -------- | ---------- | -------------------------------------------------------------- |
 | type             | true     | String     | Type of the query                                              |
 | resource_version | false    | Integer    | Version of the resource that you are targeting for replacement |
 | args             | true     | JSON Value | The arguments to the query                                     |
@@ -67,7 +67,7 @@ The structure of args depends on the type and version.
 The various types of queries are listed in the following table:
 
 | `type`                                                                                                                                                          | `args`                                                                                                                                                                      | `version` | Synopsis                                                               |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------|
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------- |
 | **bulk**                                                                                                                                                        | [Query](#metadata-query) array                                                                                                                                              | 1         | Execute multiple operations in a single query                          |
 | [pg_add_source](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-add-source)                                                                     | [pg_add_source_args](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-add-source-syntax)                                                                     | 1         | Add a Postgres database                                                |
 | [pg_drop_source](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-drop-source)                                                                   | [pg_drop_source_args](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-drop-source-syntax)                                                                   | 1         | Remove a Postgres database                                             |
@@ -213,12 +213,12 @@ TODO: MSSQL_UNSUPPORTED
 
 ## Response structure
 
-| Status code | Description           | Response structure                      |
-|-------------|-----------------------|-----------------------------------------|
-| 200         | Success               | Request specific                        |
-| 400         | Bad request           | `{ "path"  : String, "error" : String}` |
-| 401         | Unauthorized          | `{"error" : String}`                    |
-| 500         | Internal server error | `{"error" : String}`                    |
+| Status code | Description           | Response structure                     |
+| ----------- | --------------------- | -------------------------------------- |
+| 200         | Success               | Request specific                       |
+| 400         | Bad request           | `{ "path" : String, "error" : String}` |
+| 401         | Unauthorized          | `{"error" : String}`                   |
+| 500         | Internal server error | `{"error" : String}`                   |
 
 ## Disabling metadata API
 

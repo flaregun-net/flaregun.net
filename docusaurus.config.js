@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Flaregun",
-  tagline: "A Utility belt for your Cloudflare domains",
+  tagline: "A Utility belt for your Cloudflare domain",
   url: "http://localhost:3000",
   baseUrl: "/",
   trailingSlash: true,
@@ -25,7 +25,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: "/",
+          breadcrumbs: true,
+          // https://docusaurus.io/docs/docs-introduction#docs-only-mode
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: ({ docPath }) =>
             `https://github.com/flaregun-net/docs/edit/master/docs/${docPath}`,
@@ -33,7 +34,6 @@ const config = {
             "./src/components/CustomDocItem/index.tsx",
           ),
           exclude: ["**/*.wip"],
-          breadcrumbs: true,
           lastVersion: "current",
           versions: {
             current: {
@@ -108,10 +108,14 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      hideableSidebar: true,
-      autoCollapseSidebarCategories: true,
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
+      },
       colorMode: {
-        defaultMode: "light",
+        defaultMode: "dark",
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
@@ -120,22 +124,12 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: [
-          "rest",
-          "http",
-          "haskell",
-          "plsql",
-          "docker",
-          "nginx",
-          "markdown",
-        ],
+        additionalLanguages: ["http", "nginx", "markdown"],
       },
       algolia: {
-        // If Algolia did not provide you any appId, use 'BH4D9OD16A'
-        appId: "NS6GBGYACO",
-        // Public API key: it is safe to commit it
-        apiKey: "8f0f11e3241b59574c5dd32af09acdc8",
-        indexName: "hasura-graphql",
+        appId: "AL3AX5W7T3",
+        apiKey: "29c4e15fc636ba402de3d36c645d5c99",
+        indexName: "flaregun_docs",
         // Optional: see doc section below
         // contextualSearch: true,
         // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
@@ -143,14 +137,15 @@ const config = {
         // Optional: Algolia search parameters
         // searchParameters: {},
       },
-      // announcementBar: {
-      //   id: 'announcementBar-2', // Increment on change
-      //   content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus" >Twitter</a> ${TwitterSvg}`,
-      // },
+      announcementBar: {
+        id: "announcementBar-2", // Increment on change
+        content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus" >Twitter</a>`,
+      },
       navbar: {
         hideOnScroll: false,
         title: "",
         logo: {
+          target: "_self",
           alt: "Flaregun Logo",
           src: "/img/flaregun.svg",
           srcDark: "/img/flaregun.svg",
@@ -162,15 +157,25 @@ const config = {
             label: "Docs",
             position: "left",
             items: [
-              {
-                type: "doc",
-                docId: "graphql/core/index",
-                label: "Proxyflare for Pages",
-              },
+              // {
+              //   type: "doc",
+              //   docId: "proxyflare/core/index",
+              //   label: "Proxyflare",
+              // },
               {
                 type: "docSidebar",
-                sidebarId: "cloudDocsSidebar",
-                label: "Proxyflare Cloud",
+                sidebarId: "proxyflarePluginSidebar",
+                label: "Proxyflare",
+              },
+              // {
+              //   type: "doc",
+              //   docId: "edgeflare/core/index",
+              //   label: "Edgeflare",
+              // },
+              {
+                type: "docSidebar",
+                sidebarId: "edgeflarePluginSidebar",
+                label: "Edgeflare",
               },
             ],
           },

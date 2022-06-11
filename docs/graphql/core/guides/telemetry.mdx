@@ -1,7 +1,7 @@
 ---
 description: Telemetry on Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - guide
   - telemetry
@@ -43,31 +43,31 @@ Here is a sample row from the telemetry database:
 
 ```json
 {
-   "id": 12,
-   "timestamp": "2019-01-21T19:43:33.63838+00:00",
-   "db_uid": "dddff371-dab2-450f-9969-235bca66dab1",
-   "instance_uid": "6799360d-a431-40c5-9f68-24592a9f07df",
-   "version": "v1.0.0-alpha36",
-   "ci": "TRAVIS",
-   "metrics": {
-     "views": 1,
-     "tables": 2,
-     "functions": 1,
-     "permissions": {
-       "roles": 1,
-       "delete": 2,
-       "insert": 1,
-       "select": 2,
-       "update": 2
-     },
-     "relationships": {
-       "auto": 2,
-       "manual": 0
-     },
-     "event_triggers": 0,
-     "remote_schemas": 1
-   }
- }
+  "id": 12,
+  "timestamp": "2019-01-21T19:43:33.63838+00:00",
+  "db_uid": "dddff371-dab2-450f-9969-235bca66dab1",
+  "instance_uid": "6799360d-a431-40c5-9f68-24592a9f07df",
+  "version": "v1.0.0-alpha36",
+  "ci": "TRAVIS",
+  "metrics": {
+    "views": 1,
+    "tables": 2,
+    "functions": 1,
+    "permissions": {
+      "roles": 1,
+      "delete": 2,
+      "insert": 1,
+      "select": 2,
+      "update": 2
+    },
+    "relationships": {
+      "auto": 2,
+      "manual": 0
+    },
+    "event_triggers": 0,
+    "remote_schemas": 1
+  }
+}
 ```
 
 ### Console
@@ -87,8 +87,11 @@ Sample data:
   "console_mode": "cli",
   "cli_uuid": "0e4e2e9b-7fc9-44b8-9d5c-955673e20e0b",
   "server_uuid": "015a8f49-2fbd-4c41-8066-23f48d9c620a",
-  "data": { message: "Uncaught TypeError: something is not a function", stack: [" at main.js:1:3"] },
+  "data": {
+    "message": "Uncaught TypeError: something is not a function",
+    "stack": [" at main.js:1:3"]
   }
+}
 ```
 
 Please note that `TABLE_NAME` and `SCHEMA_NAME` are not placeholders.

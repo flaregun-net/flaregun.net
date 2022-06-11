@@ -1,7 +1,7 @@
 ---
 description: Model one-to-one relationships in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - schema
   - relationship
@@ -38,8 +38,8 @@ passport_info (
 
 These two tables are related via a `one-to-one` relationship. i.e.:
 
--   an `author` can have one `passport_info`
--   a `passport_info` has one `owner`
+- an `author` can have one `passport_info`
+- a `passport_info` has one `owner`
 
 ## Step 1: Set up a table relationship in the database
 
@@ -60,20 +60,19 @@ table and there will be only one row with a particular `owner_id`.
 To access the nested objects via the GraphQL API,
 [create the following relationships](/graphql/core/databases/postgres/schema/table-relationships/create.mdx):
 
--   Object relationship, `passport_info` from the `authors` table using
-    `id -> passport_info :: owner_id`
--   Object relationship, `owner` from the `passport_info` table using
-    `owner_id -> authors :: id`
+- Object relationship, `passport_info` from the `authors` table using
+  `id -> passport_info :: owner_id`
+- Object relationship, `owner` from the `passport_info` table using
+  `owner_id -> authors :: id`
 
 ## Query using one-to-one relationships
 
 We can now:
 
--   fetch a list of `authors` with their `passport_info`:
+- fetch a list of `authors` with their `passport_info`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   authors {
     id
     name
@@ -83,8 +82,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "authors": [
       {
@@ -108,11 +106,10 @@ We can now:
  }`}
 />
 
--   fetch a list of `passport_infos` with their `owner`:
+- fetch a list of `passport_infos` with their `owner`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   passport_info {
     id
     passport_number
@@ -122,8 +119,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "passport_info": [
       {
@@ -151,12 +147,11 @@ We can now:
 
 We can now:
 
--   insert `passport_info` with their `owner` where the `owner` might
-    already exist (assume unique `name` for `owner`):
+- insert `passport_info` with their `owner` where the `owner` might
+  already exist (assume unique `name` for `owner`):
 
 <GraphiQLIDE
-  query={
- `mutation upsertPassportInfoWithOwner {
+  query={`mutation upsertPassportInfoWithOwner {
   insert_passport_info(objects: [
     {
       passport_number: "X98973765",
@@ -179,8 +174,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_passport_info": {
       "returning": [

@@ -1,7 +1,7 @@
 ---
 description: Use Postgres functions with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - functions
@@ -48,13 +48,13 @@ $$ LANGUAGE sql STABLE;
 
 Let's break this function apart:
 
--   Function name: `search_articles`
--   Parameters: there is one parameter where `search` is the name and
-    `text` is the type
--   Return type: `SETOF article`
--   Function body: Block from `SELECT` until the end of the `WHERE`
-    clause
--   Language: The response is returned in the `sql` language
+- Function name: `search_articles`
+- Parameters: there is one parameter where `search` is the name and
+  `text` is the type
+- Return type: `SETOF article`
+- Function body: Block from `SELECT` until the end of the `WHERE`
+  clause
+- Language: The response is returned in the `sql` language
 
 ## Postgres functions & Hasura
 

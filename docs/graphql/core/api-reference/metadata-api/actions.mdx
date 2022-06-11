@@ -3,11 +3,11 @@ sidebar_label: Actions
 sidebar_position: 16
 description: Manage actions with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - actions
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - actions
 ---
 
 # Metadata API Reference: Actions
@@ -62,11 +62,11 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-create-action-syntax}
 
-| Key        | Required | Schema                                                                                  | Description              |
-|------------|----------|-----------------------------------------------------------------------------------------|--------------------------|
-| name       | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname)                    | Name of the action       |
-| definition | true     | [ActionDefinition](/graphql/core/api-reference/syntax-defs.mdx#actiondefinition)        | Definition of the action |
-| comment    | false    | text                                                                                    | comment                  |
+| Key        | Required | Schema                                                                           | Description              |
+| ---------- | -------- | -------------------------------------------------------------------------------- | ------------------------ |
+| name       | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname)             | Name of the action       |
+| definition | true     | [ActionDefinition](/graphql/core/api-reference/syntax-defs.mdx#actiondefinition) | Definition of the action |
+| comment    | false    | text                                                                             | comment                  |
 
 :::info Note
 
@@ -99,7 +99,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-drop-action-syntax}
 
 | Key        | Required | Schema                                                               | Description                                                                                                 |
-|------------|----------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| ---------- | -------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name       | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname) | Name of the action                                                                                          |
 | clear_data | false    | boolean                                                              | If set to `true` and action kind is `asynchronous`, related data is deleted from catalog. (default: `true`) |
 
@@ -140,10 +140,10 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-update-action-syntax}
 
-| Key        | Required | Schema                                                                                  | Description                             |
-|------------|----------|-----------------------------------------------------------------------------------------|-----------------------------------------|
-| name       | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname)                    | Name of the action                      |
-| definition | true     | [ActionDefinition](/graphql/core/api-reference/syntax-defs.mdx#actiondefinition)        | Definition of the action to be replaced |
+| Key        | Required | Schema                                                                           | Description                             |
+| ---------- | -------- | -------------------------------------------------------------------------------- | --------------------------------------- |
+| name       | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname)             | Name of the action                      |
+| definition | true     | [ActionDefinition](/graphql/core/api-reference/syntax-defs.mdx#actiondefinition) | Definition of the action to be replaced |
 
 ## create_action_permission {#metadata-create-action-permission}
 
@@ -167,9 +167,9 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-create-action-permission-syntax}
 
 | Key     | Required | Schema                                                               | Description        |
-|---------|----------|----------------------------------------------------------------------|--------------------|
+| ------- | -------- | -------------------------------------------------------------------- | ------------------ |
 | action  | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname) | Name of the action |
-| role    | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)    | Name of the role   |
+| role    | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)     | Name of the role   |
 | comment | false    | text                                                                 | comment            |
 
 ## drop_action_permission {#metadata-drop-action-permission}
@@ -192,7 +192,7 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-drop-action-permission-syntax}
 
-| Key  | Required | Schema                                                                | Description        |
-|------|----------|-----------------------------------------------------------------------|--------------------|
-| name | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname)  | Name of the action |
+| Key  | Required | Schema                                                               | Description        |
+| ---- | -------- | -------------------------------------------------------------------- | ------------------ |
+| name | true     | [ActionName](/graphql/core/api-reference/syntax-defs.mdx#actionname) | Name of the action |
 | role | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)     | Name of the role   |

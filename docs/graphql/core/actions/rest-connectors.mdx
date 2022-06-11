@@ -3,17 +3,17 @@ sidebar_label: REST Connectors for actions
 sidebar_position: 9
 description: REST connectors for actions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - action
   - transforms
   - rest connectors
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import TOCInline from "@theme/TOCInline";
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import TOCInline from "@theme/TOCInline"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # REST Connectors for actions
 
@@ -61,9 +61,9 @@ Update the `actions.yaml` file inside the `metadata` directory and add a [reques
       template_engine: Kriti
       method: POST
       content_type: application/json
-      url: '{{$base_url}}/create_user'
+      url: "{{$base_url}}/create_user"
       query_params:
-        id: '{{$session_variables[''x-hasura-user-id'']}}'
+        id: "{{$session_variables['x-hasura-user-id']}}"
       body: '{"username": {{$body.input.username}}}'
   comment: Custom action to create user
 ```
@@ -79,7 +79,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {24-33}
 POST /v1/metadata HTTP/1.1
@@ -124,19 +124,17 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ### Context Variables {#action-transform-context-variables}
 
 You can use context variables in the transforms to achieve dynamic behavior for each request.
 
 The context variables available in transforms are:
 
-| Context variable   | Value                                    |
-|--------------------|------------------------------------------|
-| $body              | Original body of action request          |
-| $base_url          | Original configured webhook handler URL  |
-| $session_variables | Session variables                        |
-
+| Context variable   | Value                                   |
+| ------------------ | --------------------------------------- |
+| $body              | Original body of action request         |
+| $base_url          | Original configured webhook handler URL |
+| $session_variables | Session variables                       |
 
 #### Console sample context {#action-transforms-sample-context}
 
@@ -194,7 +192,7 @@ In the `Configure REST Connectors` section, click on `Add Request Options Transf
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][RequestTransformation] field to the action:
+Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][requesttransformation] field to the action:
 
 ```yaml {8}
 - name: create_user
@@ -224,7 +222,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {26}
 POST /v1/metadata HTTP/1.1
@@ -269,7 +267,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ### Request URL
 
 The Request URL template allows you to configure the exact API endpoint to call.
@@ -298,7 +295,7 @@ Hit `Save Action` to apply your changes.
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][RequestTransformation] field to the action:
+Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][requesttransformation] field to the action:
 
 ```yaml {10-12}
 - name: create_user
@@ -328,7 +325,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```HTTP {27-30}
 POST /v1/metadata HTTP/1.1
@@ -369,6 +366,7 @@ X-Hasura-Role: admin
   }
 }
 ```
+
 </TabItem>
 </Tabs>
 
@@ -382,8 +380,8 @@ then you should provide the template URL as `{{$base_url}}/{{escapeUri $session_
 
 ### Request Body
 
-You can generate a custom request body by configuring a template to transform the default payload to a custom payload. Request body could be provided using the `body` field 
-as an [object](/graphql/core/api-reference/syntax-defs.mdx/#bodytransform), which additionally gives the ability to disable request body, 
+You can generate a custom request body by configuring a template to transform the default payload to a custom payload. Request body could be provided using the `body` field
+as an [object](/graphql/core/api-reference/syntax-defs.mdx/#bodytransform), which additionally gives the ability to disable request body,
 transform request body to `application/json`, or transform request body to `x_www_form_urlencoded` formats.
 
 - [Disabling Request Body](#disabling-request-body)
@@ -411,7 +409,7 @@ Hit `Save Action` to apply your changes.
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][RequestTransformation] field to the action:
+Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][requesttransformation] field to the action:
 
 ```yaml {8-9,13-16}
 - name: create_user
@@ -426,7 +424,7 @@ Update the `actions.yaml` file inside the `metadata` directory and add a [reques
     url: '{{$base_url}}/create_user'
     query_params:
       id: '{{$session_variables[''x-hasura-user-id'']}}'
-    body: 
+    body:
       action: 'remove'
     request_headers:
       remove_headers: ['content-type]
@@ -444,7 +442,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {26-27,32-37}
 POST /v1/metadata HTTP/1.1
@@ -494,7 +492,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ##### Request Body with application/json format
 
 You can transform Request Body to `application/json` format using the following steps:
@@ -516,7 +513,7 @@ Hit `Save Action` to apply your changes.
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][RequestTransformation] field to the action:
+Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][requesttransformation] field to the action:
 
 ```yaml {8,13-15}
 - name: create_user
@@ -531,7 +528,7 @@ Update the `actions.yaml` file inside the `metadata` directory and add a [reques
     url: '{{$base_url}}/create_user'
     query_params:
       id: '{{$session_variables[''x-hasura-user-id'']}}'
-    body: 
+    body:
       action: 'transform'
       template: '{"username": {{$body.input.username}}}'
 comment: Custom action to create user
@@ -548,7 +545,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {26,32-35}
 POST /v1/metadata HTTP/1.1
@@ -596,7 +593,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ##### Request Body with x_www_form_urlencoded format
 
 While doing `x_www_form_urlencoded` transformation, please note that as all changes to the request must be made explicit when calling the API,
@@ -619,7 +615,7 @@ Hit `Save Action` to apply your changes.
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][RequestTransformation] field to the action:
+Update the `actions.yaml` file inside the `metadata` directory and add a [request_transform][requesttransformation] field to the action:
 
 ```yaml {8,13-20}
 - name: create_user
@@ -634,13 +630,13 @@ Update the `actions.yaml` file inside the `metadata` directory and add a [reques
     url: '{{$base_url}}/create_user'
     query_params:
       id: '{{$session_variables[''x-hasura-user-id'']}}'
-    body: 
+    body:
       action: 'x_www_form_urlencoded'
-      form_template: 
+      form_template:
         username: '{{$body.input.username}}'
     request_headers:
       remove_headers: ['content-type']
-      add_headers: 
+      add_headers:
         'content-type': 'application/x-www-form-urlencoded'
 
 comment: Custom action to create user
@@ -657,7 +653,7 @@ hasura metadata apply
 
 REST Connectors can be configured for actions using the [create_action][metadata-create-action] or
 [update_action][metadata-update-action] metadata APIs by adding a
-[request_transform][RequestTransformation] field to the args:
+[request_transform][requesttransformation] field to the args:
 
 ```http {26,32-43}
 POST /v1/metadata HTTP/1.1
@@ -713,7 +709,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ## Example
 
 Let's integrate Auth0's management API to update the profile of a user:
@@ -757,7 +752,7 @@ Action definition:
 
 ```graphql
 type Mutation {
-  updateProfile(picture_url : String!) : ProfileOutput
+  updateProfile(picture_url: String!): ProfileOutput
 }
 
 type ProfileOutput {
@@ -785,4 +780,4 @@ The transform is given by:
 
 [metadata-create-action]: /graphql/core/api-reference/metadata-api/actions.mdx#metadata-create-action
 [metadata-update-action]: /graphql/core/api-reference/metadata-api/actions.mdx#metadata-update-action
-[RequestTransformation]: /graphql/core/api-reference/syntax-defs.mdx#requesttransformation
+[requesttransformation]: /graphql/core/api-reference/syntax-defs.mdx#requesttransformation

@@ -2,7 +2,7 @@
 sidebar_position: 2
 description: New Relic Integration on Hasura Cloud
 keywords:
-  - hasura
+  - flaregun
   - docs
   - metrics
   - integration
@@ -12,7 +12,7 @@ keywords:
 sidebar_label: New Relic
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # New Relic Integration
 
@@ -39,7 +39,7 @@ Navigate to the integrations tab on project settings page to find New Relic inte
 Select the New Relic API region and enter the New Relic Insights Insert API key (follow [New Relic docs to retrieve the API key](https://docs.newrelic.com/docs/apis/get-started/intro-apis/new-relic-api-keys/#insights-insert-key)), host, service name and custom attributes to associate with exported logs and metrics.
 
 | Field             | Description                                                                                                                                                                                                                                                                                                                                                                              |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Region            | The region of the datacentre where your New Relic account stores its data. [Read more about regions on New Relic docs.](https://docs.newrelic.com/docs/using-new-relic/welcome-new-relic/get-started/our-eu-us-region-data-centers)                                                                                                                                                      |
 | API Key           | API keys are unique to your organization. An API key is required by the New Relic API to submit metrics and events to New Relic. You can get the API key from [here](https://one.newrelic.com/launcher/api-keys-ui.api-keys-launcher) if you are in New Relic US region and [here](https://one.eu.newrelic.com/launcher/api-keys-ui.api-keys-launcher) if you're in New Relic EU region. |
 | Host              | The name of the originating host of the log and metrics.                                                                                                                                                                                                                                                                                                                                 |
@@ -94,7 +94,7 @@ To view only logs exported by Hasura Cloud, filter your logs using `attributes` 
 The integration exports the following five metrics to your New Relic account:
 
 | Metric Exported                | Metric Name in New Relic      |
-|--------------------------------|-------------------------------|
+| ------------------------------ | ----------------------------- |
 | Average number of requests     | `average_requests_per_minute` |
 | Average request execution time | `average_execution_time`      |
 | Success rate of requests       | `success_rate`                |

@@ -1,7 +1,7 @@
 ---
 description: Set up soft deletes for data with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - guide
   - soft deletes
@@ -9,7 +9,7 @@ sidebar_position: 5
 sidebar_label: Setting up soft deletes for data
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Setting up soft deletes for data
@@ -58,10 +58,8 @@ timestamp:
 # Replace the delete mutations with this update mutation
 mutation {
   update_todos(
-    where: {
-      name: {_eq: "Stuff already done!"}
-    },
-    _set: {deleted_at: "now()"}
+    where: { name: { _eq: "Stuff already done!" } }
+    _set: { deleted_at: "now()" }
   ) {
     returning {
       id
@@ -121,16 +119,14 @@ todos, we need to add the following permission rule to ensure this:
 Now the role `user` can only access non-deleted `todos`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   todos {
     id
     name
     deleted_at
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "todos": [
       {

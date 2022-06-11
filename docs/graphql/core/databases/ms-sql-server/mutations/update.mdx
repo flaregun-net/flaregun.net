@@ -3,14 +3,14 @@ sidebar_label: Update
 sidebar_position: 3
 description: Update an object in MS SQL Server using a mutation
 keywords:
-  - hasura
+  - flaregun
   - docs
   - ms sql server
   - mutation
   - update
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # MS SQL Server: Update mutation
 
@@ -51,14 +51,12 @@ As you can see from the schema:
 
 See the [update mutation API reference](/graphql/core/api-reference/graphql-api/mutation.mdx#update-syntax) for the full specifications.
 
-
 :::info Note
 
 - At least any one of `_set`, `_inc` operators is required.
 - If a table is not in the `dbo` MS SQL Server schema, the update mutation field will be of the format `update_<schema_name>_<table_name>`.
 
 :::
-
 
 ## Update an object by its primary key
 
@@ -68,7 +66,7 @@ The output type is the nullable table object. The mutation returns the updated r
 **Example:** Update an article where `id` is `1`:
 
 <GraphiQLIDE
-query={`mutation update_an_article {
+  query={`mutation update_an_article {
   update_article_by_pk (
     pk_columns: {id: 1}
     _set: { is_published: true }
@@ -77,8 +75,7 @@ query={`mutation update_an_article {
     is_published
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "update_article_by_pk": {
       "id": 1,
@@ -91,7 +88,7 @@ response={
 **Example:** Update a non-existent article:
 
 <GraphiQLIDE
-query={`mutation update_an_article {
+  query={`mutation update_an_article {
   update_article_by_pk (
     pk_columns: {id: 100}
     _set: { is_published: true }
@@ -100,14 +97,12 @@ query={`mutation update_an_article {
     is_published
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "update_article_by_pk": null
   }
 }`}
 />
-
 
 :::info Note
 
@@ -120,7 +115,7 @@ response={
 **Example:** Update the `rating` and `is_published` of articles with a low `rating`:
 
 <GraphiQLIDE
-query={`mutation update_article {
+  query={`mutation update_article {
   update_article(
     where: {rating: {_lte: 2}},
     _set: {
@@ -138,8 +133,7 @@ query={`mutation update_article {
     }
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 2,
@@ -164,11 +158,10 @@ response={
 }`}
 />
 
-
 Using variables:
 
 <GraphiQLIDE
-query={`mutation update_article($rating: Int, $changes: article_set_input) {
+  query={`mutation update_article($rating: Int, $changes: article_set_input) {
   update_article(
     where: {rating: {_lte: $rating}},
     _set: $changes
@@ -183,8 +176,7 @@ query={`mutation update_article($rating: Int, $changes: article_set_input) {
     }
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 2,
@@ -207,8 +199,7 @@ response={
     }
   }
 }`}
-variables={
-`{
+  variables={`{
   "rating": 2,
   "changes": {
     "rating": 1,
@@ -220,7 +211,7 @@ variables={
 OR
 
 <GraphiQLIDE
-query={`mutation update_article($ratingLimit: Int, $rating: Int, $isPublished: Boolean) {
+  query={`mutation update_article($ratingLimit: Int, $rating: Int, $isPublished: Boolean) {
   update_article(
     where: {rating: {_lte: $ratingLimit}},
     _set: {
@@ -239,8 +230,7 @@ query={`mutation update_article($ratingLimit: Int, $rating: Int, $isPublished: B
   }
 }
 `}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 2,
@@ -263,21 +253,19 @@ response={
     }
   }
 }`}
-variables={
-`{
+  variables={`{
   "ratingLimit": 2,
   "rating": 1,
   "isPublished": false
 }`}
 />
 
-
 ## Update objects based on nested objects' fields
 
 **Example:** Reset the `rating` of all articles authored by "Sidney":
 
 <GraphiQLIDE
-query={`mutation update_ratings {
+  query={`mutation update_ratings {
   update_article(
     where: {author: {name: {_eq: "Sidney"}}},
     _set: {rating: null}
@@ -285,8 +273,7 @@ query={`mutation update_ratings {
     affected_rows
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 3
@@ -294,7 +281,6 @@ response={
   }
 }`}
 />
-
 
 ## Update all objects
 
@@ -304,7 +290,7 @@ You can update all objects in a table using the `{}` expression as the `where` a
 **Example:** Reset rating of all articles:
 
 <GraphiQLIDE
-query={`mutation reset_rating {
+  query={`mutation reset_rating {
   update_article (
     where: {}
     _set: { rating: null }
@@ -313,8 +299,7 @@ query={`mutation reset_rating {
   }
 }
 `}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 20
@@ -323,7 +308,6 @@ response={
 }`}
 />
 
-
 ## Increment/Decrement **int** columns
 
 You can increment/decrement an `int` column with a given value using the `_inc` operator.
@@ -331,7 +315,7 @@ You can increment/decrement an `int` column with a given value using the `_inc` 
 **Example:** Increment the `likes` of an article by 2:
 
 <GraphiQLIDE
-query={`mutation update_likes {
+  query={`mutation update_likes {
   update_article(
     where: {id: {_eq: 1}},
     _inc: {likes: 2}  # initial value: 1
@@ -344,8 +328,7 @@ query={`mutation update_likes {
   }
 }
 `}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 1,
@@ -358,11 +341,10 @@ response={
 }`}
 />
 
-
 **Example:** Decrement the `likes` of an article by 2:
 
 <GraphiQLIDE
-query={`mutation update_likes {
+  query={`mutation update_likes {
   update_article(
     where: {id: {_eq: 1}},
     _inc: {likes: -2}  # initial value: 3
@@ -375,8 +357,7 @@ query={`mutation update_likes {
   }
 }
 `}
-response={
-`{
+  response={`{
   "data": {
     "update_article": {
       "affected_rows": 1,
@@ -389,7 +370,6 @@ response={
 }`}
 />
 
-
 ## Replace all nested array objects of an object
 
 In order to replace all existing nested array objects of an object,
@@ -399,7 +379,7 @@ existing objects and one to add a list of new nested objects.
 **Example:** Replace all articles of an author with a new list:
 
 <GraphiQLIDE
-query={`mutation updateAuthorArticles($author_id: Int!) {
+  query={`mutation updateAuthorArticles($author_id: Int!) {
   delete_articles(
     where: {author_id: {_eq: $author_id}}
   ) {
@@ -422,8 +402,7 @@ query={`mutation updateAuthorArticles($author_id: Int!) {
     affected_rows
   }
 }`}
-response={
-`{
+  response={`{
   "data": {
     "delete_article_tags": {
       "affected_rows": 3
@@ -433,9 +412,7 @@ response={
     }
   }
 }`}
-variables={
-`{
+  variables={`{
   "author_id": 21
 }`}
 />
-

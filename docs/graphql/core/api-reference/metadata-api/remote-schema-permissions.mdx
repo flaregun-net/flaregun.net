@@ -3,12 +3,12 @@ sidebar_label: Remote Schema Permissions
 sidebar_position: 7
 description: Manage remote schema permissions with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - remote schema permissions
-   - permission
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - remote schema permissions
+  - permission
 ---
 
 # Metadata API Reference: Remote Schema Permissions
@@ -137,13 +137,13 @@ input MessageWhereInpObj {
 }
 
 input IntCompareObj {
-  eq : Int
-  gt : Int
-  lt : Int
+  eq: Int
+  gt: Int
+  lt: Int
 }
 
 input StringCompareObj {
-  eq : String
+  eq: String
 }
 
 input IncludeInpObj {
@@ -334,7 +334,7 @@ engine before it queries the remote schema.
 ### Args syntax {#metadata-add-remote-schema-permissions-syntax}
 
 | Key           | Required | Schema                                                                                       | Description                             |
-|---------------|----------|----------------------------------------------------------------------------------------------|-----------------------------------------|
+| ------------- | -------- | -------------------------------------------------------------------------------------------- | --------------------------------------- |
 | remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)             | Name of the remote schema               |
 | role          | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)                             | Role                                    |
 | definition    | true     | [RemoteSchemaPermission](/graphql/core/api-reference/syntax-defs.mdx#remoteschemapermission) | The remote schema permission definition |
@@ -364,6 +364,6 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-drop-remote-schema-permissions-syntax}
 
 | Key   | Required | Schema                                                                           | Description               |
-|-------|----------|----------------------------------------------------------------------------------|---------------------------|
+| ----- | -------- | -------------------------------------------------------------------------------- | ------------------------- |
 | table | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema |
 | role  | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)                 | Role                      |

@@ -1,16 +1,16 @@
 ---
 description: Codegen for Hasura actions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - codegen
 slug: index
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Actions codegen
 
@@ -57,21 +57,23 @@ hasura actions use-codegen
 ```
 
 1.  Choose which framework you want to codegen for:
+
     <Thumbnail
       src="/img/graphql/core/actions/cli-framework-prompt.png"
       alt="CLI Framework Prompt"
     />
 
 2.  Choose if you also wish to clone a starter kit for the chosen framework:
+
     <Thumbnail
-    src="/img/graphql/core/actions/cli-starter-kit-prompt.png"
-    alt="CLI Starter Kit Prompt"
+      src="/img/graphql/core/actions/cli-starter-kit-prompt.png"
+      alt="CLI Starter Kit Prompt"
     />
 
 3.  Choose a path where you want to output the auto-generated code files
     <Thumbnail
-    src="/img/graphql/core/actions/cli-output-dir-prompt.png"
-    alt="CLI Starter Kit Prompt"
+      src="/img/graphql/core/actions/cli-output-dir-prompt.png"
+      alt="CLI Starter Kit Prompt"
     />
 
 This command will update your `config.yaml` with the codegen config as
@@ -103,6 +105,7 @@ hasura actions codegen <action-name>
 
 The codegen files will be generated at the `output_dir` path from
 `config.yaml`.
+
 </TabItem>
 </Tabs>
 

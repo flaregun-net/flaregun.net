@@ -1,13 +1,13 @@
 ---
 description: Hasura actions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
 slug: index
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Actions
 
@@ -47,16 +47,16 @@ An action consists of the following parts:
 
 Actions can be of two types:
 
--   **Query action**: An action of type `query` extends the query root
-    of the Hasura schema. This means that you can execute this action
-    through a GraphQL query. Query actions must be used where you want
-    to fetch data from a data source without changing anything on the
-    data source.
--   **Mutation action**: An action of type `mutation` extends the
-    mutation root of the Hasura schema. This means that you can execute
-    this action through a GraphQL mutation. Mutation actions must be
-    used when you want to mutate the state of a data source and fetch
-    some data.
+- **Query action**: An action of type `query` extends the query root
+  of the Hasura schema. This means that you can execute this action
+  through a GraphQL query. Query actions must be used where you want
+  to fetch data from a data source without changing anything on the
+  data source.
+- **Mutation action**: An action of type `mutation` extends the
+  mutation root of the Hasura schema. This means that you can execute
+  this action through a GraphQL mutation. Mutation actions must be
+  used when you want to mutate the state of a data source and fetch
+  some data.
 
 ### Definition
 
@@ -93,7 +93,6 @@ called `userLogin`.
   string values.
 - `UserInfo` is the response type of the action
 
-
 **Custom Types**
 
 In case the action returns an object type, you will have to define your custom types like so:
@@ -120,26 +119,26 @@ Learn more about [writing an action handler](/graphql/core/actions/action-handle
 
 **Mutation actions** are of two kinds:
 
--   **Synchronous**: Sync actions return a response to the client after
-    receiving a response from the handler.
--   **Asynchronous**: [Async actions](/graphql/core/actions/async-actions.mdx) return an
-    `action id` as response to the client before receiving a response
-    from the handler and allow the client to subscribe to the actual
-    response using the `action id`.
+- **Synchronous**: Sync actions return a response to the client after
+  receiving a response from the handler.
+- **Asynchronous**: [Async actions](/graphql/core/actions/async-actions.mdx) return an
+  `action id` as response to the client before receiving a response
+  from the handler and allow the client to subscribe to the actual
+  response using the `action id`.
 
 **Query actions** don't have a kind, they always behave like sync
 mutation actions.
 
 ## How it works?
 
--   Hasura receives the action GraphQL query or mutation and converts
-    this request into an event payload.
--   The event is captured, persisted and then delivered to the action
-    handler with the appropriate retry/delivery guarantees.
--   The action handler runs and returns a response that is captured as
-    an event and again persisted to the event store.
--   The action response is returned to the client synchronously or
-    asynchronously based on the kind.
+- Hasura receives the action GraphQL query or mutation and converts
+  this request into an event payload.
+- The event is captured, persisted and then delivered to the action
+  handler with the appropriate retry/delivery guarantees.
+- The action handler runs and returns a response that is captured as
+  an event and again persisted to the event store.
+- The action response is returned to the client synchronously or
+  asynchronously based on the kind.
 
 ## Actions vs. remote schemas
 

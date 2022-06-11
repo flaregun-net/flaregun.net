@@ -3,14 +3,14 @@ sidebar_label: Insert
 sidebar_position: 1
 description: Insert an object into Postgres using a mutation
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - mutation
   - insert
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Insert mutation
 
@@ -42,14 +42,14 @@ insert_article_one (
 
 As you can see from the schema:
 
--   `objects` argument is necessary and you can pass multiple `objects`
-    to the mutation.
--   You can pass an `on_conflict` argument to convert the mutation to an
-    [upsert mutation](/graphql/core/databases/postgres/mutations/upsert.mdx).
--   You can return the number of affected rows and the affected objects
-    (with nested objects) in the response.
--   You can use the single object insert to get the inserted object
-    directly as the mutation response.
+- `objects` argument is necessary and you can pass multiple `objects`
+  to the mutation.
+- You can pass an `on_conflict` argument to convert the mutation to an
+  [upsert mutation](/graphql/core/databases/postgres/mutations/upsert.mdx).
+- You can return the number of affected rows and the affected objects
+  (with nested objects) in the response.
+- You can use the single object insert to get the inserted object
+  directly as the mutation response.
 
 See the [insert mutation API reference](/graphql/core/api-reference/graphql-api/mutation.mdx#insert-upsert-syntax) for the
 full specifications.
@@ -79,7 +79,7 @@ article object in the response:
     title
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article_one": {
       "id": 21,
@@ -98,7 +98,7 @@ Using variables:
     title
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article_one": {
       "id": 21,
@@ -106,7 +106,7 @@ response={`{
     }
   }
 }`}
-variables={`{
+  variables={`{
   "object": {
     "title": "Article 1",
     "content": "Sample article content",
@@ -155,7 +155,7 @@ objects in the response:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "affected_rows": 2,
@@ -185,7 +185,7 @@ Using variables:
     }
   }
 }`}
-response={`{
+  response={`{
     "data": {
       "insert_article": {
         "affected_rows": 2,
@@ -202,7 +202,7 @@ response={`{
       }
     }
 }`}
-variables={`{
+  variables={`{
   "objects": [
     {
       "title": "Article 2",
@@ -244,7 +244,7 @@ article object with its author in the response:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "affected_rows": 1,
@@ -317,7 +317,7 @@ the `articles` table.
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_authors": {
       "affected_rows": 4,
@@ -438,7 +438,7 @@ table via a bridge table `article_tags`.
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_articles": {
       "affected_rows": 5,
@@ -519,7 +519,7 @@ for a tag, we update the `label` of this respective tag (see
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "affected_rows": 1,
@@ -539,7 +539,7 @@ response={`{
     }
   }
 }`}
-variables={`{
+  variables={`{
   "address": {
     "street_address": "161, 19th Main Road, Koramangala 6th Block",
     "city": "Bengaluru",
@@ -575,7 +575,7 @@ To insert fields of array types, you currently have to pass them as a
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "affected_rows": 1,
@@ -611,7 +611,7 @@ Using variables:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "affected_rows": 1,
@@ -625,7 +625,7 @@ response={`{
     }
   }
 }`}
-variables={`{
+  variables={`{
   "emails": "{ash@ash.com, ash123@ash.com}"
 }`}
 />
@@ -657,7 +657,7 @@ integer, there's no need to pass the `id` field to the input object:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "affected_rows": 1,
@@ -696,7 +696,7 @@ don't pass the age field to the input object or pass it as `null`:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "returning": [
@@ -730,7 +730,7 @@ OR
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "returning": [

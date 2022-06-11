@@ -1,7 +1,7 @@
 ---
 description: Hasura Cloud read replicas
 keywords:
-  - hasura
+  - flaregun
   - docs
   - cloud
   - read replicas
@@ -10,13 +10,13 @@ keywords:
 sidebar_position: 6
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Read replicas
 
-Hasura Cloud can load balance queries and subscriptions across *read replicas* while sending all mutations and metadata API calls to the primary.
+Hasura Cloud can load balance queries and subscriptions across _read replicas_ while sending all mutations and metadata API calls to the primary.
 
 ## Adding read replica URLs
 
@@ -36,7 +36,7 @@ Head to `Data -> Manage -> <db-name> -> Edit`
 </TabItem>
 <TabItem value="cli" label="CLI">
 
-You can add *read replicas* for a database by adding their config to the `/metadata/databases/database.yaml` file:
+You can add _read replicas_ for a database by adding their config to the `/metadata/databases/database.yaml` file:
 
 ```yaml {11-17}
 - name: <db-name>
@@ -67,7 +67,7 @@ hasura metadata apply
 </TabItem>
 <TabItem value="api" label="API">
 
-You can add *read replicas* for a database using the [pg_add_source](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-add-source) metadata API.
+You can add _read replicas_ for a database using the [pg_add_source](/graphql/core/api-reference/metadata-api/source.mdx#metadata-pg-add-source) metadata API.
 
 ```http {16-27}
 POST /v1/metadata HTTP/1.1
@@ -115,7 +115,7 @@ HASURA_GRAPHQL_READ_REPLICA_URLS=postgres://user:password@replica-host:5432/db
 
 In the case of multiple replicas, you can add the URLs of each replica as comma-separated values.
 
-Additional environment variables for *read replicas* specifically:
+Additional environment variables for _read replicas_ specifically:
 
 `HASURA_GRAPHQL_CONNECTIONS_PER_READ_REPLICA`
 
@@ -131,7 +131,7 @@ Additional environment variables for *read replicas* specifically:
   </TabItem>
   <TabItem value="cli" label="CLI">
 
-You can add *read replicas* for a database by adding their config to the `/metadata/databases/database.yaml` file:
+You can add _read replicas_ for a database by adding their config to the `/metadata/databases/database.yaml` file:
 
 ```yaml {10-15}
 - name: <db-name>
@@ -160,7 +160,7 @@ hasura metadata apply
   </TabItem>
   <TabItem value="api" label="API">
 
-You can add *read replicas* for a database using the [mssql_add_source](/graphql/core/api-reference/metadata-api/source.mdx#mssql-add-source) metadata API.
+You can add _read replicas_ for a database using the [mssql_add_source](/graphql/core/api-reference/metadata-api/source.mdx#mssql-add-source) metadata API.
 
 ```http {19-29}
 POST /v1/metadata HTTP/1.1

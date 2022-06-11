@@ -1,7 +1,7 @@
 ---
 description: Postgres requirements for Hasura GraphQL engine
 keywords:
-  - hasura
+  - flaregun
   - docs
   - deployment
   - postgres
@@ -37,17 +37,17 @@ the following permissions. You may have a dedicated metadata database as describ
 ### User Database Permissions
 
 - (required) Read access to the `information_schema` and `pg_catalog`
-    schemas, to query for list of tables. Note that these permissions
-    are usually available by default to all postgres users via
-    [PUBLIC](https://www.postgresql.org/docs/current/sql-grant.html)
-    grant.
+  schemas, to query for list of tables. Note that these permissions
+  are usually available by default to all postgres users via
+  [PUBLIC](https://www.postgresql.org/docs/current/sql-grant.html)
+  grant.
 - (required) Read access to the schemas (`public` or otherwise) if you
-    only want to support queries.
+  only want to support queries.
 - (optional) Write access to the schemas if you want to support
-    mutations as well.
+  mutations as well.
 - (optional) To create tables and views via the Hasura console (the
-    admin UI) you'll need the privilege to create tables/views. This
-    might not be required when you're working with an existing database.
+  admin UI) you'll need the privilege to create tables/views. This
+  might not be required when you're working with an existing database.
 - (required only if event triggers are needed) Read & write access on schema: `hdb_catalog`.
 
 ## Sample scenarios
@@ -58,7 +58,7 @@ Following are sample SQL blocks that you can run on your database (as a
 ### 1. Different roles to manage **metadata database** and **user database**
 
 ```sql
--- We will create separate users to manage the user database 
+-- We will create separate users to manage the user database
 -- and metadata database and grant permissions on hasura-specific
 -- schemas and information_schema and pg_catalog.
 -- These permissions/grants are required for Hasura to work properly.
@@ -74,7 +74,7 @@ CREATE SCHEMA IF NOT EXISTS hdb_catalog;
 ALTER SCHEMA hdb_catalog OWNER TO hasura_metadata_user;
 ALTER ROLE hasura_metadata_user SET search_path TO hdb_catalog;
 
--- Hasura needs pgcrypto extension
+-- flaregun needs pgcrypto extension
 -- See section below on pgcrypto in PG search path
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -90,7 +90,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- The below permissions are optional. This is dependent on what access to your
 -- tables/schemas you want give to hasura. If you want expose the public
 -- schema for GraphQL query then give permissions on public schema to the
--- hasura user.
+-- flaregun user.
 -- Be careful to use these in your production db. Consult the postgres manual or
 -- your DBA and give appropriate permissions.
 
@@ -112,7 +112,7 @@ GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO hasurauser;
 ### 2. A single role to manage metadata and user objects in the **same database**
 
 ```sql
--- We will create a separate user to grant permissions on hasura-specific  
+-- We will create a separate user to grant permissions on hasura-specific
 -- schemas and information_schema and pg_catalog.
 -- These permissions/grants are required for Hasura to work properly.
 
@@ -138,7 +138,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA pg_catalog TO hasurauser;
 -- The below permissions are optional. This is dependent on what access to your
 -- tables/schemas you want give to hasura. If you want expose the public
 -- schema for GraphQL query then give permissions on public schema to the
--- hasura user.
+-- flaregun user.
 -- Be careful to use these in your production db. Consult the postgres manual or
 -- your DBA and give appropriate permissions.
 

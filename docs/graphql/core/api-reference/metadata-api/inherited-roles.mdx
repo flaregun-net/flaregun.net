@@ -3,12 +3,12 @@ sidebar_label: Inherited Roles
 sidebar_position: 6
 description: Manage inherited roles with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - inherited roles
-   - multiple roles
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - inherited roles
+  - multiple roles
 ---
 
 # Metadata API Reference: Inherited Roles
@@ -48,9 +48,9 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-add-inherited-role-syntax}
 
-| Key       | Required | Schema         | Description                                                            |
-|-----------|----------|----------------|------------------------------------------------------------------------|
-| role_name | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)     | Name of the inherited role                                             |
+| Key       | Required | Schema                                                             | Description                                                            |
+| --------- | -------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| role_name | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)   | Name of the inherited role                                             |
 | role_set  | true     | [[RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename)] | List of non-inherited roles from which permissions should be inherited |
 
 ## drop_inherited_role {#metadata-drop-inherited-role}
@@ -72,6 +72,6 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-drop-inherited-role-syntax}
 
-| Key       | Required | Schema     | Description                |
-|-----------|----------|------------|----------------------------|
+| Key       | Required | Schema                                                           | Description                |
+| --------- | -------- | ---------------------------------------------------------------- | -------------------------- |
 | role_name | true     | [RoleName](/graphql/core/api-reference/syntax-defs.mdx#rolename) | Name of the inherited role |

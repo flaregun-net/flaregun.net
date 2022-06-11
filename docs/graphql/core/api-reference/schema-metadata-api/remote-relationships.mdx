@@ -1,14 +1,14 @@
 ---
 sidebar_label: Remote Relationships
-sidebar_position: 11 
+sidebar_position: 11
 description: Manage remote relationships with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - schema/metadata API
-   - API reference
-   - remote joins
-   - remote relationships
+  - flaregun
+  - docs
+  - schema/metadata API
+  - API reference
+  - remote joins
+  - remote relationships
 ---
 
 # Schema/Metadata API Reference: Remote Relationships (Deprecated)
@@ -23,7 +23,6 @@ Though for backwards compatibility, the schema/metadata APIs will
 continue to function.
 
 :::
-
 
 ## Introduction
 
@@ -59,13 +58,13 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-create-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                                                                                                                       | Description                                                                                                                                |
-|---------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                                                 | Name of the remote relationship                                                                                                            |
-| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                                 | Object with table name and schema                                                                                                          |
-| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn) \| [ComputedFieldName](/graphql/core/api-reference/syntax-defs.mdx#computedfieldname)]    | Column/Computed field(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
-| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)                                                                             | Name of the remote schema to join with                                                                                                     |
-| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                                                                                       | The schema tree ending at the field in remote schema which needs to be joined with.                                                        |
+| Key           | Required | Schema                                                                                                                                                    | Description                                                                                                                                |
+| ------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)                                                              | Name of the remote relationship                                                                                                            |
+| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                              | Object with table name and schema                                                                                                          |
+| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn) \| [ComputedFieldName](/graphql/core/api-reference/syntax-defs.mdx#computedfieldname)] | Column/Computed field(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)                                                                          | Name of the remote schema to join with                                                                                                     |
+| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                                                                                    | The schema tree ending at the field in remote schema which needs to be joined with.                                                        |
 
 ## update_remote_relationship {#schema-metadata-update-remote-relationship}
 
@@ -99,13 +98,13 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-update-remote-relationship-syntax}
 
-| Key           | Required | Schema                                                                                        | Description                                                                                                                 |
-|---------------|----------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)  | Name of the remote relationship                                                                                             |
-| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                  | Object with table name and schema                                                                                           |
-| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn)\]                          | Column(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
-| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)              | Name of the remote schema to join with                                                                                      |
-| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                        | The schema tree ending at the field in remote schema which needs to be joined with.                                         |
+| Key           | Required | Schema                                                                                       | Description                                                                                                                 |
+| ------------- | -------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| name          | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship                                                                                             |
+| table         | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                 | Object with table name and schema                                                                                           |
+| hasura_fields | true     | \[[PGColumn](/graphql/core/api-reference/syntax-defs.mdx#pgcolumn)\]                         | Column(s) in the table that is used for joining with remote schema field. All join keys in `remote_field` must appear here. |
+| remote_schema | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)             | Name of the remote schema to join with                                                                                      |
+| remote_field  | true     | [RemoteField](/graphql/core/api-reference/syntax-defs.mdx#remotefield)                       | The schema tree ending at the field in remote schema which needs to be joined with.                                         |
 
 ## delete_remote_relationship {#schema-metadata-delete-remote-relationship}
 
@@ -130,7 +129,7 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-delete-remote-relationship-syntax}
 
-| Key   | Required | Schema                                                                                                | Description                       |
-|-------|----------|-------------------------------------------------------------------------------------------------------|-----------------------------------|
-| table | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                          | Object with table name and schema |
-| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname)          | Name of the remote relationship   |
+| Key   | Required | Schema                                                                                       | Description                       |
+| ----- | -------- | -------------------------------------------------------------------------------------------- | --------------------------------- |
+| table | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                 | Object with table name and schema |
+| name  | true     | [RemoteRelationshipName](/graphql/core/api-reference/syntax-defs.mdx#remoterelationshipname) | Name of the remote relationship   |

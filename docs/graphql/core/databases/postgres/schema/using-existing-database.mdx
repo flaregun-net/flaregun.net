@@ -3,14 +3,14 @@ sidebar_label: Using an existing database
 sidebar_position: 11
 description: Set up a Hasura GraphQL schema with an existing database
 keywords:
-  - hasura
+  - flaregun
   - docs
   - schema
   - existing database
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Setting up a GraphQL schema using an existing Postgres database
 
@@ -46,8 +46,8 @@ To track the table and expose it over the GraphQL API, add it to the
 
 ```yaml {1-3}
 - table:
-   schema: public
-   name: <table name>
+    schema: public
+    name: <table name>
 ```
 
 Apply the metadata by running:
@@ -97,11 +97,11 @@ the `tables.yaml` file in the `metadata` directory as follows:
 
 ```yaml {1-6}
 - table:
-   schema: public
-   name: <table-name-1>
+    schema: public
+    name: <table-name-1>
 - table:
-   schema: public
-   name: <table-name-2>
+    schema: public
+    name: <table-name-2>
 ```
 
 To automate this, you could add the tables in a loop through a script.
@@ -184,9 +184,9 @@ the `tables.yaml` file in the `metadata` directory as follows:
     schema: public
     name: <table name>
   object_relationships:
-  - name: <relationship name>
-    using:
-      foreign_key_constraint_on: <reference column>
+    - name: <relationship name>
+      using:
+        foreign_key_constraint_on: <reference column>
 ```
 
 **Array relationship**
@@ -289,9 +289,9 @@ them to the `tables.yaml` file in the `metadata` directory as follows:
     schema: public
     name: <table name>
   object_relationships:
-  - name: <relationship name>
-    using:
-      foreign_key_constraint_on: <reference column>
+    - name: <relationship name>
+      using:
+        foreign_key_constraint_on: <reference column>
 ```
 
 **Array relationship**
@@ -301,13 +301,13 @@ them to the `tables.yaml` file in the `metadata` directory as follows:
     schema: public
     name: <table name>
   array_relationships:
-  - name: <relationship name>
-    using:
-      foreign_key_constraint_on:
-        column: <reference column>
-        table:
-          schema: public
-          name: <reference table name>
+    - name: <relationship name>
+      using:
+        foreign_key_constraint_on:
+          column: <reference column>
+          table:
+            schema: public
+            name: <reference table name>
 ```
 
 To automate this, you could add the relationships in a loop through a
@@ -377,8 +377,8 @@ on the table names and the foreign-key names.
 
 The name is generated in the following format:
 
--   For object relationships: `singular of foreignTableName`
--   For array relationships: `plural of foreignTableName`
+- For object relationships: `singular of foreignTableName`
+- For array relationships: `plural of foreignTableName`
 
 For example, for the foreign-key `article.author_id -> author.id`, the
 relationship names will be `author` for `article` table and `articles`

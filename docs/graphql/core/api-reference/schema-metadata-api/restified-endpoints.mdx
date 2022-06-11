@@ -1,13 +1,13 @@
 ---
 sidebar_label: RESTified GraphQL Endpoints
-sidebar_position: 13 
+sidebar_position: 13
 description: Manage RESTified endpoints with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - restified-endpoints/metadata API
-   - API reference
-   - RESTified endpoints
+  - flaregun
+  - docs
+  - restified-endpoints/metadata API
+  - API reference
+  - RESTified endpoints
 ---
 
 # Schema/Metadata API Reference: RESTified GraphQL Endpoints (Deprecated)
@@ -57,13 +57,13 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-create-rest-endpoint-syntax}
 
-| Key        | Required | Schema            | Description                                             |
-|------------|----------|-------------------|---------------------------------------------------------|
-| name       | true     | Text              | A unique identifier for the endpoint                    |
-| url        | true     | [EndpointUrl](/graphql/core/api-reference/syntax-defs.mdx#endpointurl)     | URL of the REST endpoint                                |
+| Key        | Required | Schema                                                                         | Description                                             |
+| ---------- | -------- | ------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| name       | true     | Text                                                                           | A unique identifier for the endpoint                    |
+| url        | true     | [EndpointUrl](/graphql/core/api-reference/syntax-defs.mdx#endpointurl)         | URL of the REST endpoint                                |
 | methods    | true     | [EndpointMethods](/graphql/core/api-reference/syntax-defs.mdx#endpointmethods) | Non-Empty case sensitive list of supported HTTP Methods |
-| definition | true     | [EndpointDefinition](/graphql/core/api-reference/syntax-defs.mdx#endpointdef)     | Definition for the REST endpoint                        |
-| comment    | false    | Text              | comment                                                 |
+| definition | true     | [EndpointDefinition](/graphql/core/api-reference/syntax-defs.mdx#endpointdef)  | Definition for the REST endpoint                        |
+| comment    | false    | Text                                                                           | comment                                                 |
 
 :::tip Supported from
 
@@ -94,7 +94,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-drop-rest-endpoint-syntax}
 
 | Key  | Required | Schema | Description                   |
-|------|----------|--------|-------------------------------|
+| ---- | -------- | ------ | ----------------------------- |
 | name | true     | Text   | URL of the RESTified endpoint |
 
 :::tip Supported from

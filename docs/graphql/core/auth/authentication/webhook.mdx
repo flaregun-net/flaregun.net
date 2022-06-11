@@ -1,7 +1,7 @@
 ---
 description: Use authentication with webhooks in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - authentication
   - auth
@@ -10,7 +10,7 @@ sidebar_position: 2
 sidebar_label: Using Webhooks
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Authentication using webhooks
 
@@ -35,24 +35,24 @@ webhook mode to take effect.
 
 In webhook mode, on a secured endpoint:
 
--   The configured webhook is **called** when the
-    `X-Hasura-Admin-Secret` header is not found in the request.
--   The configured webhook is **ignored** when the
-    `X-Hasura-Admin-Secret` header is found in the request and admin
-    access is granted.
+- The configured webhook is **called** when the
+  `X-Hasura-Admin-Secret` header is not found in the request.
+- The configured webhook is **ignored** when the
+  `X-Hasura-Admin-Secret` header is found in the request and admin
+  access is granted.
 
 ## Configuring webhook mode
 
--   You can configure Hasura to run in webhook mode by running the
-    GraphQL engine with the `--auth-hook` flag or the
-    `HASURA_GRAPHQL_AUTH_HOOK` environment variable (see
-    [GraphQL engine server options](/graphql/core/deployment/graphql-engine-flags/reference.mdx)), the value
-    of which is the webhook endpoint.
--   You can configure Hasura to send either a `GET` or a `POST` request
-    to your auth webhook. The default configuration is `GET` and you can
-    override this with `POST` by using the `--auth-hook-mode` flag or
-    the `HASURA_GRAPHQL_AUTH_HOOK_MODE` environment variable (*in
-    addition to those specified above; see* [GraphQL engine server options](/graphql/core/deployment/graphql-engine-flags/reference.mdx)).
+- You can configure Hasura to run in webhook mode by running the
+  GraphQL engine with the `--auth-hook` flag or the
+  `HASURA_GRAPHQL_AUTH_HOOK` environment variable (see
+  [GraphQL engine server options](/graphql/core/deployment/graphql-engine-flags/reference.mdx)), the value
+  of which is the webhook endpoint.
+- You can configure Hasura to send either a `GET` or a `POST` request
+  to your auth webhook. The default configuration is `GET` and you can
+  override this with `POST` by using the `--auth-hook-mode` flag or
+  the `HASURA_GRAPHQL_AUTH_HOOK_MODE` environment variable (_in
+  addition to those specified above; see_ [GraphQL engine server options](/graphql/core/deployment/graphql-engine-flags/reference.mdx)).
 
 :::info Note
 
@@ -76,20 +76,20 @@ GET https://<your-custom-webhook>/ HTTP/1.1
 If you configure your webhook to use `GET`, then Hasura **will forward
 all client headers except**:
 
--   `Content-Length`
--   `Content-Type`
--   `Content-MD5`
--   `User-Agent`
--   `Host`
--   `Origin`
--   `Referer`
--   `Accept`
--   `Accept-Encoding`
--   `Accept-Language`
--   `Accept-Datetime`
--   `Cache-Control`
--   `Connection`
--   `DNT`
+- `Content-Length`
+- `Content-Type`
+- `Content-MD5`
+- `User-Agent`
+- `Host`
+- `Origin`
+- `Referer`
+- `Accept`
+- `Accept-Encoding`
+- `Accept-Language`
+- `Accept-Datetime`
+- `Cache-Control`
+- `Connection`
+- `DNT`
 
 #### POST request
 
@@ -98,7 +98,7 @@ to client headers. Given a request like
 
 ```graphql
 query UserQuery($a: Int) {
-  users(where: {id: {_eq: $a}}){
+  users(where: { id: { _eq: $a } }) {
     id
   }
 }
@@ -166,8 +166,8 @@ automatically.
 There is no default timeout on the resulting connection. You can
 optionally add one; to do so, you need to return either:
 
--   a `Cache-Control` variable, modeled on the [Cache-Control HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control),
-    to specify a **relative** expiration time, in seconds.
+- a `Cache-Control` variable, modeled on the [Cache-Control HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control),
+  to specify a **relative** expiration time, in seconds.
 
 ```http
 HTTP/1.1 200 OK
@@ -181,9 +181,9 @@ Content-Type: application/json
 }
 ```
 
--   an `Expires` variable, modeled on the [Expires HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires),
-    to specify an **absolute** expiration time. The expected format is
-    `"%a, %d %b %Y %T GMT"`.
+- an `Expires` variable, modeled on the [Expires HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires),
+  to specify an **absolute** expiration time. The expected format is
+  `"%a, %d %b %Y %T GMT"`.
 
 ```http
 HTTP/1.1 200 OK
@@ -233,8 +233,8 @@ You can deploy these samples using [glitch](https://glitch.com/):
 Once deployed, you can use any of the following endpoints as your auth
 webhook in the GraphQL engine:
 
--   `/simple/webhook` ([View source](https://github.com/hasura/graphql-engine/blob/master/community/boilerplates/auth-webhooks/nodejs-express/server.js))
--   `/firebase/webhook` ([View source](https://github.com/hasura/graphql-engine/blob/master/community/boilerplates/auth-webhooks/nodejs-firebase/firebase/firebaseHandler.js))
+- `/simple/webhook` ([View source](https://github.com/hasura/graphql-engine/blob/master/community/boilerplates/auth-webhooks/nodejs-express/server.js))
+- `/firebase/webhook` ([View source](https://github.com/hasura/graphql-engine/blob/master/community/boilerplates/auth-webhooks/nodejs-firebase/firebase/firebaseHandler.js))
 
 :::info Note
 

@@ -3,7 +3,7 @@ sidebar_label: PG Dump API
 sidebar_position: 9
 description: Hasura PG dump API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - PG dump API
   - API reference
@@ -41,24 +41,24 @@ X-Hasura-Role: admin
 }
 ```
 
--   `opts`: Arguments to be passed to the `pg_dump` tool. Represented as
-    array of strings. The underlying command that is executed is:
+- `opts`: Arguments to be passed to the `pg_dump` tool. Represented as
+  array of strings. The underlying command that is executed is:
 
-    ```bash
-    pg_dump $DATABASE_URL $OPTS -f $FILENAME
-    ```
+  ```bash
+  pg_dump $DATABASE_URL $OPTS -f $FILENAME
+  ```
 
--   `clean_output`: When this optional argument is set to `true`, the
-    output SQL from the command is cleaned to remove the following:
+- `clean_output`: When this optional argument is set to `true`, the
+  output SQL from the command is cleaned to remove the following:
 
-    -   SQL front matter, like SET statements.
-    -   `CREATE SCHEMA public`.
-    -   `COMMENT ON SCHEMA public is 'standard public schema'`;
-    -   Comments (`--`) and empty newlines.
-    -   Postgres triggers created by Hasura for event triggers.
+  - SQL front matter, like SET statements.
+  - `CREATE SCHEMA public`.
+  - `COMMENT ON SCHEMA public is 'standard public schema'`;
+  - Comments (`--`) and empty newlines.
+  - Postgres triggers created by Hasura for event triggers.
 
--   `source`: the name of the connected database on which to run
-    `pg_dump` on. If skipped, it is set to `default`
+- `source`: the name of the connected database on which to run
+  `pg_dump` on. If skipped, it is set to `default`
 
 ### Sample response
 

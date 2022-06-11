@@ -3,14 +3,14 @@ sidebar_label: Distinct query results
 sidebar_position: 6
 description: Make distinct queries on Postgres with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - query
   - distinct query
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Distinct query results
 
@@ -20,8 +20,8 @@ You can fetch rows with only distinct values of a column using the
 `distinct_on` argument.
 
 It is typically recommended to use `order_by` along with `distinct_on`
-to ensure we get predictable results *(otherwise any arbitrary row with
-a distinct value of the column may be returned)*. Note that the
+to ensure we get predictable results _(otherwise any arbitrary row with
+a distinct value of the column may be returned)_. Note that the
 `distinct_on` column needs to be the first column in the `order_by`
 expression. See [sort queries](/graphql/core/databases/postgres/queries/sorting.mdx) for more info on
 using `order_by`.
@@ -64,7 +64,7 @@ department:
     salary
   }
 }`}
-response={`{
+  response={`{
  "data": {
    "employees": [
      {

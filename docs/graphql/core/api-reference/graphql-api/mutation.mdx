@@ -3,7 +3,7 @@ sidebar_label: Mutation
 sidebar_position: 2
 description: Hasura GraphQL API mutations API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - GraphQL API
   - API reference
@@ -11,7 +11,6 @@ keywords:
 ---
 
 # API Reference - Mutation
-
 
 ## **insert** (upsert) syntax {#insert-upsert-syntax}
 
@@ -26,12 +25,12 @@ mutation [<mutation-name>] {
 ```
 
 | Key                 | Required | Schema                                | Description                                                     |
-|---------------------|----------|---------------------------------------|-----------------------------------------------------------------|
+| ------------------- | -------- | ------------------------------------- | --------------------------------------------------------------- |
 | mutation-name       | false    | Value                                 | Name of mutation for observability                              |
-| mutation-field-name | true     | Value                                 | Name of the auto-generated mutation field, e.g. *insert_author* |
+| mutation-field-name | true     | Value                                 | Name of the auto-generated mutation field, e.g. _insert_author_ |
 | input-object        | true     | [InputObjects](#inputobjects)         | Name of the auto-generated mutation field                       |
 | mutation-response   | true     | [MutationResponse](#mutationresponse) | Object to be returned after mutation succeeds                   |
-| on-conflict         | false    | [ConflictClause](#conflictclause)     | Converts *insert* to *upsert* by handling conflict              |
+| on-conflict         | false    | [ConflictClause](#conflictclause)     | Converts _insert_ to _upsert_ by handling conflict              |
 
 **Example: Insert**
 
@@ -40,8 +39,8 @@ mutation insert_article {
   insert_article(
     objects: [
       {
-        title: "Software is gluttonous",
-        content: "Something happened in HP",
+        title: "Software is gluttonous"
+        content: "Something happened in HP"
         author_id: 3
       }
     ]
@@ -58,17 +57,9 @@ mutation insert_article {
 
 ```graphql
 mutation upsert_author {
-  insert_author (
-    objects: [
-      {
-        name: "John",
-        id:12
-      }
-    ],
-    on_conflict: {
-      constraint: author_name_key,
-      update_columns: [name, id]
-    }
+  insert_author(
+    objects: [{ name: "John", id: 12 }]
+    on_conflict: { constraint: author_name_key, update_columns: [name, id] }
   ) {
     affected_rows
   }
@@ -87,13 +78,13 @@ mutation [<mutation-name>] {
 }
 ```
 
-| Key                 | Required | Schema                                                                                 | Description                                                         |
-|---------------------|----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------------|
-| mutation-name       | false    | Value                                                                                  | Name of mutation for observability                                  |
-| mutation-field-name | true     | Value                                                                                  | Name of the auto-generated mutation field, e.g. *insert_author_one* |
-| input-object        | true     | [InputObject](#inputobject)                                                            | Name of the auto-generated mutation field                           |
-| mutation-response   | true     | [SimpleObject](/graphql/core/api-reference/graphql-api/query.mdx#simpleobject)         | Object to be returned after mutation succeeds                       |
-| on-conflict         | false    | [ConflictClause](#conflictclause)                                                      | Converts *insert* to *upsert* by handling conflict                  |
+| Key                 | Required | Schema                                                                         | Description                                                         |
+| ------------------- | -------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| mutation-name       | false    | Value                                                                          | Name of mutation for observability                                  |
+| mutation-field-name | true     | Value                                                                          | Name of the auto-generated mutation field, e.g. _insert_author_one_ |
+| input-object        | true     | [InputObject](#inputobject)                                                    | Name of the auto-generated mutation field                           |
+| mutation-response   | true     | [SimpleObject](/graphql/core/api-reference/graphql-api/query.mdx#simpleobject) | Object to be returned after mutation succeeds                       |
+| on-conflict         | false    | [ConflictClause](#conflictclause)                                              | Converts _insert_ to _upsert_ by handling conflict                  |
 
 **Example: Insert One**
 
@@ -101,8 +92,8 @@ mutation [<mutation-name>] {
 mutation insert_article_one {
   insert_article_one(
     object: {
-      title: "Software is gluttonous",
-      content: "Something happened in HP",
+      title: "Software is gluttonous"
+      content: "Something happened in HP"
       author_id: 3
     }
   ) {
@@ -125,9 +116,9 @@ mutation [<mutation-name>] {
 ```
 
 | Key                     | Required | Schema                                    | Description                                                                                              |
-|-------------------------|----------|-------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| ----------------------- | -------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | mutation-name           | false    | Value                                     | Name of mutation for observability                                                                       |
-| mutation-field-name     | true     | Value                                     | Name of the auto-generated update mutation field, e.g. *update_author_by_pk*                             |
+| mutation-field-name     | true     | Value                                     | Name of the auto-generated update mutation field, e.g. _update_author_by_pk_                             |
 | pk-columns-argument     | true     | [pkColumnsArgExp](#pkcolumnsargexp)       | Primary key(s) for row(s) to be updated                                                                  |
 | set-argument            | false    | [setArgExp](#setargexp)                   | Data to be updated in the table                                                                          |
 | inc-argument            | false    | [incArgExp](#incargexp)                   | Integer value to be incremented to Int columns in the table (Negative integers can be used to decrement) |
@@ -141,12 +132,7 @@ mutation [<mutation-name>] {
 
 ```graphql
 mutation update_articles {
-  update_article_by_pk (
-    pk_columns: {
-      id: 1
-    }
-    _set: { is_published: true }
-  ) {
+  update_article_by_pk(pk_columns: { id: 1 }, _set: { is_published: true }) {
     id
     title
   }
@@ -166,9 +152,9 @@ mutation [<mutation-name>] {
 ```
 
 | Key                     | Required | Schema                                    | Description                                                              |
-|-------------------------|----------|-------------------------------------------|--------------------------------------------------------------------------|
+| ----------------------- | -------- | ----------------------------------------- | ------------------------------------------------------------------------ |
 | mutation-name           | false    | Value                                     | Name of mutation for observability                                       |
-| mutation-field-name     | true     | Value                                     | Name of the auto-generated update mutation field, e.g. *update_author*   |
+| mutation-field-name     | true     | Value                                     | Name of the auto-generated update mutation field, e.g. _update_author_   |
 | where-argument          | true     | [whereArgExp](#whereargexp)               | Selection criteria for rows to be updated                                |
 | set-argument            | false    | [setArgExp](#setargexp)                   | Data to be updated in the table                                          |
 | inc-argument            | false    | [incArgExp](#incargexp)                   | Integer value to be incremented to Int columns in the table              |
@@ -182,11 +168,8 @@ mutation [<mutation-name>] {
 **Example: Update**
 
 ```graphql
-mutation update_author{
-  update_author(
-    where: {id: {_eq: 3}},
-    _set: {name: "Jane"}
-  ) {
+mutation update_author {
+  update_author(where: { id: { _eq: 3 } }, _set: { name: "Jane" }) {
     affected_rows
   }
 }
@@ -205,17 +188,15 @@ mutation [<mutation-name>] {
 ```
 
 | Key                 | Required | Schema | Description                                                                  |
-|---------------------|----------|--------|------------------------------------------------------------------------------|
+| ------------------- | -------- | ------ | ---------------------------------------------------------------------------- |
 | mutation-name       | false    | Value  | Name of mutation for observability                                           |
-| mutation-field-name | true     | Value  | Name of the auto-generated delete mutation field, e.g. *delete_author_by_pk* |
+| mutation-field-name | true     | Value  | Name of the auto-generated delete mutation field, e.g. _delete_author_by_pk_ |
 
 **Example: Delete by PK**
 
 ```graphql
 mutation delete_articles {
-  delete_article_by_pk (
-    id: 1
-  ) {
+  delete_article_by_pk(id: 1) {
     id
     title
   }
@@ -234,9 +215,9 @@ mutation [<mutation-name>] {
 ```
 
 | Key                 | Required | Schema                                | Description                                                            |
-|---------------------|----------|---------------------------------------|------------------------------------------------------------------------|
+| ------------------- | -------- | ------------------------------------- | ---------------------------------------------------------------------- |
 | mutation-name       | false    | Value                                 | Name of mutation for observability                                     |
-| mutation-field-name | true     | Value                                 | Name of the auto-generated delete mutation field, e.g. *delete_author* |
+| mutation-field-name | true     | Value                                 | Name of the auto-generated delete mutation field, e.g. _delete_author_ |
 | where-argument      | true     | [whereArgExp](#whereargexp)           | Selection criteria for rows to delete                                  |
 | mutation-response   | true     | [MutationResponse](#mutationresponse) | Object to be returned after mutation succeeds                          |
 
@@ -244,9 +225,7 @@ mutation [<mutation-name>] {
 
 ```graphql
 mutation delete_articles {
-  delete_article(
-    where: {author: {id: {_eq: 7}}}
-  ) {
+  delete_article(where: { author: { id: { _eq: 7 } } }) {
     affected_rows
     returning {
       id
@@ -362,10 +341,10 @@ object: {
 
 ### **on_conflict** argument {#conflictclause}
 
-The conflict clause is used to convert an *insert* mutation to an
-*upsert* mutation. *Upsert* respects the table's *update* permissions
+The conflict clause is used to convert an _insert_ mutation to an
+_upsert_ mutation. _Upsert_ respects the table's _update_ permissions
 before editing an existing row in case of a conflict. Hence the conflict
-clause is permitted only if a table has *update* permissions defined.
+clause is permitted only if a table has _update_ permissions defined.
 
 ```none
 on_conflict: {
@@ -388,7 +367,7 @@ on_conflict: {
 ### **pk_columns** argument {#pkcolumnsargexp}
 
 The `pk_columns` argument is used to identify an object by its primary
-key columns in *update* mutations.
+key columns in _update_ mutations.
 
 ```none
 pk_columns: {
@@ -411,9 +390,10 @@ pk_columns: {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`where: `}<a href="#boolexp">BoolExp</a>
-</code>
+  <code>
+    {`where: `}
+    <a href="#boolexp">BoolExp</a>
+  </code>
 </pre>
 
 </div>
@@ -431,13 +411,17 @@ where: {
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#andexp">AndExp</a>{` | `}
-<a href="#orexp">OrExp</a>{` | `}
-<a href="#notexp">NotExp</a>{` | `}
-<a href="#trueexp">TrueExp</a>{` | `}
-<a href="#columnexp">ColumnExp</a>
-</code>
+  <code>
+    <a href="#andexp">AndExp</a>
+    {` | `}
+    <a href="#orexp">OrExp</a>
+    {` | `}
+    <a href="#notexp">NotExp</a>
+    {` | `}
+    <a href="#trueexp">TrueExp</a>
+    {` | `}
+    <a href="#columnexp">ColumnExp</a>
+  </code>
 </pre>
 
 </div>
@@ -447,11 +431,13 @@ where: {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _and: [`}<a href="#boolexp">BoolExp</a>{`]
+  <code>
+    {`{
+  _and: [`}
+    <a href="#boolexp">BoolExp</a>
+    {`]
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
@@ -460,7 +446,7 @@ where: {
 
 ```graphql
 _and: [
-  {rating: {_gt: 5}}, 
+  {rating: {_gt: 5}},
   {updated_at: {_gt: "2019-01-01"}}
 ]
 ```
@@ -470,11 +456,13 @@ _and: [
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _or: [`}<a href="#boolexp">BoolExp</a>{`]
+  <code>
+    {`{
+  _or: [`}
+    <a href="#boolexp">BoolExp</a>
+    {`]
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
@@ -483,7 +471,7 @@ _and: [
 
 ```graphql
 _or: [
-  {rating: {_is_null: true}}, 
+  {rating: {_is_null: true}},
   {rating: {_lt: 4}}
 ]
 ```
@@ -493,11 +481,13 @@ _or: [
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _not: `}<a href="#boolexp">BoolExp</a>{`
+  <code>
+    {`{
+  _not: `}
+    <a href="#boolexp">BoolExp</a>
+    {`
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
@@ -513,9 +503,7 @@ _not: {
 ##### TrueExp {#trueexp}
 
 <pre>
-<code>
-{`{}`}
-</code>
+  <code>{`{}`}</code>
 </pre>
 
 **Example**
@@ -535,11 +523,13 @@ author(where: {articles: {}})
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  field-name: { `}<a href="#operator">Operator</a>{`: Value }
+  <code>
+    {`{
+  field-name: { `}
+    <a href="#operator">Operator</a>
+    {`: Value }
 }`}
-</code>
+  </code>
 </pre>
 
 </div>

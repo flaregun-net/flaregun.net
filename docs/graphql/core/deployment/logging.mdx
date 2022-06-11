@@ -1,7 +1,7 @@
 ---
 description: Secure the Hasura GraphQL endpoint
 keywords:
-  - hasura
+  - flaregun
   - docs
   - deployment
   - logs
@@ -17,12 +17,12 @@ sidebar_label: Server logs
 Based on your deployment method, the Hasura GraphQL engine logs can be
 accessed as follows:
 
--   [On Heroku](/graphql/core/deployment/deployment-guides/heroku.mdx#heroku-logs)
--   [On Docker](/graphql/core/deployment/deployment-guides/docker.mdx#docker-logs)
--   [On Kubernetes](/graphql/core/deployment/deployment-guides/kubernetes.mdx#kubernetes-logs)
--   [On Digital Ocean](/graphql/core/deployment/deployment-guides/digital-ocean-one-click.mdx#do-logs)
--   [On Azure](/graphql/core/deployment/deployment-guides/azure-container-instances-postgres.mdx#azure-logs)
--   [On Google Cloud & Kubernetes](/graphql/core/deployment/deployment-guides/google-kubernetes-engine-cloud-sql.mdx#gc-kubernetes-logs)
+- [On Heroku](/graphql/core/deployment/deployment-guides/heroku.mdx#heroku-logs)
+- [On Docker](/graphql/core/deployment/deployment-guides/docker.mdx#docker-logs)
+- [On Kubernetes](/graphql/core/deployment/deployment-guides/kubernetes.mdx#kubernetes-logs)
+- [On Digital Ocean](/graphql/core/deployment/deployment-guides/digital-ocean-one-click.mdx#do-logs)
+- [On Azure](/graphql/core/deployment/deployment-guides/azure-container-instances-postgres.mdx#azure-logs)
+- [On Google Cloud & Kubernetes](/graphql/core/deployment/deployment-guides/google-kubernetes-engine-cloud-sql.mdx#gc-kubernetes-logs)
 
 :::info Detailed Logging in Hasura Cloud
 
@@ -53,7 +53,7 @@ Default enabled log-types are:
 All the log-types that can be enabled/disabled are:
 
 | Log type        | Description                                                                                                                                                                                                                       | Log Level          |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `startup`       | Information that is logged during startup                                                                                                                                                                                         | `info`             |
 | `query-log`     | Logs: the entire GraphQL query with variables, generated SQL statements (only for database queries, not for mutations/subscriptions or remote schema and action queries), the operation name (if provided in the GraphQL request) | `info`             |
 | `http-log`      | Http access and error logs at the webserver layer (handling GraphQL and metadata requests)                                                                                                                                        | `info` and `error` |
@@ -66,7 +66,7 @@ Apart from the above, there are other internal log-types which cannot be
 configured:
 
 | Log type             | Description                                                                                         | Log Level          |
-|----------------------|-----------------------------------------------------------------------------------------------------|--------------------|
+| -------------------- | --------------------------------------------------------------------------------------------------- | ------------------ |
 | `pg-client`          | Logs from the postgres client library                                                               | `warn`             |
 | `metadata`           | Logs inconsistent metadata items                                                                    | `warn`             |
 | `jwk-refresh-log`    | Logs information and errors about periodic refreshing of JWK                                        | `info` and `error` |
@@ -145,22 +145,22 @@ under the `detail` key.
 
 This log contains 3 important fields:
 
--   `kind`: indicates the type or kind of operation. `kind` can be
-    `database`, `action`, `remote-schema`, `cached` or `introspection`
--   `request_id`: A unique ID for each request. If the client sends a
-    `x-request-id` header then that is respected, otherwise a UUID is
-    generated for each request. This is useful to correlate between
-    `http-log` and `query-log`.
--   `query`: Contains the full GraphQL request including the variables
-    and operation name.
--   `generated_sql`: this contains the generated SQL for GraphQL
-    queries. For mutations and subscriptions this field will be `null`.
+- `kind`: indicates the type or kind of operation. `kind` can be
+  `database`, `action`, `remote-schema`, `cached` or `introspection`
+- `request_id`: A unique ID for each request. If the client sends a
+  `x-request-id` header then that is respected, otherwise a UUID is
+  generated for each request. This is useful to correlate between
+  `http-log` and `query-log`.
+- `query`: Contains the full GraphQL request including the variables
+  and operation name.
+- `generated_sql`: this contains the generated SQL for GraphQL
+  queries. For mutations and subscriptions this field will be `null`.
 
 ### **http-log** structure
 
 This is how the HTTP access logs look like:
 
--   On success response:
+- On success response:
 
 ```json
 {
@@ -191,7 +191,7 @@ This is how the HTTP access logs look like:
 }
 ```
 
--   On error response:
+- On error response:
 
 ```json
 {
@@ -243,32 +243,32 @@ IP address, URL path, HTTP status code etc.
 `operation` lists various information regarding the GraphQL
 query/operation.
 
--   `query_execution_time`: the time taken to parse the GraphQL query
-    (from JSON request), compile it to SQL with permissions and user
-    session variables, and then executing it and fetching the results
-    back from Postgres. The unit is in seconds.
--   `user_vars`: contains the user session variables. Or the
-    `x-hasura-*` session variables inferred from the authorization mode.
--   `request_id`: A unique ID for each request. If the client sends a
-    `x-request-id` header then that is respected, otherwise a UUID is
-    generated for each request.
--   `response_size`: Size of the response in bytes.
--   `error`: *optional*. Will contain the error object when there is an
-    error, otherwise this will be `null`. This key can be used to detect
-    if there is an error in the request. The status code for error
-    requests will be `200` on the `v1/graphql` endpoint.
--   `query`: *optional*. This will contain the GraphQL query object only
-    when there is an error. On successful response this will be `null`.
--   `parametrized_query_hash` (\*): Hash of the incoming GraphQL query
-    after resolving variables with all the leaf nodes (i.e. scalar
-    values) discarded. This value will only be logged when the request
-    is successful. For example, all the queries mentioned in the below
-    snippet will compute the same parametrized query hash.
+- `query_execution_time`: the time taken to parse the GraphQL query
+  (from JSON request), compile it to SQL with permissions and user
+  session variables, and then executing it and fetching the results
+  back from Postgres. The unit is in seconds.
+- `user_vars`: contains the user session variables. Or the
+  `x-hasura-*` session variables inferred from the authorization mode.
+- `request_id`: A unique ID for each request. If the client sends a
+  `x-request-id` header then that is respected, otherwise a UUID is
+  generated for each request.
+- `response_size`: Size of the response in bytes.
+- `error`: _optional_. Will contain the error object when there is an
+  error, otherwise this will be `null`. This key can be used to detect
+  if there is an error in the request. The status code for error
+  requests will be `200` on the `v1/graphql` endpoint.
+- `query`: _optional_. This will contain the GraphQL query object only
+  when there is an error. On successful response this will be `null`.
+- `parametrized_query_hash` (\*): Hash of the incoming GraphQL query
+  after resolving variables with all the leaf nodes (i.e. scalar
+  values) discarded. This value will only be logged when the request
+  is successful. For example, all the queries mentioned in the below
+  snippet will compute the same parametrized query hash.
 
 ```graphql
 # sample query
 query {
-  authors (where: {id: {_eq: 2}}) {
+  authors(where: { id: { _eq: 2 } }) {
     id
     name
   }
@@ -276,7 +276,7 @@ query {
 
 # query with a different leaf value to that of the sample query
 query {
-  authors (where: {id: {_eq: 203943}}) {
+  authors(where: { id: { _eq: 203943 } }) {
     id
     name
   }
@@ -285,7 +285,7 @@ query {
 # query with use of a variable, the value of
 # the variable `id` can be anything
 query {
-  authors (where: {id: {_eq: $id}}) {
+  authors(where: { id: { _eq: $id } }) {
     id
     name
   }
@@ -301,20 +301,20 @@ query {
 #  }
 
 query {
-  authors (where: $whereBoolExp) {
+  authors(where: $whereBoolExp) {
     id
     name
   }
 }
 ```
 
-(*) - Supported only in Cloud and Enterprise editions only
+(\*) - Supported only in Cloud and Enterprise editions only
 
 ### **websocket-log** structure
 
 This is how the Websocket logs look like:
 
--   On successful operation start:
+- On successful operation start:
 
 ```json
 {
@@ -349,7 +349,7 @@ This is how the Websocket logs look like:
 }
 ```
 
--   On operation stop:
+- On operation stop:
 
 ```json
 {
@@ -381,7 +381,7 @@ This is how the Websocket logs look like:
 }
 ```
 
--   On error:
+- On error:
 
 ```json
 {

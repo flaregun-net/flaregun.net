@@ -3,7 +3,7 @@ sidebar_label: Hasura - Citus compatibility
 sidebar_position: 2
 description: Hasura Citus Hyperscale Postgres database support
 keywords:
-  - hasura
+  - flaregun
   - docs
   - databases
   - citus-hyperscale-postgres
@@ -30,7 +30,7 @@ The following table describes the supported relationships based on the
 supported joins in Citus:
 
 |                      | To Local      | To Reference  | To Distributed |
-|----------------------|---------------|---------------|----------------|
+| -------------------- | ------------- | ------------- | -------------- |
 | **From Local**       | Object, Array | Object, Array |                |
 | **From Reference**   | Object, Array | Object, Array |                |
 | **From Distributed** |               | Object        | Object, Array  |
@@ -46,16 +46,16 @@ All permissions work like on Postgres without any restrictions.
 Citus supported `plpgsql` functions are supported on Hasura with the
 following restrictions:
 
--   Fetching relationships as part of the function’s response is
-    currently not supported
+- Fetching relationships as part of the function’s response is
+  currently not supported
 
 ## Mutations
 
 Mutations are supported in GraphQL engine with the following
 restrictions:
 
--   Fetching relationship data as part of `returning` is not yet
-    supported
+- Fetching relationship data as part of `returning` is not yet
+  supported
 
 ## Event triggers
 

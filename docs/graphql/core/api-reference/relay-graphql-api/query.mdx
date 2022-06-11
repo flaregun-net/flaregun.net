@@ -3,7 +3,7 @@ sidebar_label: Query / Subscription
 sidebar_position: 1
 description: Hasura Relay GraphQL API queries and subscriptions API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - GraphQL API
   - API reference
@@ -25,7 +25,7 @@ query|subscription [<op-name>] {
 ```
 
 | Key               | Required | Schema                                | Description                                                               |
-|-------------------|----------|---------------------------------------|---------------------------------------------------------------------------|
+| ----------------- | -------- | ------------------------------------- | ------------------------------------------------------------------------- |
 | op-name           | false    | Value                                 | Name query/subscription for observability                                 |
 | connection-object | true     | [ConnectionObject](#connectionobject) | Name of the table connection                                              |
 | argument          | false    | [Argument](#argument)                 | One or more filter criteria, instructions for sorting order or pagination |
@@ -34,7 +34,7 @@ query|subscription [<op-name>] {
 
 ```graphql
 query {
-  author_connection(first: 2){
+  author_connection(first: 2) {
     pageInfo {
       hasNextPage
       endCursor
@@ -108,7 +108,7 @@ connection-object {
 ```
 
 | Field    | Type                   |
-|----------|------------------------|
+| -------- | ---------------------- |
 | pageInfo | [PageInfo](#pageinfo)! |
 | edges    | \[[Edge](#edge)!\]!    |
 
@@ -168,12 +168,15 @@ For more details on the Relay `cursor`, refer to the [Relay docs](https://relay.
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#relaydistinctonexp">DistinctOnExp</a>{` | `}
-<a href="#relaywhereexp">WhereExp</a>{` | `}
-<a href="#relayorderbyexp">OrderByExp</a>{` | `}
-<a href="#relaypaginationexp">PaginationExp</a>
-</code>
+  <code>
+    <a href="#relaydistinctonexp">DistinctOnExp</a>
+    {` | `}
+    <a href="#relaywhereexp">WhereExp</a>
+    {` | `}
+    <a href="#relayorderbyexp">OrderByExp</a>
+    {` | `}
+    <a href="#relaypaginationexp">PaginationExp</a>
+  </code>
 </pre>
 
 </div>
@@ -197,20 +200,19 @@ Same as the generic [OrderByExp](/graphql/core/api-reference/graphql-api/query.m
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`first: Integer
-[after: `}<a href="#cursor">Cursor</a>{`]`}
-</code>
+  <code>
+    {`first: Integer
+[after: `}
+    <a href="#cursor">Cursor</a>
+    {`]`}
+  </code>
 </pre>
 
 </div>
 
 ```graphql
 query {
-  article_connection(
-    first: 2
-    after: "eyJpZCIgOiAzfQ=="
-  ){
+  article_connection(first: 2, after: "eyJpZCIgOiAzfQ==") {
     pageInfo {
       startCursor
       endCursor
@@ -234,20 +236,19 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`[last: Integer]
-[before: `}<a href="#cursor">Cursor</a>{`]`}
-</code>
+  <code>
+    {`[last: Integer]
+[before: `}
+    <a href="#cursor">Cursor</a>
+    {`]`}
+  </code>
 </pre>
 
 </div>
 
 ```graphql
 query {
-  article_connection(
-    last: 2
-    before: "eyJpZCIgOiA0fQ=="
-  ){
+  article_connection(last: 2, before: "eyJpZCIgOiA0fQ==") {
     pageInfo {
       startCursor
       endCursor
@@ -256,7 +257,7 @@ query {
     }
     edges {
       cursor
-      node{
+      node {
         title
         content
         author_id

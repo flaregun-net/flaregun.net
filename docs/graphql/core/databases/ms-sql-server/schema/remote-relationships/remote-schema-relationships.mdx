@@ -3,7 +3,7 @@ sidebar_label: To Remote Schema
 sidebar_position: 2
 description: Adding remote schema relationships with MS SQL Server tables in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - remote schema relationship
   - remote join
@@ -11,10 +11,10 @@ keywords:
   - data federation
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-import Thumbnail from "@site/src/components/Thumbnail";
-import GraphiQLIDE from "@site/src/components/GraphiQLIDE";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # MS SQL Server: Database to Remote Schema relationships
 
@@ -106,15 +106,15 @@ Update the `databases > [database-name] > tables > [table-name].yaml` file in th
     schema: public
     name: order
   remote_relationships:
-  - name: user
-    definition:
-      remote_field:
-        user:
-          arguments:
-            id: $user_id
-      hasura_fields:
-        - user_id
-      remote_schema: user-remote-schema
+    - name: user
+      definition:
+        remote_field:
+          user:
+            arguments:
+              id: $user_id
+        hasura_fields:
+          - user_id
+        remote_schema: user-remote-schema
 ```
 
 Apply the metadata by running:

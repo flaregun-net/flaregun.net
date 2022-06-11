@@ -3,14 +3,14 @@ sidebar_label: Paginate query results
 sidebar_position: 7
 description: Manage pagination on Postgres in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - query
   - pagination
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Paginate query results
 
@@ -39,7 +39,7 @@ The following are examples of different pagination scenarios:
     name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -82,7 +82,7 @@ the 6th one:
     name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -129,7 +129,7 @@ articles:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -218,7 +218,7 @@ with a `where` clause used in place of `offset`:
     name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -267,7 +267,7 @@ that are being used as cursors.
 
 :::
 
-## Fetch limited results along with data aggregated over all results *(e.g. total count)* in the same query
+## Fetch limited results along with data aggregated over all results _(e.g. total count)_ in the same query
 
 Sometimes, some aggregated information on all the data is required along
 with a subset of data.
@@ -291,7 +291,7 @@ and get their count. Then limit the number of articles to return.
     title
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles_aggregate": {
       "aggregate": {

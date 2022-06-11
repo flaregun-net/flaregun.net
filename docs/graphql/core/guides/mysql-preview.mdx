@@ -1,14 +1,14 @@
 ---
 description: MySQL preview
 keywords:
-  - hasura
+  - flaregun
   - mysql
   - preview
 sidebar_position: 12
 sidebar_label: MySQL preview
 ---
 
-import Paperform from "@site/src/components/Paperform";
+import Paperform from "@site/src/components/Paperform"
 
 # MySQL preview
 
@@ -30,9 +30,9 @@ MySQL database as follows:
 
 ### Prerequisites
 
--   [Docker](https://docs.docker.com/install/)
--   [Docker Compose](https://docs.docker.com/compose/install/)
--   An existing MySQL database
+- [Docker](https://docs.docker.com/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- An existing MySQL database
 
 ### Step 1: Get the docker-compose file
 
@@ -48,7 +48,7 @@ curl https://raw.githubusercontent.com/hasura/graphql-engine/master/install-mani
 ### Step 2: Update MySQL config
 
 You need to now update the `docker-compose.yaml` file with credentials
-for your MySQL database *(replace the values surrounded by \<\>)*
+for your MySQL database _(replace the values surrounded by \<\>)_
 
 ```yaml
 ...
@@ -68,7 +68,7 @@ command:
 ```
 
 Our [docker networking guide](/graphql/core/guides/docker-networking.mdx) might be useful to set
-the appropriate value for `mysql-host`. *(See Hasura to API)*
+the appropriate value for `mysql-host`. _(See Hasura to API)_
 
 ### Step 3: Run Hasura GraphQL engine
 
@@ -98,7 +98,7 @@ GraphQL API.
 **The Hasura console currently does not support managing the MySQL
 database schema**. i.e. The `Data` section of the console will not
 display the MySQL tables, etc. Hence the database schema needs to be
-managed externally as of now. *(support for this is coming very soon)*
+managed externally as of now. _(support for this is coming very soon)_
 
 See the [source PR](https://github.com/hasura/graphql-engine/pull/5655)
 for more information on current limitations and upcoming features.
@@ -108,7 +108,7 @@ for more information on current limitations and upcoming features.
 If you'd like to stay informed about the status of MySQL support,
 subscribe here:
 
-<Paperform  formId="hf-my-sql-preview-status" />
+<Paperform formId="hf-my-sql-preview-status" />
 
 ## Give us feedback
 

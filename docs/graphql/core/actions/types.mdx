@@ -3,7 +3,7 @@ sidebar_label: Custom types
 sidebar_position: 2
 description: Custom GraphQL types for Hasura actions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - custom types
@@ -40,9 +40,9 @@ type UserInfo {
 
 This is an object type called `UserInfo` that has two fields:
 
--   `accessToken`: This field is of type `String!` (non-nullable
-    `String`)
--   `userId`: This field is of type `Int!` (non-nullable `Int`)
+- `accessToken`: This field is of type `String!` (non-nullable
+  `String`)
+- `userId`: This field is of type `Int!` (non-nullable `Int`)
 
 From version `v2.2.0` onwards, Hasura GraphQL engine supports nested objects.
 
@@ -79,7 +79,7 @@ type UserObj {
 
 ### Relationships
 
-Custom object types can be connected to the rest of the graph by setting up 
+Custom object types can be connected to the rest of the graph by setting up
 [action relationships](/graphql/core/databases/postgres/schema/remote-relationships/action-relationships.mdx) with tables/views.
 
 **For example**, given the object type:
@@ -100,12 +100,12 @@ order (id int, user_id int, ...)
 
 We can create:
 
--   an **object relationship** called `loggedInUser` between the
-    `UserInfo` object type and the `user` table via the
-    `UserInfo.userId` and `user.id` fields.
--   an **array relationship** called `userOrders` between the `UserInfo`
-    object type and the `order` table via the `UserInfo.userId` and
-    `order.user_id` fields.
+- an **object relationship** called `loggedInUser` between the
+  `UserInfo` object type and the `user` table via the
+  `UserInfo.userId` and `user.id` fields.
+- an **array relationship** called `userOrders` between the `UserInfo`
+  object type and the `order` table via the `UserInfo.userId` and
+  `order.user_id` fields.
 
 The object type will now be modified as:
 
@@ -187,14 +187,14 @@ types come in: they represent the leaves of the query.
 Hasura comes with some default GraphQL scalars that you can directly
 start using while defining your actions:
 
--   `Int`: A signed 32‐bit integer.
--   `Float`: A signed double-precision floating-point value.
--   `String`: A UTF‐8 character sequence.
--   `Boolean`: true or false.
--   `ID`: The ID scalar type represents a unique identifier, often used
-    to refetch an object or as the key for a cache. The ID type is
-    serialized in the same way as a String; however, defining it as an
-    ID signifies that it is not intended to be human‐readable.
+- `Int`: A signed 32‐bit integer.
+- `Float`: A signed double-precision floating-point value.
+- `String`: A UTF‐8 character sequence.
+- `Boolean`: true or false.
+- `ID`: The ID scalar type represents a unique identifier, often used
+  to refetch an object or as the key for a cache. The ID type is
+  serialized in the same way as a String; however, defining it as an
+  ID signifies that it is not intended to be human‐readable.
 
 [See reference](https://graphql.org/learn/schema/#scalar-types)
 
@@ -245,16 +245,15 @@ For corresponding custom object type definition of `UserInfo`, refer to [Object 
 
 In case the response type is a list of scalars (let's say, `Int`), the output type in the above action definition can be `[Int]`.
 
-
 ## Enum types
 
 Enums are a special kind of scalar that is restricted to a particular
 set of allowed values. This allows you to:
 
--   Validate that any arguments of this type are one of the allowed
-    values
--   Communicate through the type system that a field will always be one
-    of a finite set of values
+- Validate that any arguments of this type are one of the allowed
+  values
+- Communicate through the type system that a field will always be one
+  of a finite set of values
 
 Here's what an enum definition might look like in the GraphQL schema
 language:

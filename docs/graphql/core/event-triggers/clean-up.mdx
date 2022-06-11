@@ -3,7 +3,7 @@ sidebar_label: Cleaning up event data
 sidebar_position: 7
 description: Clean up event data of event triggers in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - event trigger
   - event data
@@ -66,7 +66,6 @@ hdb_catalog.event_log
 WHERE trigger_name = '<event_trigger_name>'
 AND (delivered = true OR error = true);
 ```
-
 
 ## Option 5: Clear everything
 

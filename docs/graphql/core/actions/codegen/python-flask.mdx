@@ -3,7 +3,7 @@ sidebar_label: Python & Flask
 sidebar_position: 1
 description: Codegen for Hasura actions in Python & Flask
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - codegen
@@ -12,8 +12,8 @@ keywords:
   - flask
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
-import Thumbnail from "@site/src/components/Thumbnail";
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # GraphQL API with Python & Flask: JWT authentication
 
@@ -31,13 +31,13 @@ We create two [actions](/graphql/core/actions/create.mdx), each with its own set
 
 ```graphql
 type Mutation {
-  Signup (email: String! password: String!): CreateUserOutput
+  Signup(email: String!, password: String!): CreateUserOutput
 }
 
 type CreateUserOutput {
-  id : Int!
-  email : String!
-  password : String!
+  id: Int!
+  email: String!
+  password: String!
 }
 ```
 
@@ -45,11 +45,11 @@ type CreateUserOutput {
 
 ```graphql
 type Mutation {
-  Login (email: String! password: String!): JsonWebToken
+  Login(email: String!, password: String!): JsonWebToken
 }
 
 type JsonWebToken {
-  token : String!
+  token: String!
 }
 ```
 
@@ -67,19 +67,19 @@ Example: creating the `Signup` action
 In the `Codegen` tab, a scaffold gets generated from the GraphQL types you defined.
 Next, implement the business logic for `Signup`. Your action will do the following:
 
--   Receive the action arguments `email` and `password` on `request`,
-    and pass those values to `SignupArgs.from_request()`.
--   Convert the plaintext password input into a hashed secure password
-    with Argon2.
--   Send a mutation to Hasura to save the newly created user with the
-    hashed password.
--   Return the created user object to signal success or else error.
+- Receive the action arguments `email` and `password` on `request`,
+  and pass those values to `SignupArgs.from_request()`.
+- Convert the plaintext password input into a hashed secure password
+  with Argon2.
+- Send a mutation to Hasura to save the newly created user with the
+  hashed password.
+- Return the created user object to signal success or else error.
 
 To implement the Argon2 password hashing, you can use [argon2-cffi][].
 Next, use a [requests][] library for making requests to Hasura for mutations/queries.
 
-  [argon2-cffi]: https://github.com/hynek/argon2-cffi
-  [requests]: https://github.com/psf/requests
+[argon2-cffi]: https://github.com/hynek/argon2-cffi
+[requests]: https://github.com/psf/requests
 
 Here is how your `requirements.txt` file should look: ::
 
@@ -277,9 +277,9 @@ def generate_token(user) -> str:
 
 def rehash_and_save_password_if_needed(user, plaintext_password):
     """
-    Whenever your Argon2 parameters – or argon2-cffi’s defaults! – 
+    Whenever your Argon2 parameters – or argon2-cffi’s defaults! –
     change, you should rehash your passwords at the next opportunity.
-    The common approach is to do that whenever a user logs in, since 
+    The common approach is to do that whenever a user logs in, since
     that should be the only time when you have access to the cleartext password.
     Therefore it’s best practice to check – and if necessary rehash –
     passwords after each successful authentication.

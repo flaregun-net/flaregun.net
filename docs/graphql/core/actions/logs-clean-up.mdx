@@ -3,7 +3,7 @@ sidebar_label: Cleaning up async action logs
 sidebar_position: 11
 description: Clean up async action logs
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - clean up
@@ -70,7 +70,6 @@ DELETE FROM hdb_catalog.hdb_action_log WHERE created_at < NOW() - INTERVAL '3 mo
 ```
 
 See the [Postgres date/time functions](https://www.postgresql.org/docs/current/functions-datetime.html) for more details.
-
 
 :::info Additional Resources
 

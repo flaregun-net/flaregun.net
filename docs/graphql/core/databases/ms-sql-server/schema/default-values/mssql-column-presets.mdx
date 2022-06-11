@@ -1,7 +1,7 @@
 ---
 description: Set field values for MS SQL Server using role-based column presets
 keywords:
-  - hasura
+  - flaregun
   - docs
   - ms sql server
   - schema
@@ -11,9 +11,9 @@ sidebar_label: Role based column presets
 sidebar_position: 3
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # MS SQL Server: Setting values for fields using role-based column presets
 
@@ -57,16 +57,16 @@ You can set column presets in the `tables.yaml` file inside the
     schema: public
     name: article
   insert_permissions:
-  - role: user
-    permission:
-      check: {}
-      set:
-        user_id: x-hasura-User-Id
-      columns:
-      - content
-      - rating
-      - title
-      backend_only: false
+    - role: user
+      permission:
+        check: {}
+        set:
+          user_id: x-hasura-User-Id
+        columns:
+          - content
+          - rating
+          - title
+        backend_only: false
 ```
 
 Apply the metadata by running:
@@ -116,14 +116,14 @@ corresponding column preset in the remote table.
 ## Step 2: Run an insert mutation
 
 Head to the GraphiQL interface in the console and try making an insert
-mutation on the `article` table with the following headers (*to run
-through this example, don't forget to also grant the* `user` *role
-sufficient permissions to select from the* `article` *table*):
+mutation on the `article` table with the following headers (_to run
+through this example, don't forget to also grant the_ `user` _role
+sufficient permissions to select from the_ `article` _table_):
 
--   `X-Hasura-Role` --> `user` (*to test the behaviour for the
-    configured role*)
--   `X-Hasura-User-Id` --> `1` (*this is the value we should expect in
-    the* `user_id` *field*)
+- `X-Hasura-Role` --> `user` (_to test the behaviour for the
+  configured role_)
+- `X-Hasura-User-Id` --> `1` (_this is the value we should expect in
+  the_ `user_id` _field_)
 
 As mentioned earlier, you'll notice when you add the `X-Hasura-Role`
 header that the field, `user_id`, is no longer available as the mutation
@@ -149,15 +149,16 @@ Not passing the configured header will result in a run-time error:
 
 ```json
 {
-    "errors": [
-      {
-        "path": "$",
-        "error": "\"x-hasura-user-id\" header is expected but not found",
-        "code": "not-found"
-      }
-    ]
+  "errors": [
+    {
+      "path": "$",
+      "error": "\"x-hasura-user-id\" header is expected but not found",
+      "code": "not-found"
+    }
+  ]
 }
 ```
+
 :::
 
 ## Also see

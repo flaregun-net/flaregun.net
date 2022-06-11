@@ -1,7 +1,7 @@
 ---
 description: Manage authorization with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - authorization
   - auth
@@ -9,7 +9,7 @@ slug: index
 sidebar_position: 1
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Authorization / Access control
 
@@ -40,12 +40,12 @@ If you just want to see role-based access control in action, you need
 not set up or integrate your auth service with GraphQL engine. You can
 just:
 
--   Define permission rules for a table for a role.
--   Use the GraphiQL interface in the console to make a request and send
-    the session variables as request headers (*send a* `X-Hasura-Role`
-    *key, with its value as the name of the role you've defined rules
-    for*). The data in the response will be restricted as per your
-    configuration.
+- Define permission rules for a table for a role.
+- Use the GraphiQL interface in the console to make a request and send
+  the session variables as request headers (_send a_ `X-Hasura-Role`
+  _key, with its value as the name of the role you've defined rules
+  for_). The data in the response will be restricted as per your
+  configuration.
 
 Follow the example at [access control basics](/graphql/core/auth/authorization/basics.mdx).
 

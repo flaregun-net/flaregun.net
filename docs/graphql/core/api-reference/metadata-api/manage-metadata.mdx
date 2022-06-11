@@ -3,11 +3,11 @@ sidebar_label: Manage Metadata
 sidebar_position: 17
 description: Manage metadata with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - metadata
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - metadata
 toc_max_heading_level: 2
 ---
 
@@ -107,10 +107,10 @@ For version 2, the following structure is used:
 }
 ```
 
-| Key                         | Required | Schema                               | Description                                                                                                                           |
-|-----------------------------|----------|--------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| allow_inconsistent_metadata | false    | Boolean                              | If set to `true`, metadata will be replaced with a warning in the response indicating which items are inconsistent (default: `false`) |
-| metadata                    | true     | [export_metadata](#metadata-export-metadata)  | The metadata that will replace the current metadata.                                                                                  |
+| Key                         | Required | Schema                                       | Description                                                                                                                           |
+| --------------------------- | -------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| allow_inconsistent_metadata | false    | Boolean                                      | If set to `true`, metadata will be replaced with a warning in the response indicating which items are inconsistent (default: `false`) |
+| metadata                    | true     | [export_metadata](#metadata-export-metadata) | The metadata that will replace the current metadata.                                                                                  |
 
 If the version is not specified, then it is inferred from the format of `args`.
 
@@ -228,8 +228,8 @@ If the metadata is consistent:
 
 ```json
 {
-    "is_consistent": true,
-    "message": "success"
+  "is_consistent": true,
+  "message": "success"
 }
 ```
 
@@ -237,29 +237,29 @@ If the metadata is not consistent:
 
 ```json
 {
-    "is_consistent": false,
-    "message": "success",
-    "inconsistent_objects": [
-        {
-            "definition": {
-                "schema": "public",
-                "name": "article"
-            },
-            "name": "table article in source default",
-            "reason": "Inconsistent object: no such table/view exists in source: \"article\"",
-            "type": "table"
-        }
-    ]
+  "is_consistent": false,
+  "message": "success",
+  "inconsistent_objects": [
+    {
+      "definition": {
+        "schema": "public",
+        "name": "article"
+      },
+      "name": "table article in source default",
+      "reason": "Inconsistent object: no such table/view exists in source: \"article\"",
+      "type": "table"
+    }
+  ]
 }
 ```
 
 ### Args syntax {#metadata-reload-metadata-syntax}
 
-| Key                     | Required | Schema                              | Description                                                                                                                                                                                                                                                                                                                                                                         |
-|-------------------------|----------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| reload_remote_schemas   | false    | `Boolean` \| \[[RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)\] | If set to `true`, all remote schemas' (including inconsistent ones) cached GraphQL schemas are refreshed (default: `true`)                                                                                                                                                                                            |
-| reload_sources          | false    | `Boolean` \| \[[SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)\]       | If set to `true`, all sources' (including inconsistent ones) cached GraphQL schemas are refreshed (default: `true`)                                                                                                                                                                                                         |
-| recreate_event_triggers | false    | `Boolean` \| \[[SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)\]       | If set to `true`, all sources' (including inconsistent ones) cached event triggers and their corresponding SQL triggers present in the source database will be recreated. When an array of [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) is provided, the event triggers will only be recreated for those sources. (default: <em>false</em> i.e. no sources' event triggers will be recreated) |
+| Key                     | Required | Schema                                                                                            | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------- | -------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reload_remote_schemas   | false    | `Boolean` \| \[[RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)\] | If set to `true`, all remote schemas' (including inconsistent ones) cached GraphQL schemas are refreshed (default: `true`)                                                                                                                                                                                                                                                                                            |
+| reload_sources          | false    | `Boolean` \| \[[SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)\]             | If set to `true`, all sources' (including inconsistent ones) cached GraphQL schemas are refreshed (default: `true`)                                                                                                                                                                                                                                                                                                   |
+| recreate_event_triggers | false    | `Boolean` \| \[[SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)\]             | If set to `true`, all sources' (including inconsistent ones) cached event triggers and their corresponding SQL triggers present in the source database will be recreated. When an array of [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) is provided, the event triggers will only be recreated for those sources. (default: <em>false</em> i.e. no sources' event triggers will be recreated) |
 
 ## clear_metadata {#metadata-clear-metadata}
 
@@ -374,7 +374,7 @@ X-Hasura-Role: admin
 }
 ```
 
-The *webhook_url* can be provided in an Environment Variable supplied in an object with the *from_env* key:
+The _webhook_url_ can be provided in an Environment Variable supplied in an object with the _from_env_ key:
 
 ```http
 POST /v1/metadata HTTP/1.1

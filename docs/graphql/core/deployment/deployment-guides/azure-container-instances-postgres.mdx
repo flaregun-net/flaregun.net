@@ -1,7 +1,7 @@
 ---
 description: Deploy Hasura GraphQL engine on Azure with Container Instances and Postgres
 keywords:
-  - hasura
+  - flaregun
   - docs
   - guide
   - deployment
@@ -12,9 +12,9 @@ sidebar_position: 7
 sidebar_label: Using Azure Container Instances
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Hasura GraphQL engine on Azure with Container Instances and Postgres
 
@@ -46,7 +46,6 @@ Manager Template [here](https://github.com/hasura/graphql-engine/tree/stable/ins
 </TabItem>
 </Tabs>
 
-
 ## Pre-requisites
 
 - Valid Azure subscription with billing enabled or credits ([click here](https://azure.microsoft.com/en-us/free/) for a free trial).
@@ -55,7 +54,7 @@ Manager Template [here](https://github.com/hasura/graphql-engine/tree/stable/ins
 The actions mentioned below can be executed using the Azure Portal and the Azure CLI.
 But for the sake of simplicity in documentation, we are using Azure CLI; so that commands can be easily copy-pasted and executed.
 
-Once you install the ``CLI``, login to your Azure account:
+Once you install the `CLI`, login to your Azure account:
 
 ```bash
 az login
@@ -92,7 +91,7 @@ az postgres server create --resource-group hasura \
 :::info Note
 
 - Choose a unique name for `<server_name>` variable.
-- Select a strong password for the ``<server_admin_password>`` variable, that must include uppercase, lowercase, and numeric characters.
+- Select a strong password for the `<server_admin_password>` variable, that must include uppercase, lowercase, and numeric characters.
   You will need the password later to connect to the database. (make sure you escape the special characters depending on your shell).
 
 :::
@@ -105,7 +104,7 @@ Note the hostname in the output, as indicated below:
 ...
 ```
 
-where; ``<server_name>.postgres.database.azure.com`` is the hostname.
+where; `<server_name>.postgres.database.azure.com` is the hostname.
 
 :::info Note
 
@@ -169,7 +168,6 @@ username. Any other special character should be url-encoded.
 
 If the `<dns-name-label>` is not available, choose another unique name and execute the command again.
 
-
 ## Setting up JWT
 
 Use the `HASURA_GRAPHQL_JWT_SECRET` env variable to setup JWT. To generate a new JWT config refer [here](/graphql/core/auth/authentication/jwt.mdx#generating-jwt-config).
@@ -180,10 +178,8 @@ The `HASURA_GRAPHQL_JWT_SECRET` env variable requires JSON format. To create a c
 
 :::
 
-
 In order to use the env variable with the `az container create` command,
 pass the <em>JSON</em> value for the env variable as a string by escaping the characters like so:
-
 
 ```bash {9}
 az container create --resource-group hasura \
@@ -203,7 +199,6 @@ az container create --resource-group hasura \
 Check out the [Running with JWT](/graphql/core/auth/authentication/jwt.mdx#running-with-jwt) section for the usage of `HASURA_GRAPHQL_JWT_SECRET` env variable.
 
 :::
-
 
 ## Open the Hasura Console
 
@@ -227,8 +222,9 @@ http://<dns-name-label>.westus.azurecontainer.io/console
 Replace `<dns-name-label>` with the label given earlier.
 
 <img
-   src="https://storage.googleapis.com/graphql-engine-cdn.hasura.io/main-repo/img/azure_arm_aci_console_graphiql.png"
-   className="no-shadow" alt="Hasura console"
+  src="https://storage.googleapis.com/graphql-engine-cdn.hasura.io/main-repo/img/azure_arm_aci_console_graphiql.png"
+  className="no-shadow"
+  alt="Hasura console"
 />
 
 You can create tables and test your GraphQL queries here.

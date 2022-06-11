@@ -3,7 +3,7 @@ sidebar_label: Using variables / aliases / fragments / directives
 sidebar_position: 10
 description: Use variables, aliases, fragments and directives in Hasura queries
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - query
@@ -13,7 +13,7 @@ keywords:
   - directive
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Using variables / aliases / fragments / directives in queries
 
@@ -33,7 +33,7 @@ variables.
     title
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -47,7 +47,7 @@ response={`{
     ]
   }
 }`}
-variables={`{
+  variables={`{
   "author_id": 1
 }`}
 />
@@ -82,7 +82,7 @@ articles. Third, fetch the worst-rated article:
     rating
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -143,7 +143,7 @@ query getArticles {
     ...articleFields
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -193,7 +193,7 @@ query result based on a Boolean expression.
     publisher @include(if: $with_publisher)
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -211,7 +211,7 @@ response={`{
     ]
   }
 }`}
-variables={`{
+  variables={`{
   "with_publisher": true
 }`}
 />
@@ -226,7 +226,7 @@ variables={`{
     publisher @include(if: $with_publisher)
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -241,7 +241,7 @@ response={`{
     ]
   }
 }`}
-variables={`{
+  variables={`{
   "with_publisher": false
 }`}
 />
@@ -261,7 +261,7 @@ the query result based on a Boolean expression.
     publisher @skip(if: $with_publisher)
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -276,7 +276,7 @@ response={`{
     ]
   }
 }`}
-variables={`{
+  variables={`{
   "with_publisher": true
 }`}
 />
@@ -291,7 +291,7 @@ variables={`{
     publisher @skip(if: $with_publisher)
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles": [
       {
@@ -309,7 +309,7 @@ response={`{
     ]
   }
 }`}
-variables={`{
+  variables={`{
   "with_publisher": false
 }`}
 />

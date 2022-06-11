@@ -3,11 +3,11 @@ sidebar_label: Query Collections
 sidebar_position: 13
 description: Manage query collections with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - query collection
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - query collection
 ---
 
 # Metadata API Reference: Query collections
@@ -59,14 +59,13 @@ As the query collection is used in allowlists and REST endpoints, they are valid
 
 :::
 
-
 ### Args Syntax {#metadata-create-query-collection-syntax}
 
-| Key        | Required | Schema                                                                                | Description                  |
-|------------|----------|---------------------------------------------------------------------------------------|------------------------------|
-| name       | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)          | Name of the query collection |
-| definition | true     | [CollectionQuery](/graphql/core/api-reference/syntax-defs.mdx#collectionquery) array  | List of queries              |
-| comment    | false    | text                                                                                  | Optional comment             |
+| Key        | Required | Schema                                                                               | Description                  |
+| ---------- | -------- | ------------------------------------------------------------------------------------ | ---------------------------- |
+| name       | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)         | Name of the query collection |
+| definition | true     | [CollectionQuery](/graphql/core/api-reference/syntax-defs.mdx#collectionquery) array | List of queries              |
+| comment    | false    | text                                                                                 | Optional comment             |
 
 ## drop_query_collection {#metadata-drop-query-collection}
 
@@ -88,10 +87,10 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-drop-query-collection-syntax}
 
-| Key        | Required | Schema           | Description                                                                   |
-|------------|----------|------------------|-------------------------------------------------------------------------------|
-| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)  | Name of the query collection                                                  |
-| cascade    | true     | boolean          | When set to `true`, the collection (if present) is removed from the allowlist |
+| Key        | Required | Schema                                                                       | Description                                                                   |
+| ---------- | -------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection                                                  |
+| cascade    | true     | boolean                                                                      | When set to `true`, the collection (if present) is removed from the allowlist |
 
 ## add_query_to_collection {#metadata-add-query-to-collection}
 
@@ -115,7 +114,7 @@ X-Hasura-Role: admin
 ### Args Syntax {#metadata-add-query-to-collection-syntax}
 
 | Key             | Required | Schema                                                                       | Description                  |
-|-----------------|----------|------------------------------------------------------------------------------|------------------------------|
+| --------------- | -------- | ---------------------------------------------------------------------------- | ---------------------------- |
 | collection_name | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection |
 | query_name      | true     | [QueryName](/graphql/core/api-reference/syntax-defs.mdx#queryname)           | Name of the query            |
 | query           | true     | text                                                                         | The GraphQL query text       |
@@ -140,16 +139,16 @@ X-Hasura-Role: admin
 
 ### Args Syntax {#metadata-drop-query-from-collection-syntax}
 
-| Key             | Required | Schema                                                                           | Description                  |
-|-----------------|----------|----------------------------------------------------------------------------------|------------------------------|
-| collection_name | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)     | Name of the query collection |
-| query_name      | true     | [QueryName](/graphql/core/api-reference/syntax-defs.mdx#queryname)               | Name of the query            |
+| Key             | Required | Schema                                                                       | Description                  |
+| --------------- | -------- | ---------------------------------------------------------------------------- | ---------------------------- |
+| collection_name | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection |
+| query_name      | true     | [QueryName](/graphql/core/api-reference/syntax-defs.mdx#queryname)           | Name of the query            |
 
 ## add_collection_to_allowlist {#metadata-add-collection-to-allowlist}
 
-``add_collection_to_allowlist`` is used to add a collection to the allow-list. It is possible to specify a scope, defaulting to global.
+`add_collection_to_allowlist` is used to add a collection to the allow-list. It is possible to specify a scope, defaulting to global.
 
-If the given collection already exists in the allowlist regardless of scope, ``add_collection_to_allowlist`` is a no-op.
+If the given collection already exists in the allowlist regardless of scope, `add_collection_to_allowlist` is a no-op.
 To change the scope, use [update_scope_of_collection_in_allowlist](#metadata-update-scope-of-collection-in-allowlist).
 
 If the scope is global, all roles will be able to access the queries present in the query collection:
@@ -197,11 +196,10 @@ If a query occurs in multiple collections, a role will be allowed to access the 
 
 ### Args Syntax {#metadata-add-collection-to-allowlist-syntax}
 
-| Key        | Required | Schema           | Description                                              |
-|------------|----------|------------------|----------------------------------------------------------|
-| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)  | Name of a query collection to be added to the allow-list |
-| scope      | false    | [AllowlistScope](/graphql/core/api-reference/syntax-defs.mdx#allowlistscope)  | Scope of the collection in the allowlist. (default: `{global: true}`) When the scope is global, the query collection's queries will be accessible to all roles. When the scope is non-global, the query collection's queries will be accessible to all of the roles listed in the scope. *(non-global scope supported only in cloud/enterprise versions)* |
-
+| Key        | Required | Schema                                                                       | Description                                                                                                                                                                                                                                                                                                                                               |
+| ---------- | -------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of a query collection to be added to the allow-list                                                                                                                                                                                                                                                                                                  |
+| scope      | false    | [AllowlistScope](/graphql/core/api-reference/syntax-defs.mdx#allowlistscope) | Scope of the collection in the allowlist. (default: `{global: true}`) When the scope is global, the query collection's queries will be accessible to all roles. When the scope is non-global, the query collection's queries will be accessible to all of the roles listed in the scope. _(non-global scope supported only in cloud/enterprise versions)_ |
 
 ## update_scope_of_collection_in_allowlist {#metadata-update-scope-of-collection-in-allowlist}
 
@@ -211,7 +209,7 @@ dropping the collection from the allowlist using
 [drop_collection_from_allowlist](#metadata-drop-collection-from-allowlist), and then adding it with the given
 scope using [add_collection_to_allowlist](#metadata-add-collection-to-allowlist).
 
-``` http
+```http
 POST /v1/metadata HTTP/1.1
 Content-Type: application/json
 X-Hasura-Role: admin
@@ -233,11 +231,10 @@ X-Hasura-Role: admin
 
 ### Args Syntax {#metadata-update-scope-of-collection-in-allowlist-syntax}
 
-| Key        | Required | Schema           | Description                                                                                                                                                                                                                                                                                                                   |
-|------------|----------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Key        | Required | Schema                                                                       | Description                                                                                                                                                                                                                                                                                                                   |
+| ---------- | -------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of a query collection to be added to the allow-list                                                                                                                                                                                                                                                                      |
-| scope      | true     | [AllowlistScope](/graphql/core/api-reference/syntax-defs.mdx#allowlistscope) | Scope of the collection in the allowlist. When the scope is global, the query collection's queries will be accessible to all roles. When the scope is non-global, the query collection's queries will be accessible to all of the roles listed in the scope. *(non-global scope supported only in cloud/enterprise versions)* |
-
+| scope      | true     | [AllowlistScope](/graphql/core/api-reference/syntax-defs.mdx#allowlistscope) | Scope of the collection in the allowlist. When the scope is global, the query collection's queries will be accessible to all roles. When the scope is non-global, the query collection's queries will be accessible to all of the roles listed in the scope. _(non-global scope supported only in cloud/enterprise versions)_ |
 
 ## drop_collection_from_allowlist {#metadata-drop-collection-from-allowlist}
 
@@ -258,6 +255,6 @@ X-Hasura-Role: admin
 
 ### Args Syntax {#metadata-drop-collection-from-allowlist-syntax}
 
-| Key        | Required | Schema           | Description                                                  |
-|------------|----------|------------------|--------------------------------------------------------------|
-| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)  | Name of a query collection to be removed from the allow-list |
+| Key        | Required | Schema                                                                       | Description                                                  |
+| ---------- | -------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of a query collection to be removed from the allow-list |

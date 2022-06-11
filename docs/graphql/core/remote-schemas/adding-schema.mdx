@@ -1,16 +1,16 @@
 ---
 description: Add a remote schema with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - remote schema
   - add
 sidebar_position: 2
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Adding a Remote Schema
 
@@ -20,7 +20,7 @@ Follow the steps below to merge your remote GraphQL API with the GraphQL engine'
 
 ## Step 0: Write a custom GraphQL server
 
-*You can skip this step if you are using a 3rd party GraphQL API or already have a functional GraphQL server that meets your requirements.*
+_You can skip this step if you are using a 3rd party GraphQL API or already have a functional GraphQL server that meets your requirements._
 
 You need to create a custom GraphQL server with a schema and corresponding resolvers that solve your use case.
 
@@ -33,11 +33,12 @@ The following details need to be specified for merging a remote schema:
 - **Remote Schema name**: an alias for the remote schema that must be unique on an instance of the GraphQL engine.
 - **GraphQL server URL**: the endpoint at which your remote GraphQL server is available. This value can be entered manually or by specifying an environment variable that contains this information.
 - **Headers**: configure the headers to be sent to your custom GraphQL server:
-    - Toggle forwarding all headers sent by the client (when making a GraphQL query) to your remote GraphQL server.
 
-    - Send additional headers to your remote server - these can be static header name-value pairs; and/or pairs of "header name-environment variable name". You can specify the value of the header to be picked up from the environment variable.
+  - Toggle forwarding all headers sent by the client (when making a GraphQL query) to your remote GraphQL server.
 
-        **Example**: Let's say your remote GraphQL server needs a `X-Api-Key` as a header. As this value contains sensitive data (like API key in this example), you can configure the name of an environment variable which will hold the value. This environment variable needs to be present when you start the GraphQL engine. When Hasura sends requests to your remote server, it will pick up the value from this environment variable.
+  - Send additional headers to your remote server - these can be static header name-value pairs; and/or pairs of "header name-environment variable name". You can specify the value of the header to be picked up from the environment variable.
+
+    **Example**: Let's say your remote GraphQL server needs a `X-Api-Key` as a header. As this value contains sensitive data (like API key in this example), you can configure the name of an environment variable which will hold the value. This environment variable needs to be present when you start the GraphQL engine. When Hasura sends requests to your remote server, it will pick up the value from this environment variable.
 
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
@@ -134,8 +135,8 @@ You can query your remote server by making requests to the Hasura GraphQL endpoi
 
 ### Remote schema fields nomenclature
 
-- Top-level field names need to be unique across all merged schemas (*case-sensitive match*).
-- Types with the *exact same name and structure* will be merged. But types with the *same name but different structure* will result in type conflicts.
+- Top-level field names need to be unique across all merged schemas (_case-sensitive match_).
+- Types with the _exact same name and structure_ will be merged. But types with the _same name but different structure_ will result in type conflicts.
 
 ### Schema refreshing
 

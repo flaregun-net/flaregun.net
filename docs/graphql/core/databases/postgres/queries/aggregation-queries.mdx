@@ -3,14 +3,14 @@ sidebar_label: Aggregation queries
 sidebar_position: 3
 description: Make aggregation queries on Postgres with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - query
   - aggregation query
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Aggregation queries
 
@@ -60,7 +60,7 @@ rating:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "articles_aggregate": {
       "aggregate": {
@@ -163,7 +163,7 @@ aggregated data of their rating:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {

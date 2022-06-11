@@ -2,7 +2,7 @@
 description: Streaming subscriptions with Hasura
 sidebar_label: Streaming subscriptions
 keywords:
-  - hasura
+  - flaregun
   - docs
   - subscription
   - streaming
@@ -20,12 +20,12 @@ subscribe only to the data which has been newly added to the result set.
 
 :::tip Supported from
 
-   Streaming subscriptions are supported in Hasura GraphQL engine versions ``v2.7.0-beta.1`` and above.
+Streaming subscriptions are supported in Hasura GraphQL engine versions `v2.7.0-beta.1` and above.
 
 :::tip Enabling streaming subscriptions
 
-   Streaming subscriptions in the graphql-engine are disabled by default. To enable it,
-   set the environment variable ``HASURA_GRAPHQL_EXPERIMENTAL_FEATURES`` to ``streaming_subscriptions``.
+Streaming subscriptions in the graphql-engine are disabled by default. To enable it,
+set the environment variable `HASURA_GRAPHQL_EXPERIMENTAL_FEATURES` to `streaming_subscriptions`.
 
 ## How it works?
 
@@ -40,9 +40,9 @@ leverage the power of
 
 :::info Note
 
-   In the case of streaming subscriptions, the multiplexed batch size can be configured via
-   ``HASURA_GRAPHQL_STREAMING_QUERIES_MULTIPLEXED_BATCH_SIZE`` and the refetch interval can be
-   configured via ``HASURA_GRAPHQL_STREAMING_QUERIES_MULTIPLEXED_REFETCH_INTERVAL``.
+In the case of streaming subscriptions, the multiplexed batch size can be configured via
+`HASURA_GRAPHQL_STREAMING_QUERIES_MULTIPLEXED_BATCH_SIZE` and the refetch interval can be
+configured via `HASURA_GRAPHQL_STREAMING_QUERIES_MULTIPLEXED_REFETCH_INTERVAL`.
 
 ## Use cases
 

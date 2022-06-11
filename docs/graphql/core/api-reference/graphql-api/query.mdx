@@ -3,7 +3,7 @@ sidebar_label: Query / Subscription
 sidebar_position: 1
 description: Hasura GraphQL API queries and subscriptions API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - GraphQL API
   - API reference
@@ -24,7 +24,7 @@ query|subscription [<op-name>] {
 ```
 
 | Key      | Required | Schema                | Description                                                               |
-|----------|----------|-----------------------|---------------------------------------------------------------------------|
+| -------- | -------- | --------------------- | ------------------------------------------------------------------------- |
 | op-name  | false    | Value                 | Name query/subscription for observability                                 |
 | object   | true     | [Object](#object)     | Name of the table/object                                                  |
 | argument | false    | [Argument](#argument) | One or more of filter criteria, instructions for sort order or pagination |
@@ -33,7 +33,10 @@ query|subscription [<op-name>] {
 
 ```graphql
 query {
-  author(where: {articles: {rating: {_gte: 4}}} order_by: {name: asc}) {
+  author(
+    where: { articles: { rating: { _gte: 4 } } }
+    order_by: { name: asc }
+  ) {
     id
     name
   }
@@ -50,6 +53,7 @@ subscription {
   }
 }
 ```
+
 :::info Note
 
 For more examples and details of usage, please see [this](/graphql/core/databases/postgres/queries/index.mdx).
@@ -69,9 +73,9 @@ query|subscription [<op-name>] {
 ```
 
 | Key              | Required | Schema | Description                                                  |
-|------------------|----------|--------|--------------------------------------------------------------|
+| ---------------- | -------- | ------ | ------------------------------------------------------------ |
 | op-name          | false    | Value  | Name query/subscription for observability                    |
-| query-field-name | true     | Value  | Name of the auto-generated query field, e.g. *article_by_pk* |
+| query-field-name | true     | Value  | Name of the auto-generated query field, e.g. _article_by_pk_ |
 
 **Example: Query by PK**
 
@@ -102,9 +106,11 @@ subscription {
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#simpleobject">SimpleObject</a>{' | '}<a href="#aggregateobject">AggregateObject</a>
-</code>
+  <code>
+    <a href="#simpleobject">SimpleObject</a>
+    {" | "}
+    <a href="#aggregateobject">AggregateObject</a>
+  </code>
 </pre>
 
 </div>
@@ -125,10 +131,10 @@ object-name {
 ```
 
 | Key  | Required | Schema | Description                                                                                                                                                |
-|------|----------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | path | false    | Value  | `path` argument of `json`/`jsonb` follows simple [JSONPath specification](https://github.com/json-path/JsonPath). However, prefix symbol `$.` is optional. |
 
-*Example*
+_Example_
 
 ```graphql
 author {
@@ -220,7 +226,7 @@ object-name_aggregate {
 (For more details on aggregate functions, refer to the [Postgres
 docs](https://www.postgresql.org/docs/current/functions-aggregate.html#FUNCTIONS-AGGREGATE-STATISTICS-TABLE)).
 
-*Example*
+_Example_
 
 ```graphql
 author_aggregate {
@@ -283,12 +289,15 @@ author_aggregate {
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#distinctonexp">DistinctOnExp</a>{` | `}
-<a href="#whereexp">WhereExp</a>{` | `}
-<a href="#orderbyexp">OrderByExp</a>{` | `}
-<a href="#paginationexp">PaginationExp</a>
-</code>
+  <code>
+    <a href="#distinctonexp">DistinctOnExp</a>
+    {` | `}
+    <a href="#whereexp">WhereExp</a>
+    {` | `}
+    <a href="#orderbyexp">OrderByExp</a>
+    {` | `}
+    <a href="#paginationexp">PaginationExp</a>
+  </code>
 </pre>
 
 </div>
@@ -298,14 +307,16 @@ author_aggregate {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`distinct_on: [`}<a href="#tableselectcolumnenum">TableSelectColumnEnum</a>{`]`}
-</code>
+  <code>
+    {`distinct_on: [`}
+    <a href="#tableselectcolumnenum">TableSelectColumnEnum</a>
+    {`]`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
@@ -334,18 +345,19 @@ enum article_select_column {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`where: `}<a href="#boolexp">BoolExp</a>
-</code>
+  <code>
+    {`where: `}
+    <a href="#boolexp">BoolExp</a>
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  author(where: {rating: {_gt: 4}}) {
+  author(where: { rating: { _gt: 4 } }) {
     name
     articles {
       title
@@ -359,13 +371,17 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-<a href="#andexp">AndExp</a>{` | `}
-<a href="#orexp">OrExp</a>{` | `}
-<a href="#notexp">NotExp</a>{` | `}
-<a href="#trueexp">TrueExp</a>{` | `}
-<a href="#columnexp">ColumnExp</a>
-</code>
+  <code>
+    <a href="#andexp">AndExp</a>
+    {` | `}
+    <a href="#orexp">OrExp</a>
+    {` | `}
+    <a href="#notexp">NotExp</a>
+    {` | `}
+    <a href="#trueexp">TrueExp</a>
+    {` | `}
+    <a href="#columnexp">ColumnExp</a>
+  </code>
 </pre>
 
 </div>
@@ -375,21 +391,26 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _and: [`}<a href="#boolexp">BoolExp</a>{`]
+  <code>
+    {`{
+  _and: [`}
+    <a href="#boolexp">BoolExp</a>
+    {`]
 }`}
-</code>
+  </code>
 </pre>
-
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(where: {_and: [{rating: {_gt: 4}}, {published_on: {_gt: "2018-01-01"}}]}) {
+  article(
+    where: {
+      _and: [{ rating: { _gt: 4 } }, { published_on: { _gt: "2018-01-01" } }]
+    }
+  ) {
     title
     content
   }
@@ -450,20 +471,24 @@ rating: {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _or: [`}<a href="#boolexp">BoolExp</a>{`]
+  <code>
+    {`{
+  _or: [`}
+    <a href="#boolexp">BoolExp</a>
+    {`]
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(where: {_or: [{rating: {_gt: 4}}, {is_published: {_eq: true}}]}) {
+  article(
+    where: { _or: [{ rating: { _gt: 4 } }, { is_published: { _eq: true } }] }
+  ) {
     title
     content
   }
@@ -478,7 +503,7 @@ the way [GraphQL list input
 coercion](https://graphql.github.io/graphql-spec/June2018/#sec-Type-System.List)
 behaves.
 
-*Example:*
+_Example:_
 
 ```graphql
 {
@@ -518,20 +543,22 @@ behaves.
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  _not: `}<a href="#boolexp">BoolExp</a>{`
+  <code>
+    {`{
+  _not: `}
+    <a href="#boolexp">BoolExp</a>
+    {`
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(where: {_not: {title: {_eq: ""}}} ) {
+  article(where: { _not: { title: { _eq: "" } } }) {
     title
     content
   }
@@ -541,16 +568,14 @@ query {
 ###### TrueExp
 
 <pre>
-<code>
-{`{}`}
-</code>
+  <code>{`{}`}</code>
 </pre>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  author(where: {articles: {}}) {
+  author(where: { articles: {} }) {
     name
   }
 }
@@ -567,20 +592,22 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{
-  field-name: { `}<a href="#operator">Operator</a>{`: Value }
+  <code>
+    {`{
+  field-name: { `}
+    <a href="#operator">Operator</a>
+    {`: Value }
 }`}
-</code>
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(where: {title: {_eq: "GraphQL Tutorial"}}) {
+  article(where: { title: { _eq: "GraphQL Tutorial" } }) {
     title
     content
   }
@@ -589,12 +616,12 @@ query {
 
 ###### Operator {#operator}
 
-<div id="generic-operators"/>
+<div id="generic-operators" />
 
 **Generic operators (all column types except json, jsonb):**
 
 | Operator | PostgreSQL equivalent |
-|----------|-----------------------|
+| -------- | --------------------- |
 | `_eq`    | `=`                   |
 | `_neq`   | `<>`                  |
 | `_gt`    | `>`                   |
@@ -609,12 +636,12 @@ operators](https://www.postgresql.org/docs/current/functions-comparison.html)
 and [list based search
 operators](https://www.postgresql.org/docs/current/functions-comparisons.html).)
 
-<div id="text-operators"/>
+<div id="text-operators" />
 
 **Text related operators:**
 
 | Operator    | PostgreSQL equivalent |
-|-------------|-----------------------|
+| ----------- | --------------------- |
 | `_like`     | `LIKE`                |
 | `_nlike`    | `NOT LIKE`            |
 | `_ilike`    | `ILIKE`               |
@@ -629,34 +656,34 @@ operators](https://www.postgresql.org/docs/current/functions-comparisons.html).)
 (For more details on text related operators, refer to the [Postgres
 docs](https://www.postgresql.org/docs/current/functions-matching.html).)
 
-<div id="null-expression"/>
+<div id="null-expression" />
 
 **Checking for NULL values:**
 
 | Operator                                | PostgreSQL equivalent |
-|-----------------------------------------|-----------------------|
+| --------------------------------------- | --------------------- |
 | `_is_null` (takes true/false as values) | `IS NULL`             |
 
 (For more details on the `IS NULL` expression, refer to the [Postgres
 docs](https://www.postgresql.org/docs/current/functions-comparison.html).)
 
-<div id="type-casting"/>
+<div id="type-casting" />
 
 **Type casting:**
 
 | Operator                                         | PostgreSQL equivalent |
-|--------------------------------------------------|-----------------------|
+| ------------------------------------------------ | --------------------- |
 | `_cast` (takes a [CastExp](#castexp) as a value) | `::`                  |
 
 (For more details on type casting, refer to the [Postgres
 docs](https://www.postgresql.org/docs/current/sql-createcast.html).)
 
-<div id="jsonb-operators"/>
+<div id="jsonb-operators" />
 
 **JSONB operators:**
 
 | Operator        | PostgreSQL equivalent |
-|-----------------|-----------------------|
+| --------------- | --------------------- |
 | `_contains`     | `@>`                  |
 | `_contained_in` | `<@`                  |
 | `_has_key`      | `?`                   |
@@ -666,12 +693,12 @@ docs](https://www.postgresql.org/docs/current/sql-createcast.html).)
 (For more details on JSONB operators, refer to the [Postgres
 docs](https://www.postgresql.org/docs/current/static/functions-json.html#FUNCTIONS-JSONB-OP-TABLE).)
 
-<div id="geometry-operators"/>
+<div id="geometry-operators" />
 
 **PostGIS related operators on GEOMETRY columns:**
 
 | Operator         | PostGIS equivalent             |
-|------------------|--------------------------------|
+| ---------------- | ------------------------------ |
 | `_st_contains`   | `ST_Contains(column, input)`   |
 | `_st_crosses`    | `ST_Crosses(column, input)`    |
 | `_st_equals`     | `ST_Equals(column, input)`     |
@@ -687,24 +714,24 @@ docs](http://postgis.net/workshops/postgis-intro/spatial_relationships.html).)
 
 :::info Note
 
--   All operators take a JSON representation of `geometry/geography`
-    values as input value.
+- All operators take a JSON representation of `geometry/geography`
+  values as input value.
 
--   The input value for `_st_d_within` operator is an object:
-    ```
-    {  
-      field-name : {_st_d_within: {distance: Float, from: Value} }
-    }
-    ```
+- The input value for `_st_d_within` operator is an object:
+  ```
+  {
+    field-name : {_st_d_within: {distance: Float, from: Value} }
+  }
+  ```
 
 :::
 
-<div id="intersect-operators"/>
+<div id="intersect-operators" />
 
 **Intersect Operators on RASTER columns:**
 
 | Operator                    | PostgreSQL equivalent                   | Input object                                                        |
-|-----------------------------|-----------------------------------------|---------------------------------------------------------------------|
+| --------------------------- | --------------------------------------- | ------------------------------------------------------------------- |
 | `_st_intersects_rast`       | `ST_Intersects(column, value)`          | `{ _st_intersects_rast: raster }`                                   |
 | `_st_intersects_nband_geom` | `ST_Intersects(column, nband, geommin)` | `{ _st_intersects_nband_geom: {nband: Integer! geommin: geometry!}` |
 | `_st_intersects_geom_nband` | `ST_Intersects(column, geommin, nband)` | `{ _st_intersects_geom_nband: {geommin: geometry! nband: Integer }` |
@@ -712,12 +739,12 @@ docs](http://postgis.net/workshops/postgis-intro/spatial_relationships.html).)
 (For more details on intersect operators on `raster` columns refer to
 the [PostGIS docs](https://postgis.net/docs/RT_ST_Intersects.html).)
 
-<div id="ltree-operators"/>
+<div id="ltree-operators" />
 
 **ltree operators:**
 
 | Operator            | PostgreSQL equivalent |
-|---------------------|-----------------------|
+| ------------------- | --------------------- |
 | `_ancestor`         | `@>`                  |
 | `_ancestor_any`     | `@>`                  |
 | `_descendant`       | `<@`                  |
@@ -731,18 +758,19 @@ docs](https://www.postgresql.org/docs/current/ltree.html).)
 
 ###### CastExp {#castexp}
 
-
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ type-name: {`}<a href="#operator">Operator</a>{`: Value} }`}
-</code>
+  <code>
+    {`{ type-name: {`}
+    <a href="#operator">Operator</a>
+    {`: Value} }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query MyQuery($coordinate: geography!) {
@@ -782,44 +810,44 @@ Currently, only the following type casts are supported:
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`order_by: (`}
-<a href="#tableorderby">TableOrderBy</a>
-{` | [`}
-<a href="#tableorderby">TableOrderBy</a>
-{`])`}
-</code>
+  <code>
+    {`order_by: (`}
+    <a href="#tableorderby">TableOrderBy</a>
+    {` | [`}
+    <a href="#tableorderby">TableOrderBy</a>
+    {`])`}
+  </code>
 </pre>
 
 </div>
 
-*Example 1*
+_Example 1_
 
 ```graphql
 query {
-  author(order_by: {rating: desc}) {
+  author(order_by: { rating: desc }) {
     name
     rating
   }
 }
 ```
 
-*Example 2*
+_Example 2_
 
 ```graphql
 query {
-  article(order_by: [{id: desc}, {author: {id: asc}}]) {
+  article(order_by: [{ id: desc }, { author: { id: asc } }]) {
     title
     rating
   }
 }
 ```
 
-*Example 3*
+_Example 3_
 
 ```graphql
 query {
-  article(order_by: [{id: desc}, {author: {id: asc}}]) {
+  article(order_by: [{ id: desc }, { author: { id: asc } }]) {
     title
     rating
   }
@@ -833,18 +861,20 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ column: `}<a href="#orderbyenum">OrderByEnum</a>{` }`}
-</code>
+  <code>
+    {`{ column: `}
+    <a href="#orderbyenum">OrderByEnum</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(order_by: {rating: asc}) {
+  article(order_by: { rating: asc }) {
     title
     content
   }
@@ -856,18 +886,20 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ relation-name: `}<a href="#tableorderby">TableOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ relation-name: `}
+    <a href="#tableorderby">TableOrderBy</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  article(order_by: {author: {rating: desc}}) {
+  article(order_by: { author: { rating: desc } }) {
     title
     content
   }
@@ -879,19 +911,20 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ relation-name_aggregate: `}<a href="#aggregateorderby">AggregateOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ relation-name_aggregate: `}
+    <a href="#aggregateorderby">AggregateOrderBy</a>
+    {` }`}
+  </code>
 </pre>
-
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  author(order_by: {articles_aggregate: {max: {rating: asc}}}) {
+  author(order_by: { articles_aggregate: { max: { rating: asc } } }) {
     name
   }
 }
@@ -904,9 +937,11 @@ Returning scalar values:
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ computed-field-name: `}<a href="#orderbyenum">OrderByEnum</a>{` }`}
-</code>
+  <code>
+    {`{ computed-field-name: `}
+    <a href="#orderbyenum">OrderByEnum</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
@@ -916,9 +951,11 @@ Returning set of table rows:
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ computed-field-name: `}<a href="#tableorderby">TableOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ computed-field-name: `}
+    <a href="#tableorderby">TableOrderBy</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
@@ -926,9 +963,11 @@ Returning set of table rows:
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ computed-field-name_aggregate: `}<a href="#aggregateorderby">AggregateOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ computed-field-name_aggregate: `}
+    <a href="#aggregateorderby">AggregateOrderBy</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
@@ -953,14 +992,16 @@ input article_order_by {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ computed-field-name: `}<a href="#orderbyenum">OrderByEnum</a>{` }`}
-</code>
+  <code>
+    {`{ computed-field-name: `}
+    <a href="#orderbyenum">OrderByEnum</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 Consider a table `student` contains integer columns for course subjects
 to store marks. A computed field with the name `total_marks` defined to
@@ -969,7 +1010,7 @@ sorted by `total_marks`.
 
 ```graphql
 query {
-  student(order_by: {total_marks: desc}){
+  student(order_by: { total_marks: desc }) {
     id
     name
     total_marks
@@ -985,14 +1026,16 @@ query by their aggregate fields.
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ computed-field-name_aggregate: `}<a href="#aggregateorderby">AggregateOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ computed-field-name_aggregate: `}
+    <a href="#aggregateorderby">AggregateOrderBy</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 A computed field `get_articles` is defined on the `author` table which
 returns set of `article` table rows. Fetch authors sorted by the count
@@ -1000,10 +1043,10 @@ of their articles.
 
 ```graphql
 query {
-  author(order_by: {get_articles_aggregate: {count: desc}}){
+  author(order_by: { get_articles_aggregate: { count: desc } }) {
     id
     name
-    get_articles{
+    get_articles {
       id
       title
       content
@@ -1039,18 +1082,20 @@ enum order_by {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ count: `}<a href="#orderbyenum">OrderByEnum</a>{` }`}
-</code>
+  <code>
+    {`{ count: `}
+    <a href="#orderbyenum">OrderByEnum</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  author(order_by: {articles_aggregate: {count: desc}}) {
+  author(order_by: { articles_aggregate: { count: desc } }) {
     name
   }
 }
@@ -1061,18 +1106,20 @@ query {
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ op_name: `}<a href="#tableaggoporderby">TableAggOpOrderBy</a>{` }`}
-</code>
+  <code>
+    {`{ op_name: `}
+    <a href="#tableaggoporderby">TableAggOpOrderBy</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {
-  author (order_by: {articles_aggregate: {sum: {id: desc}}}) {
+  author(order_by: { articles_aggregate: { sum: { id: desc } } }) {
     id
   }
 }
@@ -1086,9 +1133,11 @@ Available operations are `sum`, `avg`, `max`, `min`, `stddev`,
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`{ column: `}<a href="#orderbyenum">OrderByEnum</a>{` }`}
-</code>
+  <code>
+    {`{ column: `}
+    <a href="#orderbyenum">OrderByEnum</a>
+    {` }`}
+  </code>
 </pre>
 
 </div>
@@ -1098,15 +1147,15 @@ Available operations are `sum`, `avg`, `max`, `min`, `stddev`,
 <div className="parsed-literal">
 
 <pre>
-<code>
-{`limit: Integer
+  <code>
+    {`limit: Integer
 [offset: Integer]`}
-</code>
+  </code>
 </pre>
 
 </div>
 
-*Example*
+_Example_
 
 ```graphql
 query {

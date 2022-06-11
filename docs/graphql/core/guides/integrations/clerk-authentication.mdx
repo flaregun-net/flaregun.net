@@ -1,7 +1,7 @@
 ---
 description: Integrate Clerk Authentication with Hasura Using JWTs
 keywords:
-  - hasura
+  - flaregun
   - docs
   - guide
   - clerk
@@ -13,7 +13,7 @@ sidebar_position: 2
 sidebar_label: Clerk Authentication using JWTs
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Clerk Authentication Using JWTs with Hasura GraphQL Engine
 
@@ -25,7 +25,8 @@ Clerk authenticates users, manages session tokens, and provides user management 
 
 ## Assumptions
 
-This guide assumes the following: 
+This guide assumes the following:
+
 - You have [Hasura Cloud account](https://cloud.hasura.io/) and project already set up.
 - You have created a [Clerk account](https://dashboard.clerk.dev/sign-up).
 
@@ -79,7 +80,6 @@ Copy the JWKS endpoint. Go to your Hasura project settings and add a new environ
 
 Replace the whole URL with the endpoint you copied or `<YOUR_FRONTEND_API>` with your frontend API.
 
-
 :::info Note
 
 If you did use a custom signing key, instead of providing the `jwk_url`, you need to provide the algorithm **type** (ex. HS256) and **key** as the value of `HASURA_GRAPHQL_JWT_SECRET`:
@@ -90,12 +90,11 @@ If you did use a custom signing key, instead of providing the `jwk_url`, you nee
 
 :::
 
-
 ## Step 4: Install the Clerk library
 
 Now it's time to add the Clerk library to your application.
 
-Depending on the frontend library or framework you're using, Clerk has different packages for accessing the Clerk JavaScript SDK. For example, there is a package for [Next.js](https://github.com/clerkinc/javascript/tree/main/packages/nextjs), [React](https://github.com/clerkinc/javascript/tree/main/packages/react), [Remix](https://github.com/clerkinc/javascript/tree/main/packages/remix), and [more](https://github.com/clerkinc/javascript/tree/main/packages). 
+Depending on the frontend library or framework you're using, Clerk has different packages for accessing the Clerk JavaScript SDK. For example, there is a package for [Next.js](https://github.com/clerkinc/javascript/tree/main/packages/nextjs), [React](https://github.com/clerkinc/javascript/tree/main/packages/react), [Remix](https://github.com/clerkinc/javascript/tree/main/packages/remix), and [more](https://github.com/clerkinc/javascript/tree/main/packages).
 
 Using a Next.js application as an example, run the following:
 
@@ -119,7 +118,7 @@ The `NEXT_PUBLIC_` prefix is specific to Next.js applications, but there are sim
 
 After the environment variables are set, you can start up your dev server.
 
-The component you want to make authenticated requests from needs to be a child of both `<ClerkProvider />` and `<SignedIn />`. 
+The component you want to make authenticated requests from needs to be a child of both `<ClerkProvider />` and `<SignedIn />`.
 
 In Next.js, update `pages/_app.js` with the following:
 
@@ -128,8 +127,8 @@ import {
   ClerkProvider,
   RedirectToSignIn,
   SignedIn,
-  SignedOut
-} from '@clerk/nextjs';
+  SignedOut,
+} from "@clerk/nextjs"
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -143,10 +142,10 @@ function MyApp({ Component, pageProps }) {
         </SignedOut>
       </>
     </ClerkProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
 ```
 
 After signing in, the child routes will now be able to make authenticated GraphQL queries to Hasura.
@@ -155,7 +154,7 @@ After signing in, the child routes will now be able to make authenticated GraphQ
 
 GraphQL clients (such as [Apollo Client](https://www.apollographql.com/docs/react/) and [Relay](https://relay.dev/)) can help with querying and caching your data. They can also manage UI state, keep data in sync, and boost performance. That said, you can make a GraphQL request to the Hasura backend with the native browser [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
-The last step of integrating Clerk as the modern web authentication solution for Hasura is to pass the JWT in the `Authorization` header of your requests. 
+The last step of integrating Clerk as the modern web authentication solution for Hasura is to pass the JWT in the `Authorization` header of your requests.
 
 You can access the token generated with the Hasura claims by calling `getToken({ template: <your-template-name> })` with the name of your template.
 
@@ -174,36 +173,36 @@ Even if you don't have a database table set up yet, the [GraphQL built-in intros
 Here is an example of using `Fetch` to make an introspection query in a Next.js application:
 
 ```jsx
-import { useAuth } from '@clerk/nextjs';
+import { useAuth } from "@clerk/nextjs"
 
 export default function Home() {
-  const { getToken } = useAuth();
-  const endpoint = process.env.NEXT_PUBLIC_HASURA_GRAPHQL_API;
-  const query = `query { __typename }`;
+  const { getToken } = useAuth()
+  const endpoint = process.env.NEXT_PUBLIC_HASURA_GRAPHQL_API
+  const query = `query { __typename }`
   const makeQuery = async () => {
     try {
       const response = await fetch(endpoint, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${await getToken({ template: 'hasura' })}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${await getToken({ template: "hasura" })}`,
         },
-        body: JSON.stringify({ query })
-      });
-      const data = await response.json();
+        body: JSON.stringify({ query }),
+      })
+      const data = await response.json()
 
       // Do something with your data
-      console.log(data);
+      console.log(data)
     } catch (err) {
       // Handle errors
     }
-  };
+  }
 
   return (
     <button type="button" onClick={makeQuery}>
       Make query
     </button>
-  );
+  )
 }
 ```
 
@@ -218,8 +217,6 @@ If all has been successful, you should see something similiar as below in your b
   }
 }
 ```
-
-
 
 ## Next steps
 

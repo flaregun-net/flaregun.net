@@ -1,7 +1,7 @@
 ---
 description: Deploy Hasura GraphQL engine with Docker
 keywords:
-  - hasura
+  - flaregun
   - docs
   - deployment
   - docker
@@ -9,7 +9,7 @@ sidebar_position: 3
 sidebar_label: Using Docker
 ---
 
-import LatestRelease from "@site/src/components/LatestRelease";
+import LatestRelease from "@site/src/components/LatestRelease"
 
 # Run Hasura GraphQL engine using Docker
 
@@ -22,8 +22,8 @@ database to store its metadata using Docker Compose.
 
 ### Prerequisites
 
--   [Docker](https://docs.docker.com/install/)
--   [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Step 1: Get the docker-compose file
 
@@ -113,9 +113,9 @@ $ docker logs 097f58433a2b
 
 **See:**
 
--   [https://docs.docker.com/config/containers/logging](https://docs.docker.com/config/containers/logging) for more details
-    on logging in Docker.
--   [Hasura GraphQL engine logs](/graphql/core/deployment/logging.mdx) for more details on Hasura logs.
+- [https://docs.docker.com/config/containers/logging](https://docs.docker.com/config/containers/logging) for more details
+  on logging in Docker.
+- [Hasura GraphQL engine logs](/graphql/core/deployment/logging.mdx) for more details on Hasura logs.
 
 ## Updating Hasura GraphQL engine {#docker-update}
 
@@ -127,7 +127,10 @@ running with Docker.
 
 The current latest version is:
 
-<code>hasura/graphql-engine:<LatestRelease /></code>
+<code>
+  hasura/graphql-engine:
+  <LatestRelease />
+</code>
 
 All the versions can be found at:
 [https://github.com/hasura/graphql-engine/releases](https://github.com/hasura/graphql-engine/releases)
@@ -147,12 +150,13 @@ graphql-engine:
 you should change it to:
 
 <pre>
-<code>
-graphql-engine:<br/>
-{"  "}image: hasura/graphql-engine:<LatestRelease />
-</code>
+  <code>
+    graphql-engine:
+    <br />
+    {"  "}image: hasura/graphql-engine:
+    <LatestRelease />
+  </code>
 </pre>
-
 
 :::info Note
 
@@ -164,4 +168,4 @@ might need to downgrade your metadata catalogue version as described in
 
 ## Advanced
 
--   [Setting up migrations](/graphql/core/migrations/index.mdx)
+- [Setting up migrations](/graphql/core/migrations/index.mdx)

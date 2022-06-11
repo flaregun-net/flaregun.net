@@ -2,7 +2,7 @@
 sidebar_position: 3
 description: Azure monitor Integration on Hasura Cloud
 keywords:
-  - hasura
+  - flaregun
   - docs
   - metrics
   - integration
@@ -11,7 +11,7 @@ keywords:
 sidebar_label: Azure Monitor
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Azure Monitor Integration
 
@@ -70,7 +70,7 @@ Azure monitor Integration is only available for Hasura Cloud projects on the `St
     alt="Service Principal Role"
     width="1146px"
   />
-  
+
 - Create an [Application Insights resource](https://docs.microsoft.com/en-us/azure/azure-monitor/app/create-new-resource>) in Azure.
 
 - From the `Overview` tab of the created Application Insights resource, retrieve `Instrumentation Key`
@@ -80,7 +80,7 @@ Azure monitor Integration is only available for Hasura Cloud projects on the `St
     alt="Instrumentation Key"
     width="1146px"
   />
-  
+
 ## Configure Azure Monitor integration
 
 On the Project settings page, navigate to **Integrations > Azure Monitor**.
@@ -94,7 +94,7 @@ On the Project settings page, navigate to **Integrations > Azure Monitor**.
 Enter the values of config parameters obtained from the steps in pre-requisites in the Azure monitor integration form. In addition to the above parameters, the following fields are also needed:
 
 | Field                                                                                                          | Description                                                                                                                                                      |
-|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Namespace](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-custom-overview#namespace) | Namespaces are a way to categorize or group similar metrics together.                                                                                            |
 | [Log type](https://docs.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api#request-headers)       | The record type of the log that is being submitted. It can contain only letters, numbers, and the underscore (\_) character, and it can't exceed 100 characters. |
 | Custom Attributes **(Optional)**                                                                               | Custom Attributes associated with your logs. A default source tag `hasura-logs` is added to all exported logs.                                                   |
@@ -103,7 +103,7 @@ After adding appropriate values in the Azure monitor Integration panel, click `C
 
 ## Checking the status of the integration
 
-The green/red dot signifies the status of the integration. For each of the telemetry types (logs, metrics, traces) green signifies successful exporting of the telemetry to Azure monitor. 
+The green/red dot signifies the status of the integration. For each of the telemetry types (logs, metrics, traces) green signifies successful exporting of the telemetry to Azure monitor.
 `Last Exported` is continuously updated, indicating the timestamp of the last telemetry (log, metric, trace) successfully exported to your Azure monitor dashboard.
 
 <Thumbnail
@@ -112,7 +112,7 @@ The green/red dot signifies the status of the integration. For each of the telem
   width="1146px"
 />
 
-In case of error while exporting any of telemetries(logs, metrics, traces) to Azure monitor, the dot becomes red and the error messages/instructios are displayed. Click ``Update Settings`` button to update the config parameters.
+In case of error while exporting any of telemetries(logs, metrics, traces) to Azure monitor, the dot becomes red and the error messages/instructios are displayed. Click `Update Settings` button to update the config parameters.
 
 <Thumbnail
   src="/img/graphql/cloud/metrics/configure-azure-monitor-fail.png"
@@ -125,7 +125,7 @@ In case of error while exporting any of telemetries(logs, metrics, traces) to Az
 The integration exports the following five metrics to Azure monitor:
 
 | Metric Exported                | Metric Name in Azure monitor  |
-|--------------------------------|-------------------------------|
+| ------------------------------ | ----------------------------- |
 | Average number of requests     | `average_requests_per_minute` |
 | Average request execution time | `average_execution_time`      |
 | Success rate of requests       | `success_rate`                |
@@ -185,5 +185,3 @@ Select the appropriate `Application Insights` and click `Transaction search`. Th
   alt="Traces successfully exported to Azure monitor"
   width="1146px"
 />
-
-

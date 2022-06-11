@@ -1,16 +1,13 @@
 import Link from "@docusaurus/Link"
-import useBaseUrl from "@docusaurus/useBaseUrl"
 import DiscordIcon from "@site/static/icons/discord.svg"
 import GithubIcon from "@site/static/icons/github.svg"
-import LinkedInIcon from "@site/static/icons/linkedin.svg"
 import TwitterIcon from "@site/static/icons/twitter.svg"
-import YoutubeIcon from "@site/static/icons/youtube.svg"
 import React from "react"
 import styles from "./styles.module.scss"
 
 const CustomFooter = () => (
   <footer className={styles["custom-footer-wrapper"]}>
-    <div className={styles["logo-wrapper"]}>
+    {/* <div className={styles["logo-wrapper"]}>
       <img
         src={useBaseUrl("/img/flaregun.svg")}
         className={styles["dark-theme-logo"]}
@@ -19,14 +16,14 @@ const CustomFooter = () => (
         src={useBaseUrl("/img/flaregun.svg")}
         className={styles["light-theme-logo"]}
       />
-    </div>
+    </div> */}
     <div className={styles["copyright"]}>
-      {`© ${new Date().getFullYear()} Hasura Inc. All rights reserved`}
+      {`© ${new Date().getFullYear()} Flaregun Inc. All rights reserved`}
     </div>
     <div className={styles["footerSocialIconsWrapper"]}>
       <div className={styles["socialBrands"]}>
         <Link
-          href={"https://github.com/hasura/graphql-engine"}
+          href={"https://github.com/flaregun-net"}
           rel="noopener noreferrer"
           aria-label={"Github"}
         >
@@ -35,7 +32,7 @@ const CustomFooter = () => (
       </div>
       <div className={styles["socialBrands"]}>
         <Link
-          href={"https://twitter.com/hasurahq"}
+          href={"https://twitter.com/flaregun-net"}
           rel="noopener noreferrer"
           aria-label={"Twitter"}
         >
@@ -44,14 +41,14 @@ const CustomFooter = () => (
       </div>
       <div className={styles["socialBrands"]}>
         <Link
-          href={"https://discord.com/invite/hasura"}
+          href={"https://discord.gg/ukPanmZPsq"}
           rel="noopener noreferrer"
           aria-label={"Discord"}
         >
           <DiscordIcon />
         </Link>
       </div>
-      <div className={styles["socialBrands"]}>
+      {/* <div className={styles["socialBrands"]}>
         <Link
           href={"https://www.youtube.com/channel/UCZo1ciR8pZvdD3Wxp9aSNhQ"}
           rel="noopener noreferrer"
@@ -68,7 +65,7 @@ const CustomFooter = () => (
         >
           <LinkedInIcon />
         </Link>
-      </div>
+      </div> */}
     </div>
   </footer>
 )

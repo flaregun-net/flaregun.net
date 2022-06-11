@@ -3,15 +3,15 @@ sidebar_label: Connecting databases
 sidebar_position: 1
 description: Connect a database to Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - databases
   - connect
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Connecting databases to Hasura GraphQL engine
 
@@ -124,9 +124,9 @@ with Heroku from inside of Hasura Cloud. For more information, see
 
 :::caution Connecting different Hasura instances to the same database
 
-You can connect different Hasura instances (i.e. instances with different metadata) to the same database as long as 
-there are no Event Triggers in any of the metadata. Event Triggers store their data in the underlying database and 
-hence different instances acting on the same data can cause undefined behaviour during run-time. 
+You can connect different Hasura instances (i.e. instances with different metadata) to the same database as long as
+there are no Event Triggers in any of the metadata. Event Triggers store their data in the underlying database and
+hence different instances acting on the same data can cause undefined behaviour during run-time.
 This should not be a problem if the Hasura instances have the same metadata.
-  
+
 :::

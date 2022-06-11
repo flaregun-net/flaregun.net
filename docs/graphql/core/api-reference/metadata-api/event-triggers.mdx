@@ -3,11 +3,11 @@ sidebar_label: Event Triggers
 sidebar_position: 9
 description: Manage event triggers with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - event trigger
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - event trigger
 ---
 
 # Metadata API Reference: Event Triggers
@@ -72,22 +72,22 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-pg-create-event-trigger-syntax}
 
-| Key                       | Required | Schema                                                                                                                                                              | Description                                                             |
-|---------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| name                      | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername)                                                                                              | Name of the event trigger                                               |
-| table                     | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                                        | Object with table name and schema                                       |
-| source                    | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                                                                                | Name of the source database of the table (default: `default`)           |
-| webhook                   | false    | String                                                                                                                                                              | Full url of webhook (\*)                                                |
-| webhook_from_env          | false    | String                                                                                                                                                              | Environment variable name of webhook (must exist at boot time) (\*)     |
-| insert                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for insert operation                                      |
-| update                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for update operation                                      |
-| delete                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for delete operation                                      |
-| headers                   | false    | [ [HeaderFromValue](/graphql/core/api-reference/syntax-defs.mdx#headerfromvalue) \| [HeaderFromEnv](/graphql/core/api-reference/syntax-defs.mdx#headerfromenv) ]    | List of headers to be sent with the webhook                             |
-| retry_conf                | false    | [RetryConf](/graphql/core/api-reference/syntax-defs.mdx#retryconf)                                                                                                  | Retry configuration if event delivery fails                             |
-| replace                   | false    | Boolean                                                                                                                                                             | If set to true, the event trigger is replaced with the new definition   |
-| enable_manual             | false    | Boolean                                                                                                                                                             | If set to true, the event trigger can be invoked manually               |
-| request_transform         | false    | [RequestTransformation](/graphql/core/api-reference/syntax-defs.mdx#requesttransformation)                                                                          | Attaches a Request Transformation to the Event Trigger.                 |
-| response_transform        | false    | [ResponseTransformation](/graphql/core/api-reference/syntax-defs.mdx#responsetransformation)                                                                        | Attaches a Request Transformation to the Event Trigger.                 |
+| Key                | Required | Schema                                                                                                                                                           | Description                                                           |
+| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| name               | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername)                                                                                           | Name of the event trigger                                             |
+| table              | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                                     | Object with table name and schema                                     |
+| source             | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                                                                             | Name of the source database of the table (default: `default`)         |
+| webhook            | false    | String                                                                                                                                                           | Full url of webhook (\*)                                              |
+| webhook_from_env   | false    | String                                                                                                                                                           | Environment variable name of webhook (must exist at boot time) (\*)   |
+| insert             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for insert operation                                    |
+| update             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for update operation                                    |
+| delete             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for delete operation                                    |
+| headers            | false    | [ [HeaderFromValue](/graphql/core/api-reference/syntax-defs.mdx#headerfromvalue) \| [HeaderFromEnv](/graphql/core/api-reference/syntax-defs.mdx#headerfromenv) ] | List of headers to be sent with the webhook                           |
+| retry_conf         | false    | [RetryConf](/graphql/core/api-reference/syntax-defs.mdx#retryconf)                                                                                               | Retry configuration if event delivery fails                           |
+| replace            | false    | Boolean                                                                                                                                                          | If set to true, the event trigger is replaced with the new definition |
+| enable_manual      | false    | Boolean                                                                                                                                                          | If set to true, the event trigger can be invoked manually             |
+| request_transform  | false    | [RequestTransformation](/graphql/core/api-reference/syntax-defs.mdx#requesttransformation)                                                                       | Attaches a Request Transformation to the Event Trigger.               |
+| response_transform | false    | [ResponseTransformation](/graphql/core/api-reference/syntax-defs.mdx#responsetransformation)                                                                     | Attaches a Request Transformation to the Event Trigger.               |
 
 (\*) Either `webhook` or `webhook_from_env` are required.
 
@@ -112,7 +112,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-delete-event-trigger-syntax}
 
 | Key    | Required | Schema                                                                 | Description                                                     |
-|--------|----------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| ------ | -------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
 | name   | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername) | Name of the event trigger                                       |
 | source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)   | Name of the source database of the trigger (default: `default`) |
 
@@ -140,7 +140,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-redeliver-event-syntax}
 
 | Key      | Required | Schema | Description       |
-|----------|----------|--------|-------------------|
+| -------- | -------- | ------ | ----------------- |
 | event_id | true     | String | UUID of the event |
 
 ## pg_invoke_event_trigger {#metadata-pg-invoke-event-trigger}
@@ -165,15 +165,12 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-invoke-event-trigger-syntax}
 
 | Key     | Required | Schema                                                                 | Description                                                     |
-|---------|----------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| ------- | -------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
 | name    | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername) | Name of the event trigger                                       |
 | payload | true     | JSON                                                                   | Some JSON payload to send to trigger                            |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)   | Name of the source database of the trigger (default: `default`) |
 
-
---------------------
-
-
+---
 
 ## mssql_create_event_trigger {#metadata-mssql-create-event-trigger}
 
@@ -223,22 +220,22 @@ X-Hasura-Role: admin
 
 ### Args syntax {#metadata-mssql-create-event-trigger-syntax}
 
-| Key                       | Required | Schema                                                                                                                                                              | Description                                                             |
-|---------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| name                      | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername)                                                                                              | Name of the event trigger                                               |
-| table                     | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                                        | Object with table name and schema                                       |
-| source                    | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                                                                                | Name of the source database of the table (default: `default`)           |
-| webhook                   | false    | String                                                                                                                                                              | Full url of webhook (\*)                                                |
-| webhook_from_env          | false    | String                                                                                                                                                              | Environment variable name of webhook (must exist at boot time) (\*)     |
-| insert                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for insert operation                                      |
-| update                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for update operation                                      |
-| delete                    | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                          | Specification for delete operation                                      |
-| headers                   | false    | [ [HeaderFromValue](/graphql/core/api-reference/syntax-defs.mdx#headerfromvalue) \| [HeaderFromEnv](/graphql/core/api-reference/syntax-defs.mdx#headerfromenv) ]    | List of headers to be sent with the webhook                             |
-| retry_conf                | false    | [RetryConf](/graphql/core/api-reference/syntax-defs.mdx#retryconf)                                                                                                  | Retry configuration if event delivery fails                             |
-| replace                   | false    | Boolean                                                                                                                                                             | If set to true, the event trigger is replaced with the new definition   |
-| enable_manual             | false    | Boolean                                                                                                                                                             | If set to true, the event trigger can be invoked manually               |
-| request_transform         | false    | [RequestTransformation](/graphql/core/api-reference/syntax-defs.mdx#requesttransformation)                                                                          | Attaches a Request Transformation to the Event Trigger.                 |
-| response_transform        | false    | [ResponseTransformation](/graphql/core/api-reference/syntax-defs.mdx#responsetransformation)                                                                        | Attaches a Request Transformation to the Event Trigger.                 |
+| Key                | Required | Schema                                                                                                                                                           | Description                                                           |
+| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| name               | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername)                                                                                           | Name of the event trigger                                             |
+| table              | true     | [QualifiedTable](/graphql/core/api-reference/syntax-defs.mdx#qualifiedtable)                                                                                     | Object with table name and schema                                     |
+| source             | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)                                                                                             | Name of the source database of the table (default: `default`)         |
+| webhook            | false    | String                                                                                                                                                           | Full url of webhook (\*)                                              |
+| webhook_from_env   | false    | String                                                                                                                                                           | Environment variable name of webhook (must exist at boot time) (\*)   |
+| insert             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for insert operation                                    |
+| update             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for update operation                                    |
+| delete             | false    | [OperationSpec](/graphql/core/api-reference/syntax-defs.mdx#operationspec)                                                                                       | Specification for delete operation                                    |
+| headers            | false    | [ [HeaderFromValue](/graphql/core/api-reference/syntax-defs.mdx#headerfromvalue) \| [HeaderFromEnv](/graphql/core/api-reference/syntax-defs.mdx#headerfromenv) ] | List of headers to be sent with the webhook                           |
+| retry_conf         | false    | [RetryConf](/graphql/core/api-reference/syntax-defs.mdx#retryconf)                                                                                               | Retry configuration if event delivery fails                           |
+| replace            | false    | Boolean                                                                                                                                                          | If set to true, the event trigger is replaced with the new definition |
+| enable_manual      | false    | Boolean                                                                                                                                                          | If set to true, the event trigger can be invoked manually             |
+| request_transform  | false    | [RequestTransformation](/graphql/core/api-reference/syntax-defs.mdx#requesttransformation)                                                                       | Attaches a Request Transformation to the Event Trigger.               |
+| response_transform | false    | [ResponseTransformation](/graphql/core/api-reference/syntax-defs.mdx#responsetransformation)                                                                     | Attaches a Request Transformation to the Event Trigger.               |
 
 (\*) Either `webhook` or `webhook_from_env` are required.
 
@@ -263,7 +260,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-mssql-delete-event-trigger-syntax}
 
 | Key    | Required | Schema                                                                 | Description                                                     |
-|--------|----------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| ------ | -------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
 | name   | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername) | Name of the event trigger                                       |
 | source | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)   | Name of the source database of the trigger (default: `default`) |
 
@@ -291,7 +288,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-mssql-redeliver-event-syntax}
 
 | Key      | Required | Schema | Description       |
-|----------|----------|--------|-------------------|
+| -------- | -------- | ------ | ----------------- |
 | event_id | true     | String | UUID of the event |
 
 ## mssql_invoke_event_trigger {#metadata-mssql-invoke-event-trigger}
@@ -316,7 +313,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-invoke-event-trigger-syntax}
 
 | Key     | Required | Schema                                                                 | Description                                                     |
-|---------|----------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| ------- | -------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
 | name    | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername) | Name of the event trigger                                       |
 | payload | true     | JSON                                                                   | Some JSON payload to send to trigger                            |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)   | Name of the source database of the trigger (default: `default`) |

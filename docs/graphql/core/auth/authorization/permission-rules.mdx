@@ -1,16 +1,16 @@
 ---
 description: Configure permission rules in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - permissions
   - rules
 sidebar_position: 5
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Configuring permission rules
 
@@ -153,12 +153,12 @@ You can define permissions using boolean expressions in the
     schema: public
     name: author
   select_permissions:
-  - role: user
-    permission:
-      columns: []
-      filter:
-        id:
-          _gt: 10
+    - role: user
+      permission:
+        columns: []
+        filter:
+          id:
+            _gt: 10
 ```
 
 Apply the metadata by running:
@@ -234,13 +234,13 @@ You can define permissions using the `_and` operator in the
     schema: public
     name: author
   select_permissions:
-  - role: user
-    permission:
-      columns: []
-      filter:
-        _and:
-          - id: {_gt: 10}
-          - name: {_ilike: a%}
+    - role: user
+      permission:
+        columns: []
+        filter:
+          _and:
+            - id: { _gt: 10 }
+            - name: { _ilike: a% }
 ```
 
 Apply the metadata by running:
@@ -300,7 +300,7 @@ configuration are available for constructing row-level permissions.
 can use the `X-Hasura-User-ID` session variable to construct a rule to
 restrict access for `select` to rows in the `articles` table where the
 value in the `id` column is equal to the value in the session variable
-(*assuming this variable is being used to indicate the author's ID*):
+(_assuming this variable is being used to indicate the author's ID_):
 
 <Tabs className="api-tabs">
 <TabItem value="console" label="Console">
@@ -324,14 +324,14 @@ file inside the `metadata` directory:
     schema: public
     name: article
   select_permissions:
-  - role: author
-    permission:
-      columns:
-      - title
-      - content
-      filter:
-        id:
-          _eq: X-Hasura-User-Id
+    - role: author
+      permission:
+        columns:
+          - title
+          - content
+        filter:
+          id:
+            _eq: X-Hasura-User-Id
 ```
 
 Apply the metadata by running:
@@ -390,8 +390,8 @@ You can leverage [table relationships](/graphql/core/databases/postgres/schema/t
 define permission rules with fields from a nested object.
 
 **For example**, let's say you have an object relationship called
-`agent` from the `authors` table to another table called `agent` (*an
-author can have an agent*) and we want to allow users with the role
+`agent` from the `authors` table to another table called `agent` (_an
+author can have an agent_) and we want to allow users with the role
 `agent` to access the details of the authors who they manage in
 `authors` table. We can define the following permission rule that uses
 the aforementioned object relationship:
@@ -418,13 +418,13 @@ You add permissions using relationships or nested objects in the
     schema: public
     name: author
   select_permissions:
-  - role: agent
-    permission:
-      columns: []
-      filter:
-        agent:
-          agent_id:
-            _eq: X-Hasura-User-Id
+    - role: agent
+      permission:
+        columns: []
+        filter:
+          agent:
+            agent_id:
+              _eq: X-Hasura-User-Id
 ```
 
 Apply the metadata by running:
@@ -467,19 +467,19 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-This permission rule reads as "*if the author's agent's* `id` *is the
-same as the requesting user's* `id` *, allow access to the author's
-details*."
+This permission rule reads as "_if the author's agent's_ `id` _is the
+same as the requesting user's_ `id` _, allow access to the author's
+details_."
 
 :::info Array and object relationships work similarly
 
 - The above example would have worked even if the relationship were an
-    array relationship. In our example, the corresponding rule for an
-    array relationship would have read "*if any of this author's
-    agents'* `id` *is the same as the requesting user's* `id` *, allow
-    access to the author's details*".
+  array relationship. In our example, the corresponding rule for an
+  array relationship would have read "_if any of this author's
+  agents'_ `id` _is the same as the requesting user's_ `id` _, allow
+  access to the author's details_".
 - You can also check out this more elaborate
-    [example](/graphql/core/auth/authorization/common-roles-auth-examples.mdx#nested-object-permissions-example).
+  [example](/graphql/core/auth/authorization/common-roles-auth-examples.mdx#nested-object-permissions-example).
 
 :::
 
@@ -516,21 +516,21 @@ inside the `metadata` directory:
     schema: public
     name: article
   insert_permissions:
-  - role: user
-    permission:
-      check:
-        _exists:
-          _where:
-            _and:
-              - id: {_eq: X-Hasura-User-Id}
-              - allow_article_create: {_eq: true}
-          _table:
-            schema: public
-            name: users
-      columns:
-      - content
-      - id
-      - title
+    - role: user
+      permission:
+        check:
+          _exists:
+            _where:
+              _and:
+                - id: { _eq: X-Hasura-User-Id }
+                - allow_article_create: { _eq: true }
+            _table:
+              schema: public
+              name: users
+        columns:
+          - content
+          - id
+          - title
 ```
 
 Apply the metadata by running:
@@ -581,9 +581,9 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-This permission rule reads as "*if there exists a row in the table*
-`users` *whose* `id` *is the same as the requesting user's* `id` *and
-has the* `allow_article_create` _column set to true, allow access to
+This permission rule reads as "_if there exists a row in the table_
+`users` _whose_ `id` _is the same as the requesting user's_ `id` _and
+has the_ `allow_article_create` _column set to true, allow access to
 insert articles_."
 
 ### Column-level permissions {#col-level-permissions}
@@ -613,16 +613,16 @@ the `metadata` directory:
     schema: public
     name: article
   select_permissions:
-  - role: author
-    permission:
-      columns:
-      - author_id
-      - id
-      - content
-      - title
-      filter:
-        author_id:
-          _eq: X-Hasura-User-Id
+    - role: author
+      permission:
+        columns:
+          - author_id
+          - id
+          - content
+          - title
+        filter:
+          author_id:
+            _eq: X-Hasura-User-Id
 ```
 
 Apply the metadata by running:
@@ -696,15 +696,15 @@ inside the `metadata` directory:
     schema: public
     name: author
   select_permissions:
-  - role: user
-    permission:
-      columns:
-      - id
-      - name
-      filter:
-        user_id:
-          _gt: 10
-      limit: 20
+    - role: user
+      permission:
+        columns:
+          - id
+          - name
+        filter:
+          user_id:
+            _gt: 10
+        limit: 20
 ```
 
 Apply the metadata by running:
@@ -747,7 +747,7 @@ X-Hasura-Role: admin
 </Tabs>
 
 In the above example, this configuration restricts the number of
-accessible rows (*based on the rule*:
+accessible rows (_based on the rule_:
 `{"id":{"_eq":"X-Hasura-User-Id"}}`) to 20.
 
 ### Aggregation queries permissions {#aggr-query-permissions}
@@ -779,15 +779,15 @@ inside the `metadata` directory:
     schema: public
     name: author
   select_permissions:
-  - role: user
-    permission:
-      columns:
-      - id
-      - name
-      filter: 
-        user_id:
-          _gt: 10
-      allow_aggregations: true
+    - role: user
+      permission:
+        columns:
+          - id
+          - name
+        filter:
+          user_id:
+            _gt: 10
+        allow_aggregations: true
 ```
 
 Apply the metadata by running:
@@ -853,12 +853,12 @@ This might be useful if you would like to hide a mutation from the
 public facing API but allow access to it via a "trusted backend".
 
 Setting `backend-only` is currently available for insert, update and delete mutations.
-  
+
 :::tip Supported from
 
 Back-end only permissions for `update` and `delete` mutations are supported in Hasura GraphQL engine versions `v2.8.0` and above.
 
-:::  
+:::
 
 :::info Additional Resources
 

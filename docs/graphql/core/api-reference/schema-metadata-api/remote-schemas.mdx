@@ -1,13 +1,13 @@
 ---
 sidebar_label: Remote Schemas
-sidebar_position: 10 
+sidebar_position: 10
 description: Manage remote schemas with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - schema/metadata API
-   - API reference
-   - remote schema
+  - flaregun
+  - docs
+  - schema/metadata API
+  - API reference
+  - remote schema
 ---
 
 # Schema/Metadata API Reference: Remote schemas (Deprecated)
@@ -53,14 +53,14 @@ X-Hasura-Role: admin
     }
 }
 ```
+
 ### Args syntax {#schema-metadata-add-remote-schema-syntax}
 
-| Key        | Required | Schema                                                                            | Description                      |
-|------------|----------|-----------------------------------------------------------------------------------|----------------------------------|
-| name       | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)  | Name of the remote schema        |
-| definition | true     | [RemoteSchemaDef](/graphql/core/api-reference/syntax-defs.mdx#remoteschemadef)    | Definition for the remote schema |
-| comment    | false    | Text                                                                              | comment                          |
-
+| Key        | Required | Schema                                                                           | Description                      |
+| ---------- | -------- | -------------------------------------------------------------------------------- | -------------------------------- |
+| name       | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema        |
+| definition | true     | [RemoteSchemaDef](/graphql/core/api-reference/syntax-defs.mdx#remoteschemadef)   | Definition for the remote schema |
+| comment    | false    | Text                                                                             | comment                          |
 
 ## update_remote_schema {#schema-metadata-update-remote-schema}
 
@@ -69,7 +69,7 @@ schema. If the remote schema URL has changed then it will perform a
 introspection as well. After introspection, if there are any
 inconsistencies detected with other metadata objects (like remote
 relationships or remote schema permissions) they will be reported as
-*inconsistent_metadata*.
+_inconsistent_metadata_.
 
 An example request as follows:
 
@@ -95,12 +95,11 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-update-remote-schema-syntax}
 
-| Key        | Required | Schema                                                                            | Description                      |
-|------------|----------|-----------------------------------------------------------------------------------|----------------------------------|
-| name       | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname)  | Name of the remote schema        |
-| definition | true     | [RemoteSchemaDef](/graphql/core/api-reference/syntax-defs.mdx#remoteschemadef)    | Definition for the remote schema |
-| comment    | false    | Text                                                                              | comment                          |
-
+| Key        | Required | Schema                                                                           | Description                      |
+| ---------- | -------- | -------------------------------------------------------------------------------- | -------------------------------- |
+| name       | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema        |
+| definition | true     | [RemoteSchemaDef](/graphql/core/api-reference/syntax-defs.mdx#remoteschemadef)   | Definition for the remote schema |
+| comment    | false    | Text                                                                             | comment                          |
 
 ## remove_remote_schema {#schema-metadata-remove-remote-schema}
 
@@ -125,9 +124,8 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-remove-remote-schema-syntax}
 
 | Key  | Required | Schema                                                                           | Description               |
-|------|----------|----------------------------------------------------------------------------------|---------------------------|
+| ---- | -------- | -------------------------------------------------------------------------------- | ------------------------- |
 | name | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema |
-
 
 ## reload_remote_schema {#schema-metadata-reload-remote-schema}
 
@@ -152,5 +150,5 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-reload-remote-schema-syntax}
 
 | Key  | Required | Schema                                                                           | Description               |
-|------|----------|----------------------------------------------------------------------------------|---------------------------|
+| ---- | -------- | -------------------------------------------------------------------------------- | ------------------------- |
 | name | true     | [RemoteSchemaName](/graphql/core/api-reference/syntax-defs.mdx#remoteschemaname) | Name of the remote schema |

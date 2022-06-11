@@ -3,17 +3,17 @@ sidebar_label: Tables basics
 sidebar_position: 1
 description: GraphQL over Postgres tables in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - Postgres
   - schema
   - tables
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Postgres: Tables basics
 
@@ -167,7 +167,6 @@ X-Hasura-Role: admin
 </TabItem>
 </Tabs>
 
-
 ## Generated GraphQL schema types
 
 As soon as a table is created and tracked, the corresponding GraphQL
@@ -189,10 +188,10 @@ type Articles {
 
 Let's analyze the above type:
 
--   `Articles` is the name of the type
--   `id`, `title`, `content`, `rating` and `author_id` are fields of the
-    `Articles` type
--   `Int` and `String` are types that fields can have
+- `Articles` is the name of the type
+- `id`, `title`, `content`, `rating` and `author_id` are fields of the
+  `Articles` type
+- `Int` and `String` are types that fields can have
 
 The following query/mutation fields are generated for the `articles`
 table we just created and tracked:
@@ -242,77 +241,78 @@ auto-generated types and fields.
 
 At this point, you should be able to try out basic GraphQL
 queries/mutations on the newly created tables from the `API` tab in
-the console. *(You may want to add some sample data into the tables
-first)*
+the console. _(You may want to add some sample data into the tables
+first)_
 
--   Query all rows in the `articles` table:
+- Query all rows in the `articles` table:
 
-    <GraphiQLIDE
-  query={`query {
-      articles {
-        id
-        title
-        author_id
-      }
-    }`}
+  {" "}
+  <GraphiQLIDE
+    query={`query {
+    articles {
+      id
+      title
+      author_id
+    }
+  }`}
     response={`{
-      "data": {
-        "articles": [
-          {
-            "id": 1,
-            "title": "sit amet",
-            "author_id": 4
-          },
-          {
-            "id": 2,
-            "title": "a nibh",
-            "author_id": 2
-          },
-          {
-            "id": 3,
-            "title": "amet justo morbi",
-            "author_id": 4
-          },
-          {
-            "id": 4,
-            "title": "vestibulum ac est",
-            "author_id": 5
-          }
-        ]
-      }
-    }`}
-    />
+    "data": {
+      "articles": [
+        {
+          "id": 1,
+          "title": "sit amet",
+          "author_id": 4
+        },
+        {
+          "id": 2,
+          "title": "a nibh",
+          "author_id": 2
+        },
+        {
+          "id": 3,
+          "title": "amet justo morbi",
+          "author_id": 4
+        },
+        {
+          "id": 4,
+          "title": "vestibulum ac est",
+          "author_id": 5
+        }
+      ]
+    }
+  }`}
+  />
 
--   Insert data in the `author` table:
+- Insert data in the `author` table:
 
-    <GraphiQLIDE
+  <GraphiQLIDE
     query={`mutation add_author {
-      insert_author(
-        objects: [
-          { name: "Jane" }
-        ]
-      ) {
-          affected_rows
-          returning {
-            id
-            name
-          }
-        }
-    }`}
-    response={`{
-      "data": {
-        "insert_author": {
-          "affected_rows": 1,
-          "returning": [
-            {
-              "id": 11,
-              "name": "Jane"
-            }
-          ]
-        }
+  insert_author(
+    objects: [
+      { name: "Jane" }
+    ]
+  ) {
+      affected_rows
+      returning {
+        id
+        name
       }
-    }`}
-    />
+    }
+}`}
+    response={`{
+  "data": {
+    "insert_author": {
+      "affected_rows": 1,
+      "returning": [
+        {
+          "id": 11,
+          "name": "Jane"
+        }
+      ]
+    }
+  }
+}`}
+  />
 
 :::info Note
 

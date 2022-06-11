@@ -2,7 +2,7 @@
 sidebar_label: GCP Postgres
 description: Using Hasura with a GCP Postgres database
 keywords:
-  - hasura
+  - flaregun
   - docs
   - existing database
   - guide
@@ -10,7 +10,7 @@ keywords:
 sidebar_position: 6
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Using Hasura Cloud with a GCP Postgres database
 
@@ -169,12 +169,12 @@ Voilà. You are ready to start developing.
   width="1100px"
 />
 
-
 ## Step 6 (optional): Enable SSL connection
 
 ### Step 6.1 Get GCP SSL Certs
 
 Google Cloud (GCP) SQL makes the following SSL/TLS certificates available for download:
+
 - A server certificate saved as `server-ca.pem`
 - A client public key certificate saved as `client-cert.pem`
 - A client private key saved as `client-key.pem`
@@ -192,12 +192,11 @@ Log in to [Hasura Cloud](https://cloud.hasura.io/), go to your project and add t
 
 (Open the cert files using your favourite text editor, select all the contents and copy them to the clipboard)
 
-| Env Var Name              | Value                                                                 |
-|---------------------------|-----------------------------------------------------------------------|
-| `SSL_ROOTCERT_GCP`        | Contents from `server-ca.pem`                                         |
-| `SSL_CERT_GCP`            | Contents from `client-cert.pem`                                       |
-| `SSL_KEY_GCP`             | Contents from `client-key.pem`                                        |
-
+| Env Var Name       | Value                           |
+| ------------------ | ------------------------------- |
+| `SSL_ROOTCERT_GCP` | Contents from `server-ca.pem`   |
+| `SSL_CERT_GCP`     | Contents from `client-cert.pem` |
+| `SSL_KEY_GCP`      | Contents from `client-key.pem`  |
 
 Here is how your Hasura Cloud env vars setup should look like:
 
@@ -213,12 +212,12 @@ Open the console of your Hasura Cloud project, go to the `Data -> Manage -> [db-
 
 Under `Connection Settings` add the following SSL certificate settings:
 
-| Field Name              | Value                                    |
-|-------------------------|------------------------------------------|
-| `SSL Mode`              | `verify-ca` (select from dropdown)       |
-| `SSL Root Certificate`  | `SSL_ROOTCERT_GCP`                       |
-| `SSL Certificate`       | `SSL_CERT_GCP`                           |
-| `SSL Key`               | `SSL_KEY_GCP`                            |
+| Field Name             | Value                              |
+| ---------------------- | ---------------------------------- |
+| `SSL Mode`             | `verify-ca` (select from dropdown) |
+| `SSL Root Certificate` | `SSL_ROOTCERT_GCP`                 |
+| `SSL Certificate`      | `SSL_CERT_GCP`                     |
+| `SSL Key`              | `SSL_KEY_GCP`                      |
 
 Here is how the setup should look like:
 

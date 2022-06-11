@@ -1,3 +1,9 @@
+.doc-sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .doc-sidebar-tabs {
   display: flex;
   justify-content: center;
@@ -9,6 +15,7 @@
   border: 1px solid transparent;
   border-right-color: var(--ifm-toc-border-color);
   border-bottom-color: var(--ifm-toc-border-color);
+
   .link-tab {
     font-weight: var(--ifm-font-weight-bold);
     font-size: var(--ifm-code-font-size);

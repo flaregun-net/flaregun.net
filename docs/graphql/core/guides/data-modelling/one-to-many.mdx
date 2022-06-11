@@ -1,7 +1,7 @@
 ---
 description: Model one-to-many relationships in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - schema
   - relationship
@@ -69,8 +69,7 @@ We can now:
 - fetch a list of `authors` with their `articles`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
     authors {
       id
       name
@@ -80,8 +79,7 @@ We can now:
       }
     }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "authors": [
       {
@@ -120,8 +118,7 @@ We can now:
 - fetch a list of `articles` with their `author`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
     articles {
       id
       title
@@ -131,8 +128,7 @@ We can now:
       }
     }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "articles": [
       {
@@ -164,8 +160,7 @@ We can now:
   already exist (assume unique `name` for `author`):
 
 <GraphiQLIDE
-  query={
- `mutation UpsertAuthorWithArticles {
+  query={`mutation UpsertAuthorWithArticles {
   insert_author(objects: {
     name: "Felix",
     articles: {
@@ -195,8 +190,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_author": {
       "returning": [
@@ -223,8 +217,7 @@ We can now:
   already exist (assume unique `name` for `author`):
 
 <GraphiQLIDE
-  query={
- `mutation upsertArticleWithAuthors {
+  query={`mutation upsertArticleWithAuthors {
   insert_article(objects: [
     {
       title: "Article 1",
@@ -262,8 +255,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_article": {
       "returning": [

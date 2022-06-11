@@ -3,15 +3,15 @@ sidebar_label: Computed fields
 sidebar_position: 2
 description: Use computed fields over BigQuery in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - bigquery
   - schema
   - computed field
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # BigQuery: Computed fields
 
@@ -48,6 +48,7 @@ the SQL statement.
   the returning table schema to Hasura.
 
   Example:
+
   ```sql
   CREATE TABLE FUNCTION `google_project.hasura_test.fetch_articles`(a_id INT64, search STRING)
   RETURNS TABLE<id INT64, title STRING, content STRING> AS (
@@ -64,6 +65,7 @@ the SQL statement.
   as BigQuery does not provide any information about the returning table to Hasura.
 
   Example:
+
   ```sql
   CREATE TABLE FUNCTION `google_project.hasura_test.fetch_articles`(a_id INT64, search STRING) AS (
       ( SELECT t.*
@@ -74,8 +76,8 @@ the SQL statement.
   ```
 
   :::info Note
-  
-  Table functions without `RETURNS TABLE` should return all columns, possibly by using  the`*` operator,
+
+  Table functions without `RETURNS TABLE` should return all columns, possibly by using the`*` operator,
   to avoid any execution exceptions when a column that is not being returned is included in the selection set of
   computed field.
 
@@ -87,7 +89,7 @@ the SQL statement.
 
 <TabItem value="console" label="Console">
 
-  Console support will be added soon.
+Console support will be added soon.
 
 </TabItem>
 
@@ -100,17 +102,17 @@ You can add a computed field by updating the `metadata > databases > [db-name] >
     dataset: hasura
     name: authors
   computed_fields:
-  - name: fetch_articles
-    definition:
-      function:
-        dataset: hasura
-        name: search_articles
-      return_table:
-        dataset: hasura
-        name: articles
-      argument_mapping:
-        author_id_arg: author_id
-    comment: ""
+    - name: fetch_articles
+      definition:
+        function:
+          dataset: hasura
+          name: search_articles
+        return_table:
+          dataset: hasura
+          name: articles
+        argument_mapping:
+          author_id_arg: author_id
+      comment: ""
 ```
 
 Apply the metadata by running:
@@ -167,6 +169,7 @@ X-Hasura-Role: admin
 in the [creating computed field](#bigquery-create-table-function) SQL statement.
 
 If `RETURNS TABLE`
+
 - is present, then the function returns a custom table schema. Select permissions are managed through `computed_fields`
-in the [permission definition](/graphql/core/api-reference/syntax-defs.mdx#selectpermission).
+  in the [permission definition](/graphql/core/api-reference/syntax-defs.mdx#selectpermission).
 - is absent, then the permissions set on `return_table` are respected.

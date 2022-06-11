@@ -1,7 +1,7 @@
 ---
 description: Model many-to-many relationships in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - schema
   - relationship
@@ -39,8 +39,8 @@ tags (
 
 These two tables are related via a `many-to-many` relationship. i.e:
 
--   an `article` can have many `tags`
--   a `tag` has many `articles`
+- an `article` can have many `tags`
+- a `tag` has many `articles`
 
 ## Step 1: Set up a table relationship in the database
 
@@ -69,10 +69,10 @@ in your model, you can skip the unique constraint on
 
 2.  Adding **foreign key constraints** in the `article_tag` table for:
 
-    -   the `articles` table using the `article_id` and `id` columns of
-        the tables respectively
-    -   the `tags` table using the `tag_id` and `id` columns of the
-        tables respectively
+    - the `articles` table using the `article_id` and `id` columns of
+      the tables respectively
+    - the `tags` table using the `tag_id` and `id` columns of the
+      tables respectively
 
 The table `article_tag` sits between the two tables involved in the
 many-to-many relationship and captures possible permutations of their
@@ -83,24 +83,23 @@ association via the foreign keys.
 To access the nested objects via the GraphQL API,
 [create the following relationships](/graphql/core/databases/postgres/schema/table-relationships/create.mdx):
 
--   Array relationship, `article_tags` from `articles` table using
-    `article_tag :: article_id -> id`
--   Object relationship, `tag` from `article_tag` table using
-    `tag_id -> tags :: id`
--   Array relationship, `tag_articles` from `tags` table using
-    `article_tag :: tag_id -> id`
--   Object relationship, `article` from `article_tag` table using
-    `article_id -> articles :: id`
+- Array relationship, `article_tags` from `articles` table using
+  `article_tag :: article_id -> id`
+- Object relationship, `tag` from `article_tag` table using
+  `tag_id -> tags :: id`
+- Array relationship, `tag_articles` from `tags` table using
+  `article_tag :: tag_id -> id`
+- Object relationship, `article` from `article_tag` table using
+  `article_id -> articles :: id`
 
 ## Query using many-to-many relationships
 
 We can now:
 
--   fetch a list of `articles` with their `tags`:
+- fetch a list of `articles` with their `tags`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   articles {
     id
     title
@@ -112,8 +111,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "articles": [
       {
@@ -157,11 +155,10 @@ We can now:
  }`}
 />
 
--   fetch a list of `tags` with their `articles`:
+- fetch a list of `tags` with their `articles`:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   tags {
     id
     tag_value
@@ -173,8 +170,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "tags": [
       {
@@ -216,12 +212,11 @@ We can now:
 
 We can now:
 
--   insert an `article` with `tags` where the `tag` might already exist
-    (assume unique `value` for `tag`):
+- insert an `article` with `tags` where the `tag` might already exist
+  (assume unique `value` for `tag`):
 
 <GraphiQLIDE
-  query={
- `mutation insertArticleWithTags {
+  query={`mutation insertArticleWithTags {
   insert_article(objects: [
     {
       title: "Article 1",
@@ -265,8 +260,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_article": {
       "returning": [
@@ -291,12 +285,11 @@ We can now:
  }`}
 />
 
--   insert a `tag` with `articles` where the `tag` might already exist
-    (assume unique `value` for `tag`):
+- insert a `tag` with `articles` where the `tag` might already exist
+  (assume unique `value` for `tag`):
 
 <GraphiQLIDE
-  query={
- `mutation insertTagWithArticles {
+  query={`mutation insertTagWithArticles {
   insert_tag(objects: [
     {
       value: "Recipes",
@@ -339,8 +332,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_tag": {
       "returning": [
@@ -379,8 +371,7 @@ have a column like `tagged_at` in the `article_tag` table which you can
 fetch as follows:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   articles {
     id
     title
@@ -393,8 +384,7 @@ fetch as follows:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "articles": [
       {
@@ -463,18 +453,17 @@ CREATE VIEW tag_articles_view AS
 
 Now [create the following relationships](/graphql/core/databases/postgres/schema/table-relationships/create.mdx):
 
--   Array relationship, `tags` from the `articles` table using
-    `article_tags_view :: article_id -> id`
--   Array relationship, `articles` from the `tags` table using
-    `tag_articles_view :: tag_id -> id`
+- Array relationship, `tags` from the `articles` table using
+  `article_tags_view :: article_id -> id`
+- Array relationship, `articles` from the `tags` table using
+  `tag_articles_view :: tag_id -> id`
 
 We can now:
 
--   fetch articles with their tags without an intermediate field:
+- fetch articles with their tags without an intermediate field:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   articles {
     id
     title
@@ -484,8 +473,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "articles": [
       {
@@ -524,8 +512,7 @@ We can now:
 - fetch tags with their articles without an intermediate field:
 
 <GraphiQLIDE
-  query={
- `query {
+  query={`query {
   tags {
     id
     tag_value
@@ -535,8 +522,7 @@ We can now:
     }
   }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "tags": [
       {

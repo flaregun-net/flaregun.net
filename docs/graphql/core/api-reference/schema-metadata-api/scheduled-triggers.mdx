@@ -1,13 +1,13 @@
 ---
 sidebar_label: Scheduled Triggers
-sidebar_position: 9 
+sidebar_position: 9
 description: Manage scheduled triggers with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - schema/metadata API
-   - API reference
-   - scheduled trigger
+  - flaregun
+  - docs
+  - schema/metadata API
+  - API reference
+  - scheduled trigger
 ---
 
 # Schema/Metadata API Reference: Scheduled Triggers (Deprecated)
@@ -56,7 +56,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-create-cron-trigger-syntax}
 
 | Key                 | Required | Schema                                                                                                                                                           | Description                                                                                                                                                                                                     |
-|---------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername)                                                                                           | Name of the cron trigger                                                                                                                                                                                        |
 | webhook             | true     | [WebhookURL](/graphql/core/api-reference/syntax-defs.mdx#webhookurl)                                                                                             | URL of the webhook                                                                                                                                                                                              |
 | schedule            | true     | Cron Expression                                                                                                                                                  | Cron expression at which the trigger should be invoked.                                                                                                                                                         |
@@ -94,7 +94,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-delete-cron-trigger-syntax}
 
 | Key  | Required | Schema                                                                 | Description              |
-|------|----------|------------------------------------------------------------------------|--------------------------|
+| ---- | -------- | ---------------------------------------------------------------------- | ------------------------ |
 | name | true     | [TriggerName](/graphql/core/api-reference/syntax-defs.mdx#triggername) | Name of the cron trigger |
 
 :::tip Supported from
@@ -133,7 +133,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-create-scheduled-event-syntax}
 
 | Key         | Required | Schema                                                                                                                                                           | Description                                                      |
-|-------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | webhook     | true     | [WebhookURL](/graphql/core/api-reference/syntax-defs.mdx#webhookurl)                                                                                             | URL of the webhook                                               |
 | schedule_at | true     | Timestamp (ISO8601 format)                                                                                                                                       | The time at which the invocation should be invoked.              |
 | payload     | false    | JSON                                                                                                                                                             | Any JSON payload which will be sent when the webhook is invoked. |

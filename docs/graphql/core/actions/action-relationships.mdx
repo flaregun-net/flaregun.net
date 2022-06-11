@@ -3,15 +3,15 @@ sidebar_label: Actions relationships
 sidebar_position: 8
 description: Manage Hasura actions relationships
 keywords:
-  - hasura
+  - flaregun
   - docs
   - actions
   - relationships
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import Thumbnail from "@site/src/components/Thumbnail";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Actions relationships
 
@@ -39,14 +39,11 @@ traversing the graph via the output type's relationships.
 
 ```graphql
 type Mutation {
-  updateAuthor (
-    id: Int!
-    name: String!
-  ): UpdateAuthorOutput
+  updateAuthor(id: Int!, name: String!): UpdateAuthorOutput
 }
 
 type UpdateAuthorOutput {
-   author_id : Int!
+  author_id: Int!
 }
 ```
 
@@ -58,8 +55,8 @@ The object type will now be modified as:
 
 ```graphql {3}
 type UpdateAuthorOutput {
-   author_id : Int!
-   updatedAuthor: author
+  author_id: Int!
+  updatedAuthor: author
 }
 ```
 
@@ -109,7 +106,7 @@ Go to `metadata/actions.yaml` in the Hasura project directory.
 
 Update the definition of the `UpdateAuthorOutput` object type as:
 
-```yaml  {4-11}
+```yaml {4-11}
 - custom_types
   - objects
     - name: UpdateAuthorOutput
@@ -124,6 +121,7 @@ Update the definition of the `UpdateAuthorOutput` object type as:
 ```
 
 Save the changes and run `hasura metadata apply` to create the relationship.
+
 </TabItem>
 <TabItem value="api" label="API">
 
@@ -165,10 +163,11 @@ X-Hasura-Role: admin
   }
 }
 ```
+
   </TabItem>
 </Tabs>
 
-:::info  Additional Resources
+:::info Additional Resources
 
 Introduction to Hasura Actions - [View Recording](https://hasura.io/events/webinar/hasura-actions/?pg=docs&plcmt=body&cta=view-recording&tech=).
 

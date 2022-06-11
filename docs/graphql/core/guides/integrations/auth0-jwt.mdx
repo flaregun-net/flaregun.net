@@ -1,7 +1,7 @@
 ---
 description: Integrate Auth0 JWT with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - guide
   - migration
@@ -13,7 +13,7 @@ sidebar_position: 2
 sidebar_label: Auth0 JWT Integration
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Auth0 JWT Integration with Hasura GraphQL engine
 
@@ -28,7 +28,6 @@ This page helps you to set up Auth0 to work with the Hasura GraphQL engine.
 - In the `Create Application` window, set a name for your application, and select `Single Page Web Applications`.
   (assuming your application is React/Angular/Vue etc).
 
-
 <Thumbnail
   src="/img/graphql/core/guides/create-client-popup.png"
   alt="Create an Auth0 application"
@@ -37,10 +36,9 @@ This page helps you to set up Auth0 to work with the Hasura GraphQL engine.
 
 You get the basic information such as the `Domain`, `Client ID`, and `Client Secret` from the `Applications > Settings` tab once the application is created.
 
-
 ## Configure Auth0 Rules & Callback URLs
 
-In the `Applications > Settings > Application URIs` section, set `Allowed Callback URLs` to `http://jwt.io`. Select **Save Changes**. 
+In the `Applications > Settings > Application URIs` section, set `Allowed Callback URLs` to `http://jwt.io`. Select **Save Changes**.
 
 Add domain-specific URLs as well for the production apps (e.g: `https://myapp.com/callback`).
 
@@ -55,7 +53,6 @@ Auth0 has multiple versions of its SDK that use different semantics to handle JW
 - If you're using [Auth0.js](https://auth0.com/docs/libraries/auth0js), add a rule to update the `idToken`.
 - If you're using the [Auth0 Single Page App SDK](https://auth0.com/docs/libraries/auth0-spa-js), add a rule to update the `accessToken`.
 
-
 :::info Note
 
 Your client will not authenticate your app if a wrong token gets updated, as the necessary Hasura claims won't appear in the generated JWT.
@@ -64,14 +61,13 @@ Your client will not authenticate your app if a wrong token gets updated, as the
 
 In both cases, navigate to `Auth Pipeline > Rules` and create a rule here to add the custom JWT claims. You can choose any name for the rule.
 
-
 For `Auth0.js`:
 
 ```javascript
 function (user, context, callback) {
   const namespace = "https://hasura.io/jwt/claims";
-  context.idToken[namespace] = 
-    { 
+  context.idToken[namespace] =
+    {
       'x-hasura-default-role': 'user',
       // do some custom logic to decide allowed roles
       'x-hasura-allowed-roles': ['user'],
@@ -130,7 +126,7 @@ You don't need to integrate your UI with Auth0 for testing. There are 2 ways you
    and select `Authentication`. Select the type of connection you want to test and select `Try Connection`.
 
 2. If you are not logged in to the Auth0 Dashboard:
-   
+
    Use the [Test partner connections](https://auth0.com/docs/authenticate/identity-providers/test-connections#test-partner-connections) embed link.
    Select `LOG IN` to login to your Auth0 domain.
 
@@ -138,11 +134,12 @@ You don't need to integrate your UI with Auth0 for testing. There are 2 ways you
 
    `https://dev-m-lbqrnq.us.auth0.com/authorize?response_type=token&scope=openid%20profile&client_id=BDAXJbE7Hw0Jhm4CL0UlAXmgrwebDFfj&redirect_uri=http://jwt.io&connection=THE_CONNECTION_YOU_WANT_TO_TEST`
 
-    <Thumbnail
-      src="/img/graphql/core/auth/auth0-login-url.png"
-      alt="auth0 login"
-      width="750px"
-    />
+   {" "}
+   <Thumbnail
+     src="/img/graphql/core/auth/auth0-login-url.png"
+     alt="auth0 login"
+     width="750px"
+   />
 
    1. `client_id`: Client ID of the application. This value is auto-filled from your application.
    2. `connection`: Name of the connection you want to test. `Applications > <application_name> > Connections`
@@ -161,7 +158,6 @@ You don't need to integrate your UI with Auth0 for testing. There are 2 ways you
    />
 
    **Save this JWT token value to be used later to test authorization using the Hasura console.**
-
 
 ## Configure Hasura to use Auth0 Keys
 
@@ -237,7 +233,6 @@ The configured unauthorized role is used whenever an access token is not present
 
 This is useful for data that you would like anyone to be able to access and can be configured and restricted just like any other role.
 
-
 ## Sync Users from Auth0
 
 Now that you have created an Auth0 application and can sign up/login, you will need a way to sync your users in Postgres as well.
@@ -279,7 +274,6 @@ We need to use an `upsert` operation here because social logins do not distingui
 Hence, we need to run this rule every time a successful login is made and do nothing if the user already exists.
 
 :::
-
 
 :::info Local dev with Auth0 rules
 

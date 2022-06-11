@@ -1,7 +1,7 @@
 ---
 description: Deploy Hasura GraphQL engine with Heroku
 keywords:
-  - hasura
+  - flaregun
   - docs
   - deployment
   - heroku
@@ -9,9 +9,9 @@ sidebar_position: 5
 sidebar_label: Using Heroku (one-click)
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
-import TOCInline from '@theme/TOCInline';
-import LatestRelease from "@site/src/components/LatestRelease";
+import Thumbnail from "@site/src/components/Thumbnail"
+import TOCInline from "@theme/TOCInline"
+import LatestRelease from "@site/src/components/LatestRelease"
 
 # Run Hasura GraphQL engine on Heroku
 
@@ -44,7 +44,7 @@ to your Heroku app creation page automatically.
 
 Heroku's free Postgres add-on is automatically provisioned.
 
-Once the deployment is complete, click on the ``View`` button to open the Hasura Console where you can [connect a database](#heroku-connect-db).
+Once the deployment is complete, click on the `View` button to open the Hasura Console where you can [connect a database](#heroku-connect-db).
 
 ### Option 2: Deploy via Heroku CLI {#heroku-cli-deployment}
 
@@ -73,8 +73,8 @@ https://todo-hasura1.herokuapp.com/ | https://git.heroku.com/todo-hasura1.git
 
 **Note**:
 
--   `HEROKU_GIT_REMOTE`: _https://git.heroku.com/todo-hasura1.git_
--   `HEROKU_APP_URL`: _https://todo-hasura1.herokuapp.com/_
+- `HEROKU_GIT_REMOTE`: _https://git.heroku.com/todo-hasura1.git_
+- `HEROKU_APP_URL`: _https://todo-hasura1.herokuapp.com/_
 
 #### Step 3: Create the Heroku Postgres add-on
 
@@ -109,7 +109,6 @@ and you should see the Hasura console where you can [connect a database](#heroku
 ## Connecting a database {#heroku-connect-db}
 
 <TOCInline toc={toc} filterTOC={(tocTree) => tocTree[2].children} />
-
 
 ### Option 1: New database
 
@@ -158,7 +157,6 @@ the env var added above.
 #### Step 3: Track tables and relationships
 
 See [Setting up a GraphQL schema using an existing Postgres database](/graphql/core/databases/postgres/schema/using-existing-database.mdx) to enable GraphQL over the database.
-
 
 ## Securing the GraphQL endpoint {#heroku-secure}
 
@@ -216,9 +214,9 @@ $ heroku logs --app <hasura-graphql-engine-app-name>
 
 **See:**
 
--   [https://devcenter.heroku.com/articles/logging](https://devcenter.heroku.com/articles/logging) for more details on
-    logging on Heroku.
--   [Hasura GraphQL engine logs](/graphql/core/deployment/logging.mdx) for more details on Hasura logs
+- [https://devcenter.heroku.com/articles/logging](https://devcenter.heroku.com/articles/logging) for more details on
+  logging on Heroku.
+- [Hasura GraphQL engine logs](/graphql/core/deployment/logging.mdx) for more details on Hasura logs
 
 ## Updating GraphQL engine {#heroku-update}
 
@@ -227,7 +225,10 @@ Heroku.
 
 The current latest version is:
 
-<code>hasura/graphql-engine:<LatestRelease /></code>
+<code>
+  hasura/graphql-engine:
+  <LatestRelease />
+</code>
 
 ### Update to the latest version
 
@@ -298,4 +299,4 @@ might need to downgrade your metadata catalogue version as described in
 
 ## Advanced
 
--   [Setting up migrations](/graphql/core/migrations/index.mdx)
+- [Setting up migrations](/graphql/core/migrations/index.mdx)

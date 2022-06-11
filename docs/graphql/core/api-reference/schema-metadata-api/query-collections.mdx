@@ -1,13 +1,13 @@
 ---
 sidebar_label: Query Collections
-sidebar_position: 12 
+sidebar_position: 12
 description: Manage query collections with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - schema/metadata API
-   - API reference
-   - query collection
+  - flaregun
+  - docs
+  - schema/metadata API
+  - API reference
+  - query collection
 ---
 
 # Schema/Metadata API Reference: Query collections (Deprecated)
@@ -22,7 +22,6 @@ Though for backwards compatibility, the schema/metadata APIs will
 continue to function.
 
 :::
-
 
 ## Introduction
 
@@ -61,14 +60,13 @@ As the query collection is used in allowlists and REST endpoints, they are valid
 
 :::
 
-
 ### Args Syntax {#schema-metadata-create-query-collection-syntax}
 
-| Key        | Required | Schema                                                                                | Description                  |
-|------------|----------|---------------------------------------------------------------------------------------|------------------------------|
-| name       | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)          | Name of the query collection |
-| definition | true     | [CollectionQuery](/graphql/core/api-reference/syntax-defs.mdx#collectionquery) array  | List of queries              |
-| comment    | false    | text                                                                                  | Optional comment             |
+| Key        | Required | Schema                                                                               | Description                  |
+| ---------- | -------- | ------------------------------------------------------------------------------------ | ---------------------------- |
+| name       | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)         | Name of the query collection |
+| definition | true     | [CollectionQuery](/graphql/core/api-reference/syntax-defs.mdx#collectionquery) array | List of queries              |
+| comment    | false    | text                                                                                 | Optional comment             |
 
 ## drop_query_collection {#schema-metadata-drop-query-collection}
 
@@ -90,10 +88,10 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-drop-query-collection-syntax}
 
-| Key        | Required | Schema                                                                        | Description                                                                   |
-|------------|----------|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname)  | Name of the query collection                                                  |
-| cascade    | true     | boolean                                                                       | When set to `true`, the collection (if present) is removed from the allowlist |
+| Key        | Required | Schema                                                                       | Description                                                                   |
+| ---------- | -------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection                                                  |
+| cascade    | true     | boolean                                                                      | When set to `true`, the collection (if present) is removed from the allowlist |
 
 ## add_query_to_collection {#schema-metadata-add-query-to-collection}
 
@@ -117,7 +115,7 @@ X-Hasura-Role: admin
 ### Args Syntax {#schema-metadata-add-query-to-collection-syntax}
 
 | Key             | Required | Schema                                                                       | Description                  |
-|-----------------|----------|------------------------------------------------------------------------------|------------------------------|
+| --------------- | -------- | ---------------------------------------------------------------------------- | ---------------------------- |
 | collection_name | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection |
 | query_name      | true     | [QueryName](/graphql/core/api-reference/syntax-defs.mdx#queryname)           | Name of the query            |
 | query           | true     | text                                                                         | The GraphQL query text       |
@@ -144,7 +142,7 @@ X-Hasura-Role: admin
 ### Args Syntax {#schema-metadata-drop-query-from-collection-syntax}
 
 | Key             | Required | Schema                                                                       | Description                  |
-|-----------------|----------|------------------------------------------------------------------------------|------------------------------|
+| --------------- | -------- | ---------------------------------------------------------------------------- | ---------------------------- |
 | collection_name | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of the query collection |
 | query_name      | true     | [QueryName](/graphql/core/api-reference/syntax-defs.mdx#queryname)           | Name of the query            |
 
@@ -168,7 +166,7 @@ X-Hasura-Role: admin
 ### Args Syntax {#schema-metadata-add-collection-to-allowlist-syntax}
 
 | Key        | Required | Schema                                                                       | Description                                              |
-|------------|----------|------------------------------------------------------------------------------|----------------------------------------------------------|
+| ---------- | -------- | ---------------------------------------------------------------------------- | -------------------------------------------------------- |
 | collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of a query collection to be added to the allow-list |
 
 ## drop_collection_from_allowlist {#schema-metadata-drop-collection-from-allowlist}
@@ -191,5 +189,5 @@ X-Hasura-Role: admin
 ### Args Syntax {#schema-metadata-drop-collection-from-allowlist-syntax}
 
 | Key        | Required | Schema                                                                       | Description                                                  |
-|------------|----------|------------------------------------------------------------------------------|--------------------------------------------------------------|
+| ---------- | -------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | collection | true     | [CollectionName](/graphql/core/api-reference/syntax-defs.mdx#collectionname) | Name of a query collection to be removed from the allow-list |

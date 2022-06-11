@@ -3,17 +3,17 @@ sidebar_label: Computed fields
 sidebar_position: 8
 description: Use computed fields over Postgres in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - schema
   - computed field
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
-import Thumbnail from "@site/src/components/Thumbnail";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
+import Thumbnail from "@site/src/components/Thumbnail"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Postgres: Computed fields
 
@@ -36,13 +36,13 @@ schema is not modified on addition of a computed field.
 ### Supported SQL functions
 
 Only functions which satisfy the following constraints can be added as a
-computed field to a table/view. (*terminology from* [Postgres
+computed field to a table/view. (_terminology from_ [Postgres
 docs](https://www.postgresql.org/docs/current/sql-createfunction.html)):
 
--   **Function behaviour**: ONLY `STABLE` or `IMMUTABLE`
--   **Argument modes**: ONLY `IN`
--   **Table Argument**: One input argument with a table row type
--   **Return type**: Either `SETOF <table-name>` or `BASE` type
+- **Function behaviour**: ONLY `STABLE` or `IMMUTABLE`
+- **Argument modes**: ONLY `IN`
+- **Table Argument**: One input argument with a table row type
+- **Return type**: Either `SETOF <table-name>` or `BASE` type
 
 :::info Note
 
@@ -60,7 +60,7 @@ computed fields:
 ### 1. Scalar computed fields
 
 Computed fields whose associated SQL function returns a [base type](https://www.postgresql.org/docs/current/extend-type-system.html#id-1.8.3.5.9)
-like *Integer*, *Boolean*, *Geography* etc. are scalar computed fields.
+like _Integer_, _Boolean_, _Geography_ etc. are scalar computed fields.
 
 **Example:**
 
@@ -94,7 +94,7 @@ Query data from the `authors` table:
     full_name
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -163,7 +163,7 @@ Query data from the `authors` table:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {
@@ -198,8 +198,8 @@ in the `Computed fields` section:
 
 :::tip Supported from
 
--   Console support for tables is available in `v1.1.0` and above
--   Console support for views is available in `v1.3.0` and above
+- Console support for tables is available in `v1.1.0` and above
+- Console support for views is available in `v1.3.0` and above
 
 :::
 
@@ -213,13 +213,13 @@ You can add a computed field by updating the `metadata > databases > [db-name] >
     schema: public
     name: authors
   computed_fields:
-  - name: full_name
-    definition:
-      function:
-        schema: public
-        name: author_full_name
-      table_argument: null
-    comment: ""
+    - name: full_name
+      definition:
+        function:
+          schema: public
+          name: author_full_name
+        table_argument: null
+      comment: ""
 ```
 
 Apply the metadata by running:
@@ -267,10 +267,10 @@ X-Hasura-Role: admin
 [Access control](/graphql/core/auth/authorization/index.mdx) to computed fields depends on the type
 of computed field.
 
--   For **scalar computed fields**, permissions are managed similar to
-    the [columns permissions](/graphql/core/auth/authorization/permission-rules.mdx#col-level-permissions) of the table.
--   For **table computed fields**, the permissions set on the return
-    table are respected.
+- For **scalar computed fields**, permissions are managed similar to
+  the [columns permissions](/graphql/core/auth/authorization/permission-rules.mdx#col-level-permissions) of the table.
+- For **table computed fields**, the permissions set on the return
+  table are respected.
 
 ## Accessing Hasura session variables in computed fields
 
@@ -280,7 +280,7 @@ record which users have liked which articles. We can do so using a table
 `article_likes` that specifies a many-to-many relationship between
 `articles` and `users`. In such a case it can be useful to know if the
 current user has liked a specific article, and this information can be
-exposed as a *Boolean* computed field on `articles`.
+exposed as a _Boolean_ computed field on `articles`.
 
 Create a function with an argument for session variables and add it with
 the [pg_add_computed_field](/graphql/core/api-reference/metadata-api/computed-field.mdx#metadata-pg-add-computed-field) API with the `session_argument` key
@@ -334,7 +334,7 @@ X-Hasura-Role: admin
     liked_by_user
   }
 }`}
-response={`{
+  response={`{
  "data": {
    "articles": [
      {
@@ -403,7 +403,7 @@ SQL function `get_city`. Consider the following remote schema.
 type Query {
   get_coordinates(city: String): Coordinates
 }
-type Coordinates{
+type Coordinates {
   lat: Float
   long: Float
 }
@@ -423,7 +423,7 @@ pincode of their residing place.
     user_location
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "authors": [
       {

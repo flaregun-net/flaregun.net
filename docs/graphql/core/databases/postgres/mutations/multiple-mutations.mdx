@@ -3,14 +3,14 @@ sidebar_label: Multiple mutations in a request
 sidebar_position: 5
 description: Run multiple mutations in a request in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - mutation
   - multiple mutations
   - request
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Multiple mutations in a request
 
@@ -46,7 +46,7 @@ update the `author` object:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "delete_article": {
       "affected_rows": 2
@@ -98,7 +98,7 @@ the inserted article object with its author in the response:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "affected_rows": 2,

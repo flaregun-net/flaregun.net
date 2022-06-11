@@ -3,12 +3,12 @@ sidebar_label: Tables/Views
 sidebar_position: 2
 description: Manage tables and views with the Hasura metadata API
 keywords:
-   - hasura
-   - docs
-   - metadata API
-   - API reference
-   - table
-   - view
+  - flaregun
+  - docs
+  - metadata API
+  - API reference
+  - table
+  - view
 ---
 
 # Metadata API Reference: Tables/Views
@@ -94,15 +94,15 @@ The GraphQL nodes and typenames that are generated will be according to
 the `identifier`. For example, in this case, the nodes generated will
 be:
 
--   `users_address`
--   `users_address_one`
--   `users_address_aggregate`
--   `insert_users_address`
--   `insert_users_address_one`
--   `update_users_address`
--   `update_users_address_by_pk`
--   `delete_users_address`
--   `delete_users_address_by_pk`
+- `users_address`
+- `users_address_one`
+- `users_address_aggregate`
+- `insert_users_address`
+- `insert_users_address_one`
+- `update_users_address`
+- `update_users_address_by_pk`
+- `delete_users_address`
+- `delete_users_address_by_pk`
 
 :::info Note
 
@@ -115,7 +115,7 @@ in order to be able to track it.
 ### Args syntax {#metadata-pg-track-table-syntax}
 
 | Key           | Required | Schema                                                                   | Description                                                   |
-|---------------|----------|--------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table                                             |
 | configuration | false    | [Table Config](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
@@ -147,7 +147,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-untrack-table-syntax}
 
 | Key     | Required | Schema                                                               | Description                                                                                                                        |
-|---------|----------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | -------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)   | Name of the table                                                                                                                  |
 | cascade | false    | Boolean                                                              | When set to `true`, the effect (if possible) is cascaded to any metadata dependent objects (relationships, permissions, templates) |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) | Name of the source database of the table (default: `default`)                                                                      |
@@ -180,7 +180,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-set-table-is-enum-syntax}
 
 | Key     | Required | Schema                                                               | Description                                                              |
-|---------|----------|----------------------------------------------------------------------|--------------------------------------------------------------------------|
+| ------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)   | Name of the table                                                        |
 | is_enum | true     | Boolean                                                              | Whether or not the table should be used as an `enum table <enum table>`. |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) | Name of the source database of the table (default: `default`)            |
@@ -231,7 +231,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-pg-set-table-customization-syntax}
 
 | Key           | Required | Schema                                                                  | Description                                                   |
-|---------------|----------|-------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)      | Name of the table                                             |
 | configuration | false    | [TableConfig](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)    | Name of the source database of the table (default: `default`) |
@@ -256,6 +256,7 @@ X-Hasura-Role: admin
     }
 }
 ```
+
 <!--
 
 .. TODO: MSSQL_UNSUPPORTED
@@ -307,7 +308,7 @@ in order to be able to track it.
 ### Args syntax {#mssql-track-table-syntax}
 
 | Key           | Required | Schema                                                                   | Description                                                   |
-|---------------|----------|--------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table                                             |
 | configuration | false    | [Table Config](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
@@ -339,7 +340,7 @@ X-Hasura-Role: admin
 ### Args syntax {#mssql-untrack-table-syntax}
 
 | Key     | Required | Schema                                                               | Description                                                                                                                        |
-|---------|----------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | -------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)   | Name of the table                                                                                                                  |
 | cascade | false    | Boolean                                                              | When set to `true`, the effect (if possible) is cascaded to any metadata dependent objects (relationships, permissions, templates) |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) | Name of the source database of the table (default: `default`)                                                                      |
@@ -383,7 +384,7 @@ X-Hasura-Role: admin
 ### Args syntax {#mssql-set-table-customization-syntax}
 
 | Key           | Required | Schema                                                                  | Description                                                   |
-|---------------|----------|-------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)      | Name of the table                                             |
 | configuration | false    | [TableConfig](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)    | Name of the source database of the table (default: `default`) |
@@ -415,6 +416,7 @@ X-Hasura-Role: admin
 In the case of BigQuery, dataset names are prefixed to table/view names
 to form a unique root field name, such that the above example will
 result in the root field name being `hasura_author`.
+
 <!--
 
 .. TODO: BIGQUERY_UNSUPPORTED
@@ -498,7 +500,7 @@ in order to be able to track it.
 ### Args syntax {#metadata-bigquery-track-table-syntax}
 
 | Key           | Required | Schema                                                                   | Description                                                   |
-|---------------|----------|--------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | table         | true     | {"dataset":\_, "name":\_}                                                | Name of the table                                             |
 | configuration | false    | [Table Config](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)     | Name of the source database of the table (default: `default`) |
@@ -530,7 +532,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-bigquery-untrack-table-syntax}
 
 | Key     | Required | Schema                                                               | Description                                                                                                                        |
-|---------|----------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | -------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | table   | true     | {"dataset":\_, "name":\_}                                            | Name of the table                                                                                                                  |
 | cascade | false    | Boolean                                                              | When set to `true`, the effect (if possible) is cascaded to any metadata dependent objects (relationships, permissions, templates) |
 | source  | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename) | Name of the source database of the table (default: `default`)                                                                      |
@@ -577,7 +579,7 @@ X-Hasura-Role: admin
 ### Args syntax {#metadata-bigquery-set-table-customization-syntax}
 
 | Key           | Required | Schema                                                                  | Description                                                   |
-|---------------|----------|-------------------------------------------------------------------------|---------------------------------------------------------------|
+| ------------- | -------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
 | table         | true     | {"dataset":\_, "name":\_}                                               | Name of the table                                             |
 | configuration | false    | [TableConfig](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view                              |
 | source        | false    | [SourceName](/graphql/core/api-reference/syntax-defs.mdx#sourcename)    | Name of the source database of the table (default: `default`) |

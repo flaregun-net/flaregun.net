@@ -1,14 +1,14 @@
 ---
 description: Hasura GraphQL API reference
 keywords:
-  - hasura
+  - flaregun
   - docs
   - GraphQL API
   - reference
 slug: index
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # GraphQL API Reference
 
@@ -35,9 +35,8 @@ behaviour, where request errors and internal errors were responded with
 
 The following types of requests can be made using the GraphQL API:
 
-- [Query / Subscription](/graphql/core/api-reference/graphql-api/query.mdx ) 
+- [Query / Subscription](/graphql/core/api-reference/graphql-api/query.mdx)
 - [Mutation](/graphql/core/api-reference/graphql-api/mutation.mdx)
-
 
 ## Batching requests
 
@@ -62,7 +61,7 @@ query second {
     name
   }
 }`}
-response={`[
+  response={`[
   {
     "data": {
       "author": [

@@ -3,14 +3,14 @@ sidebar_label: Docker
 sidebar_position: 2
 description: Hasura with Docker for Citus - Hyperscale
 keywords:
-  - hasura
+  - flaregun
   - docs
   - databases
   - citus
   - docker
 ---
 
-import Thumbnail from "@site/src/components/Thumbnail";
+import Thumbnail from "@site/src/components/Thumbnail"
 
 # Get Started with Docker (Hasura & Citus - Hyperscale)
 
@@ -18,9 +18,9 @@ import Thumbnail from "@site/src/components/Thumbnail";
 
 ### Pre-requisites
 
--   [Docker](https://docs.docker.com/install/)
--   [Docker Compose](https://docs.docker.com/compose/install/)
--   An existing Citus database
+- [Docker](https://docs.docker.com/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- An existing Citus database
 
 ### Step 1: Get the docker-compose file
 
@@ -73,7 +73,7 @@ connection strings and Postgres’s connection strings.
   width="600px"
 />
 
-If you're testing Hasura with Citus running locally, [read this guide](/graphql/core/guides/docker-networking.mdx) 
+If you're testing Hasura with Citus running locally, [read this guide](/graphql/core/guides/docker-networking.mdx)
 on Docker networking in case you're not sure how to make sure that your Citus database is reachable from the
 Hasura docker container on Linux, Mac or Windows.
 
@@ -127,7 +127,7 @@ and try out some queries, just like with a regular Postgres database.
    to create a table.
 
    If you're running raw SQL queries to create your tables, Don't forget to check "track metadata"
-   at the bottom of the Run SQL window to make sure Hasura tracks your new database objects 
+   at the bottom of the Run SQL window to make sure Hasura tracks your new database objects
    in its GraphQL schema.
 
 

@@ -3,14 +3,14 @@ sidebar_label: Upsert
 sidebar_position: 2
 description: Use upsert mutations on Postgres with Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - postgres
   - mutation
   - upsert
 ---
 
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # Postgres: Upsert mutation
 
@@ -34,10 +34,10 @@ in case of a conflict.
 To convert an [insert mutation](/graphql/core/databases/postgres/mutations/insert.mdx) into an upsert, you need to
 use the `on_conflict` argument to specify:
 
--   a **unique or primary key constraint** using the `constraint` field,
-    and
--   the **columns to be updated** in the case of a violation of that
-    constraint using the `update_columns` field.
+- a **unique or primary key constraint** using the `constraint` field,
+  and
+- the **columns to be updated** in the case of a violation of that
+  constraint using the `update_columns` field.
 
 The value of the `update_columns` field determines the behaviour of the
 upsert request as shown via the use cases below.
@@ -52,7 +52,7 @@ SELECT * FROM "information_schema"."table_constraints" WHERE table_name='<table>
 ```
 
 GraphQL engine will automatically generate constraint names as enum
-values for the `constraint` field *(try autocompleting in GraphiQL)*.
+values for the `constraint` field _(try autocompleting in GraphiQL)_.
 Typically, the constraint is automatically named as
 `<table-name>_<column-name>_key`.
 
@@ -111,7 +111,7 @@ column of the existing article:
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "returning": [
@@ -164,7 +164,7 @@ unique key constraint `article_title_key` is violated, update the
     }
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_article": {
       "returning": [
@@ -201,7 +201,7 @@ constraint `author_name_key` is violated, ignore the request.
     affected_rows
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "affected_rows": 0
@@ -243,7 +243,7 @@ You can specify the `on_conflict` clause while inserting nested objects:
     affected_rows
   }
 }`}
-response={`{
+  response={`{
   "data": {
     "insert_author": {
       "affected_rows": 2
@@ -261,14 +261,14 @@ The process by which nested inserts/upserts are executed is documented
 
 Nested upserts will fail when:
 
--   In case of an array relationship, the parent upsert does not affect
-    any rows (i.e. `update_columns: []` for parent and a conflict
-    occurs), as the array relationship objects are inserted after the
-    parent.
--   In case of an object relationship, the nested object upsert does not
-    affect any row (i.e. `update_columns: []` for nested object and a
-    conflict occurs), as the object relationship object is inserted
-    before the parent.
+- In case of an array relationship, the parent upsert does not affect
+  any rows (i.e. `update_columns: []` for parent and a conflict
+  occurs), as the array relationship objects are inserted after the
+  parent.
+- In case of an object relationship, the nested object upsert does not
+  affect any row (i.e. `update_columns: []` for nested object and a
+  conflict occurs), as the object relationship object is inserted
+  before the parent.
 
 To allow upserting in these cases, set
 `update_columns: [<conflict-columns>]`. By doing this, in case of a

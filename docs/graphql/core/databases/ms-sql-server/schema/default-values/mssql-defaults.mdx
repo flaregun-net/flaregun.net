@@ -1,7 +1,7 @@
 ---
 description: Set default field values for MS SQL Server using MS SQL Server defaults in Hasura
 keywords:
-  - hasura
+  - flaregun
   - docs
   - ms sql server
   - schema
@@ -11,10 +11,10 @@ sidebar_label: MS SQL Server defaults
 sidebar_position: 2
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import Thumbnail from "@site/src/components/Thumbnail";
-import GraphiQLIDE from '@site/src/components/GraphiQLIDE';
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import Thumbnail from "@site/src/components/Thumbnail"
+import GraphiQLIDE from "@site/src/components/GraphiQLIDE"
 
 # MS SQL Server: Setting default values for fields using MS SQL Server defaults
 
@@ -103,8 +103,7 @@ insert mutation on the `article` table, its value will be set
 automatically by MS SQL Server.
 
 <GraphiQLIDE
-  query={
- `mutation {
+  query={`mutation {
     insert_article(
     objects: [
       {
@@ -118,8 +117,7 @@ automatically by MS SQL Server.
       created_at
     }
  }`}
-  response={
- `{
+  response={`{
   "data": {
     "insert_article": {
       "returning": [

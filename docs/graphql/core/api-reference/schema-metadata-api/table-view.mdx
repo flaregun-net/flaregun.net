@@ -3,12 +3,12 @@ sidebar_label: Tables/Views
 sidebar_position: 2
 description: Manage tables and views with the Hasura schema/metadata API
 keywords:
-   - hasura
-   - docs
-   - schema/metadata API
-   - API reference
-   - table
-   - view
+  - flaregun
+  - docs
+  - schema/metadata API
+  - API reference
+  - table
+  - view
 ---
 
 # Schema/Metadata API Reference: Tables/Views (Deprecated)
@@ -53,9 +53,9 @@ X-Hasura-Role: admin
 
 ### Args syntax {#schema-metadata-track-table-syntax}
 
-| Key     | Required | Schema                                                             | Description                                                                      |
-|---------|----------|--------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename) | Name of the table                                                                |
+| Key     | Required | Schema                                                             | Description                                                                                                                       |
+| ------- | -------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename) | Name of the table                                                                                                                 |
 | is_enum | false    | Boolean                                                            | When set to `true`, creates the table as an [enum table](/graphql/core/databases/postgres/schema/enums.mdx#pg-create-enum-table). |
 
 ## set_table_is_enum {#schema-metadata-set-table-is-enum}
@@ -85,7 +85,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-set-table-is-enum-syntax}
 
 | Key     | Required | Schema                                                             | Description                                                              |
-|---------|----------|--------------------------------------------------------------------|--------------------------------------------------------------------------|
+| ------- | -------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename) | Name of the table                                                        |
 | is_enum | true     | Boolean                                                            | Whether or not the table should be used as an `enum table <enum table>`. |
 
@@ -152,15 +152,15 @@ The GraphQL nodes and typenames that are generated will be according to
 the `identifier`. For example, in this case, the nodes generated will
 be:
 
--   `users_address`
--   `users_address_one`
--   `users_address_aggregate`
--   `insert_users_address`
--   `insert_users_address_one`
--   `update_users_address`
--   `update_users_address_by_pk`
--   `delete_users_address`
--   `delete_users_address_by_pk`
+- `users_address`
+- `users_address_one`
+- `users_address_aggregate`
+- `insert_users_address`
+- `insert_users_address_one`
+- `update_users_address`
+- `update_users_address_by_pk`
+- `delete_users_address`
+- `delete_users_address_by_pk`
 
 :::info Note
 
@@ -172,8 +172,8 @@ order to be able to track it.
 
 ### Args syntax {#schema-metadata-track-table-syntax-v2}
 
-| Key           | Required | Schema                        | Description                      |
-|---------------|----------|-------------------------------|----------------------------------|
+| Key           | Required | Schema                                                                   | Description                      |
+| ------------- | -------- | ------------------------------------------------------------------------ | -------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)       | Name of the table                |
 | configuration | false    | [Table Config](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view |
 
@@ -220,7 +220,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-set-table-custom-fields-syntax}
 
 | Key                 | Required | Schema                                                                               | Description                 |
-|---------------------|----------|--------------------------------------------------------------------------------------|-----------------------------|
+| ------------------- | -------- | ------------------------------------------------------------------------------------ | --------------------------- |
 | table               | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)                   | Name of the table           |
 | custom_root_fields  | false    | [Custom Root Fields](/graphql/core/api-reference/syntax-defs.mdx#custom-root-fields) | Customise the root fields   |
 | custom_column_names | false    | [CustomColumnNames](/graphql/core/api-reference/syntax-defs.mdx#customcolumnnames)   | Customise the column fields |
@@ -269,7 +269,7 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-set-table-customization-syntax}
 
 | Key           | Required | Schema                                                                  | Description                      |
-|---------------|----------|-------------------------------------------------------------------------|----------------------------------|
+| ------------- | -------- | ----------------------------------------------------------------------- | -------------------------------- |
 | table         | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename)      | Name of the table                |
 | configuration | false    | [TableConfig](/graphql/core/api-reference/syntax-defs.mdx#table-config) | Configuration for the table/view |
 
@@ -299,6 +299,6 @@ X-Hasura-Role: admin
 ### Args syntax {#schema-metadata-untrack-table-syntax}
 
 | Key     | Required | Schema                                                             | Description                                                                                                                        |
-|---------|----------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | -------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | table   | true     | [TableName](/graphql/core/api-reference/syntax-defs.mdx#tablename) | Name of the table                                                                                                                  |
 | cascade | false    | Boolean                                                            | When set to `true`, the effect (if possible) is cascaded to any metadata dependent objects (relationships, permissions, templates) |
