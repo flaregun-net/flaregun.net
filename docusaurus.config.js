@@ -139,7 +139,7 @@ const config = {
       },
       announcementBar: {
         id: "announcementBar-1", // Increment on change
-        content: `⭐️ We're just getting started, stay in touch for our upcoming platform launch by joining our Discord server <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/ukPanmZPsq">Discord</a> and following us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/flaregun-net" >Twitter</a>`,
+        content: `⭐️ We're just getting started, stay in touch by following us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/flaregun-net" >Twitter</a>`,
       },
       navbar: {
         hideOnScroll: true,
@@ -193,12 +193,12 @@ const config = {
             type: "search",
             position: "right",
           },
-          {
-            href: "https://discord.gg/ukPanmZPsq",
-            position: "right",
-            className: "header-discord-link",
-            "aria-label": "Flaregun on Discord",
-          },
+          // {
+          //   href: "https://discord.gg/ukPanmZPsq",
+          //   position: "right",
+          //   className: "header-discord-link",
+          //   "aria-label": "Flaregun on Discord",
+          // },
           // {
           //   to: "https://flaregun.net/pricing/",
           //   label: "Pricing",

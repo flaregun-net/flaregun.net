@@ -1,5 +1,4 @@
 import Link from "@docusaurus/Link"
-import DiscordIcon from "@site/static/icons/discord.svg"
 import GithubIcon from "@site/static/icons/github.svg"
 import TwitterIcon from "@site/static/icons/twitter.svg"
 import React from "react"
@@ -39,7 +38,7 @@ const CustomFooter = () => (
           <TwitterIcon />
         </Link>
       </div>
-      <div className={styles["socialBrands"]}>
+      {/* <div className={styles["socialBrands"]}>
         <Link
           href={"https://discord.gg/ukPanmZPsq"}
           rel="noopener noreferrer"
@@ -47,7 +46,7 @@ const CustomFooter = () => (
         >
           <DiscordIcon />
         </Link>
-      </div>
+      </div> */}
       {/* <div className={styles["socialBrands"]}>
         <Link
           href={"https://www.youtube.com/channel/UCZo1ciR8pZvdD3Wxp9aSNhQ"}

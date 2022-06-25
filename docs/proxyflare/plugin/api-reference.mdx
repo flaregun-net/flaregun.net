@@ -12,3 +12,259 @@ sidebar_position: 15
 import TOCInline from "@theme/TOCInline"
 
 # API Reference
+
+:::info Note
+
+If you're using Typescript, Proxyflare for Pages comes with types
+and in-editor documentation for each configuration option.
+
+:::
+
+This reference documentation will evolve in a more user friendly direction over time.
+
+For Proxyflare for Cloudflare Pages, a basic configuration is as follows:
+
+```ts
+// functions/[[path]].ts
+import proxyflare from "@flaregun-net/proxyflare-for-pages"
+
+const routes = []
+
+export const onRequest = [
+  proxyflare({
+    config: {
+      global: { debug: false },
+      routes,
+    },
+  }),
+  // your other middleware
+]
+```
+
+The `Configuration` is shaped like:
+
+```ts
+export type Configuration = {
+  global?: {
+    /**
+     * Disable Proxyflare without uninstalling it.
+     *
+     * @defaultValue `false`
+     */
+    disable?: boolean
+    /**
+     * Enable `debug` to attach the following debug headers to Proxyflare responses.  Make sure to disable `debug` when you are done configuring Proxyflare.
+     *
+     * `x-proxyflare: "running"` signals that Proxyflare is installed
+     *
+     * `x-proxyflare-error: string` describes an error if it occured, usually if the provided configuration is incorrect
+     *
+     * `x-proxyflare-matched-index: number | "none"` is a zero-indexed route that was matched to the request or "none"
+     *
+     * `x-proxyflare-proxied-path: "string"` is the pathname of the proxied request
+     *
+     * @defaultValue `false`
+     */
+    debug?: boolean
+  }
+  routes: Route[]
+}
+```
+
+A `Route` is shaped like:
+
+```ts
+export type Route = {
+  /**
+   * A short message describing the purpose of the route
+   */
+  description?: string
+  from: {
+    /**
+     * The [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name#Example) to match against incoming traffic to determine
+     * if the route should be proxied by Proxyflare.
+     * May be an absolute or wildcard url.
+     *
+     * {@link Route.strictRootSubdomain | See the `strictRootSubdomain` option for additional configuration}
+     *
+     * {@link Route.stripFromPath | See the `stripFromPath` option for additional configuration}
+     *
+     * @example
+     * Request: `https://admin.a.com/api`
+     * from.pattern: `admin.a.com/api/*`
+     * ✅ MATCH
+     *
+     * Request: `https://admin.a.com/api/users`
+     * from.pattern: `admin.a.com/api/*`
+     * ✅ MATCH
+     *
+     * Request: `https://admin.a.com/api-in-pathname`
+     * from.pattern: `admin.a.com/api/*`
+     * ❌ NOT MATCHED
+     *
+     * Request: `https://admin.a.com/absolute`
+     * from.pattern: `admin.a.com/absolute`
+     * ✅ MATCH
+     *
+     * Request: `https://admin.a.com/absolute/subpath`
+     * from.pattern: `admin.a.com/absolute`
+     * ❌ NOT MATCHED
+     */
+    pattern: string
+    /**
+     * By default, Proxyflare strips the `from.pattern` path from the proxied url. Disable this option to include it.
+     *
+     * @defaultValue `true`
+     *
+     * @example
+     * Request: `a.com/api/b`
+     * from.pattern: `a.com/api/*`
+     * from.stripFromPath: `true`
+     * to.url: `b.com`
+     * -> proxies to `b.com/api/b`
+     *
+     * @example
+     * Request: `a.com/api/b`
+     * from.pattern: `a.com/api/*`
+     * from.stripFromPath: `false`
+     * to.url: `b.com`
+     * -> proxies to `b.com/api/api/b`
+     */
+    stripFromPath?: boolean
+    /**
+     * By default, Proxyflare loosely matches `www` subdomain and root domain requests.
+     * Incoming `www` traffic will match root domain routes and vice versa.
+     * Disable this to strictly match incoming `www` subdomain to only subdomain routes
+     * and root domain requests to only root domain routes.
+     *
+     * @defaultValue `false`
+     *
+     * @example
+     * Request: `a.com/loose` or `www.a.com/loose`
+     * from.strictRootSubdomain: `false`
+     * from.pattern: `a.com/loose`
+     * to.url: `example.com`
+     * ✅ BOTH MATCH
+     *
+     * @example
+     * Request: `www.a.com/strict`
+     * from.strictRootSubdomain: `true`
+     * from.pattern: `a.com/strict`
+     * to.url: `example.com`
+     * ❌ NOT MATCHED
+     */
+    strictRootSubdomain?: boolean
+    /**
+     * By default, Proxyflare ignores request methods when matching requests to a route. To match only specific request methods, enumerate the allowed methods here.
+     * Request methods that are not listed will not be matched.
+     *
+     * @defaultValue undefined (every methods is matched)
+     *
+     * @example
+     * Request: `POST a.com/b`
+     * from.pattern: `a.com/b/*`
+     * from.methods: `["GET"]`
+     * to.url: `b.com`
+     * ❌ NOT MATCHED
+     */
+    methods?: Methods[]
+  }
+  to: {
+    /**
+     * The url of the service to proxy traffic to. The url may by `http://` or `https://` and may include a port.
+     *
+     * For example, `to.url: http://a.com:3000` will send traffic to port `3000` on `a.com`.
+     */
+    url: string
+    /**
+     * By default, Proxyflare returns the status code of the proxied response.
+     * Provide a status code to override this. Status code is additionally used for redirects.
+     * To redirect incoming traffic, provide a valid redirect status code.
+     *
+     * @defaultValue 200
+     *
+     * @example
+     * Request: `a.com/redirect`
+     * from.pattern: `a.com/redirect/*`
+     * to.url: `example.com`
+     * to.statusCode: 301
+     * ✅ Permanently redirect traffic to example.com
+     */
+    statusCode?: number
+    /**
+     * By default, Proxyflare assumes the proxied service isn't a website. Enable this for Proxyflare to do website-specific processing on incoming traffic.
+     *
+     * @defaultValue false
+     *
+     * `website:"spa"` treats the website like a single page app (i.e. React, Vue) that has a client side router.
+     *
+     * `website:true` treats the website like a traditional server-side rendered website (i.e. WordPress).
+     *
+     */
+    website?: "spa" | boolean
+    /**
+     * By default, Proxyflare automatically rewrites website links for convenience.
+     *
+     * Consider the case when proxying to mydocs.com from `from.pattern="/docs"`. Links on mysite.com will not
+     * include the necessary `/docs` prefix and will break.  For example, a homepage link `a.href="/"`
+     * will incorrectly link to your homepage instead of the documentation homepage.
+     *
+     * @defaultValue true
+     */
+    rewriteLinks?: boolean
+    /**
+     * Most websites make additional requests for stylesheets, images, and other static
+     * content required to render, format, and populate the page. Enumerate resource requests
+     * to tell Proxyflare to match them to your route.
+     *
+     * @remarks
+     *
+     * Resources a couple important caveats. Proxyflare does its best to route traffic, but if two website have identical
+     * static resource folders, all it can do is guess.
+     *
+     * Take the case where two websites both have `to.resources:["a.com/images/*"]`.  On an request for `a.com/images/cat.jpg`, Proxyflare
+     * sends a request to both websites for the resource, and whichever one responds first wins.  This can obviously be problematic in the case where both sites contain
+     * identical resources. For example, `logo.jpg` for one website might render on the other site!
+     *
+     * The recommended solution is to disambiguate the resources for each website. For example, change the images directory of the first website to `images-a` and the second to `images-b`.
+     * Then, Proxyflare will know exactly where to send traffic for each website.
+     *
+     * @example
+     * Request: `a.com/images/its-morbin-time.jpg`
+     * from.pattern: `a.com/my-site/*`
+     * to.url: `my-site.com`
+     * to.resources: `["a.com/images/*"]`
+     * ✅ Proxies traffic on `a.com/images/*` to `my-site.com`
+     *
+     * @example
+     * Request: `a.com/static/lib/jquery.js`
+     * from.pattern: `a.com/my-site/*`
+     * to.url: `my-site.com`
+     * to.resources: `["a.com/images/*", "a.com/static/lib/jquery.js"]`
+     * ✅ Proxies the script to `my-site.com`
+     */
+    resources?: string[]
+    /**
+     * Proxied request timeout in milliseconds
+     * @defaultValue 30000 (30 seconds)
+     */
+    timeoutMs?: number
+  }
+  headers?: {
+    /**
+     * Request headers to append to proxied requests
+     *
+     * @example
+     * headers.request: `{ "hello-server" : "👋" }`
+     */
+    request?: Record<string, string>
+    /**
+     * Response headers to append to proxied responses
+     *
+     * @example
+     * headers.response: `{ "hello-browser" : "👋" }`
+     */
+    response?: Record<string, string>
+  }
+}
+```
