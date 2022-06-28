@@ -119,8 +119,6 @@ const config = {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      image:
-        "https://graphql-engine-cdn.hasura.io/assets/hge-docs/og-image.png",
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
