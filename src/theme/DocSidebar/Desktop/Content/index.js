@@ -39,9 +39,9 @@ export default function ContentWrapper(props) {
           }`}
         >
           {isDoc.pages ? Icon : null}
-          Cloudflare Pages
+          {productName} for Pages
         </VersionedLink>
-        <VersionedLink
+        {/* <VersionedLink
           to={`/${productSlug}/platform/index/`}
           className={`${styles["link-tab"]} ${
             isDoc.platform ? styles["active"] : ""
@@ -49,7 +49,7 @@ export default function ContentWrapper(props) {
         >
           {isDoc.platform ? Icon : null}
           Platform
-        </VersionedLink>
+        </VersionedLink> */}
       </div>
       <Content {...props} />
     </>

@@ -1,0 +1,63 @@
+---
+title: Proxy to a web service
+description: Learn how to connect to other services around the internet
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: services
+sidebar_position: 0
+---
+
+## Proxy to a web service
+
+Proxyflare can send incoming traffic on your domain to anywhere on the internet. The route below sends traffic on `https://flaregun.net/example` to `https://example.com`.
+
+For example, traffic on `https://flaregun.net/example/page` gets sent to `https://example.com/page`.
+
+```ts
+// functions/[[path]].ts
+const apiRoute = {
+  from: { pattern: "flaregun.net/api/*" },
+  to: { url: "my-api.com" },
+}
+
+const routes = [apiRoute]
+```
+
+Notice the wildcard pathname in `from.pattern`. Proxyflare works with absolute pathnames like `flaregun.net/my-form` and wildcard pathnames like `flaregun.net/api/*`.
+In the wildcard example, traffic on `/api` and `/api/users` is proxied.
+
+:::info Note
+
+<i>https:</i> is assumed if a protocol is not present in `to.url`
+
+:::
+
+The following route configuration sends traffic on `flaregun.net/api/*` to the service listening on `flaregun.net:8787`.
+
+For example, incoming requests to `https://flaregun.net/api/users` and `https://*www*.flaregun.net/api/users` are both sent to `https://flaregun.net:8787/users`.
+To disable loose matching of `www` and `root domain` traffic, set `strictRootSubdomain = true`.
+
+For example, traffic on `https://flaregun.net/example/page` gets sent to `https://example.com/page`.
+
+```ts
+// functions/[[path]].ts
+const apiRoute = {
+  // optional field to describe the route
+  description: "send my api traffic to port 8787",
+  from: {
+    pattern: "flaregun.net/api/*",
+    strictRootSubdomain: false,
+  },
+  to: { url: "flaregun.net:8787" },
+  headers: {
+    // request headers to pass along with the proxied request
+    request: { Authorization: "Bearer token" },
+  },
+}
+
+const routes = [apiRoute]
+```

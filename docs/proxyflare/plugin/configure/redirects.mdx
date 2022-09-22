@@ -1,0 +1,30 @@
+---
+title: Redirect to another location
+description: Learn how to set up redirects in Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: redirects
+sidebar_position: 2
+---
+
+## Redirect to another location
+
+The route below redirects traffic on `flaregun.net/redirect` to `example.com` because it includes a 300-level `statusCode`. A route may include any valid `statusCode`
+such as `404` but `statusCode` is most useful for redirects.
+
+```ts
+// functions/[[path]].ts
+const redirectRoute = {
+  from: { pattern: "flaregun.net/redirect" },
+  to: {
+    url: "example.com",
+    statusCode: 301,
+  },
+}
+
+const routes = [redirectRoute]
+```

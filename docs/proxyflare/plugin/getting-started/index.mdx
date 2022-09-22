@@ -10,7 +10,36 @@ keywords:
 slug: index
 ---
 
+import VersionedLink from "@site/src/components/VersionedLink"
+import {
+  CustomTOCList,
+  CustomTOCListSection,
+  CustomTOCListHead,
+  CustomTOCListContent,
+} from "@site/src/components/CustomTOCList"
+
 # Getting Started
+
+<CustomTOCList>
+  <CustomTOCListSection>
+    <CustomTOCListHead>Articles</CustomTOCListHead>
+    <CustomTOCListContent>
+      <VersionedLink to="/proxyflare/plugin/configure/services">
+        Proxy to a web service
+      </VersionedLink>
+    </CustomTOCListContent>
+    <CustomTOCListContent>
+      <VersionedLink to="/proxyflare/plugin/configure/websites">
+        Proxy to a web site
+      </VersionedLink>
+    </CustomTOCListContent>
+    <CustomTOCListContent>
+      <VersionedLink to="/proxyflare/plugin/configure/redirects">
+        Redirect to another location
+      </VersionedLink>
+    </CustomTOCListContent>
+  </CustomTOCListSection>
+</CustomTOCList>
 
 ## Introduction
 
@@ -34,9 +63,9 @@ The `onRequest` plugins list should include the following configuration.
 
 ```ts
 // functions/[[path]].ts
-import proxyflare from "@flaregun-net/proxyflare-for-pages";
+import proxyflare from "@flaregun-net/proxyflare-for-pages"
 
-const routes: Route[] = [];
+const routes: Route[] = []
 
 export const onRequest = [
   proxyflare({
@@ -46,7 +75,7 @@ export const onRequest = [
     },
   }),
   // other Pages plugins
-];
+]
 ```
 
 This is a barebones Proxyflare configuration with `debug` enabled that will help us set up Proxyflare.
@@ -73,6 +102,7 @@ The fundamental building blocks of a `Route` are `Route["from"]` and `Route["to"
 `Route["from"]` tells Proxyflare to use (or _match_) the `Route` for traffic _from_ the selected part of your domain.
 
 `Route["to"]` tells Proxyflare where to send the matched traffic _to_, which is usually another URL.
+The following articles outline some Proxyflare use cases.
 
 :::info Note
 
@@ -95,9 +125,9 @@ Proxyflare can send incoming traffic on your domain to anywhere else on the inte
 const apiRoute: Route = {
   from: { pattern: "proxyflare.works/api/*" },
   to: { url: "my-api.com" },
-};
+}
 
-const routes = [apiRoute];
+const routes = [apiRoute]
 ```
 
 In `apiRoute`, Proxyflare sends traffic from `proxyflare.works/api/*` to `my-api.com`.
@@ -131,9 +161,9 @@ const apiRoute: Route = {
     // request headers to pass along with the `ProxiedRequest`
     request: { Authorization: "Bearer token" },
   },
-};
+}
 
-const routes = [apiRoute];
+const routes = [apiRoute]
 ```
 
 TODO: Fix this once `strictRootSubdomain` -> `alsoMatchWWWSubdomain`, or alsoMatchSubdomains: ['www']
@@ -209,9 +239,9 @@ const blogRoute: Route = {
       ],
     },
   },
-};
+}
 
-const routes = [blogRoute];
+const routes = [blogRoute]
 ```
 
 To help Proxyflare identify the resource request, we include the stylesheet in `blogRoute["to.website.resources"]`. But rather than listing the full URL `(proxyflare.works/wp-content/style.css)`, we can use wildcard patterns to send all resource traffic from `proxyflare.works/wp-content/*` and `proxyflare.works/wp-includes/*` to the WordPress blog on `wordpress-on-proxyflare.xyz`.
@@ -243,9 +273,9 @@ const docsRoute: Route = {
       ],
     },
   },
-};
+}
 
-const routes = [docsRoute];
+const routes = [docsRoute]
 ```
 
 Inspect the `Network` tab on https://proxyflare.works/docs to see if you can identify why we included the three entries `docsRoute["to.website.resources"]` above.
@@ -260,9 +290,9 @@ const redirectRoute: Route = {
     url: "example.com",
     statusCode: 301,
   },
-};
+}
 
-const routes = [redirectRoute];
+const routes = [redirectRoute]
 ```
 
 This route redirects traffic on `proxyflare.works/redirect` to `example.com` because it contains a `3xx` `statusCode`. Providing a `statusCode` is useful for redirects and if you want to hard code the response status on a route.
@@ -282,7 +312,7 @@ const routes: Route[] = [
     from: { pattern: "proxyflare.works/api/users/*" },
     // rest of route config
   },
-];
+]
 ```
 
 :::warning Spoiler
@@ -292,6 +322,8 @@ The latter route wins because it has a higher pathname specificity!
 :::
 
 In the example above, the second route is matched for a request to `https://proxyflare.works/api/users/john`, but why? When Proxyflare runs, it sorts `routes` based on the pathname specificity of `Route["from.pattern"]`.
+
+## How Proxyflare matches routes
 
 Pathname specificity increases with pathname depth. The more forward-slash `/` separated parts in the pathname, the higher the specificity. For example, `from.pattern=ex.com/a/b/c` has a pathname depth of three.
 
@@ -307,22 +339,22 @@ For patterns that would be identical if wildcards were removed, rank is allocate
 The table below shows this strategy on a list of routes with complex `Route["from.pattern"]`s listed by pathname specificity.
 The last column shows an incoming request that would match each pattern.
 
-| Specificity | Route[`Route["from.pattern"]`] | Example Matching Request        |
-| ----------- | ------------------------------ | ------------------------------- |
-| 14          | ex.com/shallow/deeper          | ex.com/shallow/deeper           |
-| 13          | ex.com/shallow/deeper\*        | ex.com/shallow/deeper-in        |
-| 12          | ex.com/shallow/deeper/\*       | ex.com/shallow/deeper/down      |
-| 11          | ex.com/shallow/deep            | ex.com/shallow/deep             |
-| 10          | ex.com/shallow/deep\*          | ex.com/shallow/deep-in          |
-| 9           | ex.com/shallow/deep/\*         | ex.com/shallow/deep/down        |
-| 8           | ex.com/shallower               | ex.com/shallower                |
-| 7           | ex.com/shallower\*             | ex.com/shallower-yet            |
-| 6           | ex.com/shallower/\*            | ex.com/shallower/still          |
-| 5           | ex.com/shallow                 | ex.com/shallow                  |
-| 4           | ex.com/shallow\*               | ex.com/shallow-lakes            |
-| 3           | ex.com/shallow/\*              | ex.com/shallow/water            |
-| 2           | ex.com/                        | ex.com/                         |
-| 1           | ex.com/\*                      | ex.com/anything-still-unmatched |
+| Specificity | `Route["from.pattern"]`  | Example Matching Request        |
+| ----------- | ------------------------ | ------------------------------- |
+| 14          | ex.com/shallow/deeper    | ex.com/shallow/deeper           |
+| 13          | ex.com/shallow/deeper\*  | ex.com/shallow/deeper-in        |
+| 12          | ex.com/shallow/deeper/\* | ex.com/shallow/deeper/down      |
+| 11          | ex.com/shallow/deep      | ex.com/shallow/deep             |
+| 10          | ex.com/shallow/deep\*    | ex.com/shallow/deep-in          |
+| 9           | ex.com/shallow/deep/\*   | ex.com/shallow/deep/down        |
+| 8           | ex.com/shallower         | ex.com/shallower                |
+| 7           | ex.com/shallower\*       | ex.com/shallower-yet            |
+| 6           | ex.com/shallower/\*      | ex.com/shallower/still          |
+| 5           | ex.com/shallow           | ex.com/shallow                  |
+| 4           | ex.com/shallow\*         | ex.com/shallow-lakes            |
+| 3           | ex.com/shallow/\*        | ex.com/shallow/water            |
+| 2           | ex.com/                  | ex.com/                         |
+| 1           | ex.com/\*                | ex.com/anything-still-unmatched |
 
 :::info Tip
 

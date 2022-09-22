@@ -1,0 +1,36 @@
+---
+title: Configure multiple routes
+description: Learn how to use multiple routes in Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: redirects
+sidebar_position: 2
+---
+
+## Configure multiple routes
+
+Proxyflare works with multiple route configurations. Read on to learn about how Proxyflare handles a request to `https://flaregun.net/api/users/john` with the following configuration.
+
+```ts
+// functions/[[path]].ts
+const routes = [
+  {
+    from: { pattern: "flaregun.net/api/*" },
+    // rest of route config
+  },
+  {
+    from: { pattern: "flaregun.net/api/users/*" },
+    // rest of route config
+  },
+]
+```
+
+:::warning Spoiler
+
+The latter route wins because it has a higher pathname specificity!
+
+:::

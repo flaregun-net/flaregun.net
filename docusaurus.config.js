@@ -170,11 +170,11 @@ const config = {
               //   docId: "edgeflare/core/index",
               //   label: "Edgeflare",
               // },
-              {
-                type: "docSidebar",
-                sidebarId: "edgeflarePluginSidebar",
-                label: "Edgeflare",
-              },
+              // {
+              //   type: "docSidebar",
+              //   sidebarId: "edgeflarePluginSidebar",
+              //   label: "Edgeflare",
+              // },
             ],
           },
           // {

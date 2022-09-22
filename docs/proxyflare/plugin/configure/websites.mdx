@@ -1,0 +1,103 @@
+---
+title: Proxy to a website
+description: Learn how to mount another website on your domain
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare pages
+  - docs
+slug: websites
+sidebar_position: 1
+---
+
+## Proxy to a web site
+
+Proxyflare can render full websites with a little additional configuration. Imagine we have a [blogging website](https://wordpress-on-proxyflare.xyz) that we want to serve on `flaregun.net/blog` to gain the considerable [SEO benefits](https://modus.vc/seo-domain-strategy-subdirectory-vs-subdomain/#:~:text=Hosting%20the%20website's%20blog%20on,increased%20time%20on%20the%20page.) of publishing content on our main business domain.
+
+In the following route, Proxyflare mounts a WordPress site on `flaregun.net/blog/*`.
+
+```ts
+// functions/[[path]].ts
+const blogRoute = {
+  from: { pattern: "flaregun.net/blog/*" },
+  to: {
+    url: "https://wordpress-on-proxyflare.xyz",
+    website: {
+      mode: true,
+      resources: [],
+    },
+  },
+}
+
+const routes = [blogRoute]
+```
+
+Notice that the `to.website` configuration object is included in the route, which is described in more detail below.
+
+#### to.website.mode: true | "spa"
+
+This option determines how Proxyflare routes website requests and defaults to `true` if `to.website` exists. For traditional server-side rendered websites such as WordPress, setting `to.website.mode=true` is optional.
+
+For modern Javascript single page app frameworks like React, Angular, and Vue, set `to.website.mode="spa"` to delegate routing to the framework's client side router.
+
+:::info Note
+
+Check your website engine's documentation if you aren't sure whether it is a single-page app.
+
+:::
+
+#### to.website.resources: string[]
+
+When a web page loads, additional requests are often sent to the server for static content such as images, scripts, and stylesheets. If these requests fail, the website may appear in a partially rendered state. To ensure a website is rendered correcly, Proxyflare needs to understand how to match requests for static content to the proxied website.
+
+When a user visits `https://flaregun.net/blog`, a request for a stylesheet is made to the server - `GET https://flaregun.net/wp-content/.../style.css`. However, without more information, Proxyflare does not know how to route this request to the blog server leaving us without the stylesheet.
+
+:::info
+
+If your website appears in a partially rendered state, some of its static content might be missing in `to.website.resources`
+
+:::
+
+To complete the stylesheet request, add a wildcard or absolute pathname pattern to `resources`. Below, we added two patterns that send traffic on `flaregun.net/wp-content/*` and `flaregun.net/wp-includes/*` to `wordpress-on-proxyflare.xyz` which knows how to handle the requested static content.
+
+```ts
+// functions/[[path]].ts
+const blogRoute = {
+  from: { pattern: "flaregun.net/blog/*" },
+  to: {
+    url: "https://wordpress-on-proxyflare.xyz",
+    website: {
+      resources: ["flaregun.net/wp-content/*", "flaregun.net/wp-includes/*"],
+    },
+  },
+}
+
+const routes = [blogRoute]
+```
+
+How did we know to add these particular patterns in `to.website.resources`? Open your developer tools.
+
+ADD GIFS HERE
+
+Here's another route that mounts a [Docusaurus](https://docusaurus.io/)-powered [documentation website](https://docusaurus-on-proxyflare.vercel.app) on `flaregun.net/docs/*`.
+
+```ts
+// functions/[[path]].ts
+const docsRoute = {
+  from: { pattern: "flaregun.net/docs/*" },
+  to: {
+    url: "https://docusaurus-on-proxyflare.vercel.app",
+    website: {
+      mode: "spa",
+      resources: [
+        "flaregun.net/docs/img/*",
+        "flaregun.net/docs/assets/*",
+        "flaregun.net/docs/manifest.json",
+      ],
+    },
+  },
+}
+
+const routes = [docsRoute]
+```
