@@ -4,16 +4,16 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, {useMemo} from 'react';
+import React, { useMemo } from "react";
+import { useThemeConfig } from "@docusaurus/theme-common";
 import {
-  useThemeConfig,
   useTOCHighlight,
   useFilteredAndTreeifiedTOC,
-} from '@docusaurus/theme-common'; // Recursive component rendering the toc tree
+} from "@docusaurus/theme-common/internal"; // Recursive component rendering the toc tree
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
-function TOCItemList({toc, className, linkClassName, isChild}) {
+function TOCItemList({ toc, className, linkClassName, isChild }) {
   if (!toc.length) {
     return null;
   }
@@ -44,8 +44,8 @@ function TOCItemList({toc, className, linkClassName, isChild}) {
 
 export default function TOCItems({
   toc,
-  className = 'table-of-contents table-of-contents__left-border',
-  linkClassName = 'table-of-contents__link',
+  className = "table-of-contents table-of-contents__left-border",
+  linkClassName = "table-of-contents__link",
   linkActiveClassName = undefined,
   minHeadingLevel: minHeadingLevelOption,
   maxHeadingLevel: maxHeadingLevelOption,
