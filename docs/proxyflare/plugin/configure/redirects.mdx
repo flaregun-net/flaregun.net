@@ -11,15 +11,12 @@ slug: redirects
 sidebar_position: 2
 ---
 
-## Redirect to another location
-
-The route below redirects traffic on `flaregun.net/redirect` to `example.com` because it includes a 300-level `statusCode`. A route may include any valid `statusCode`
-such as `404` but `statusCode` is most useful for redirects.
+Proxyflare can redirect traffic on absolute or wildcard pathnames on your domain to other places on the internet.
 
 ```ts
 // functions/[[path]].ts
-const redirectRoute = {
-  from: { pattern: "flaregun.net/redirect" },
+const redirectRoute: Route = {
+  from: { pattern: "proxyflare.works/redirect" },
   to: {
     url: "example.com",
     statusCode: 301,
@@ -28,3 +25,5 @@ const redirectRoute = {
 
 const routes = [redirectRoute]
 ```
+
+This route redirects traffic on `proxyflare.works/redirect` to `example.com` because it contains a `3xx` `statusCode`. Providing a `statusCode` is useful for redirects and if you want to hard code the response status on a route.

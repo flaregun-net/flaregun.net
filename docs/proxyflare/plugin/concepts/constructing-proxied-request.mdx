@@ -1,0 +1,49 @@
+---
+title: How does Proxyflare construct ProxiedRequest?
+description: Learn how Proxyflare constructs ProxiedRequest
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - proxiedrequest
+slug: constructing-proxied-request
+sidebar_position: 0
+---
+
+## How Proxyflare proxies requests
+
+Once Proxyflare matches a configuration `Route` to an incoming request, it constructs the `ProxiedRequest` based on three parameters:
+
+1. `Request`
+1. `Route["from.pattern"]`
+1. `Route["to.url"]`
+
+The general formula is:
+
+```
+ProxiedRequest["href"] = Route["to.url"].origin + ( Request["pathname"] + ( Route["to.url"].pathname - Route["from.pattern"].pathname ))
+```
+
+| `Request["href"]`    | `Route["from.pattern"]` | `Route["to.url"]` | `ProxiedRequest["href"]`      |
+| -------------------- | ----------------------- | ----------------- | ----------------------------- |
+| `https://ex.com/api` | `ex.com/*`              | `proxied.com`     | `https://proxied.com/api`     |
+| `https://ex.com/api` | `ex.com/*`              | `proxied.com/api` | `https://proxied.com/api/api` |
+| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com`     | `https://proxied.com`         |
+| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com/api` | `https://proxied.com/api`     |
+
+Depending on your requirements, you might want to include the pathname of `Route["from.pattern"]` in the `ProxiedRequest`. To do this, set `stripFromPath: false` on your `Route`.
+
+The table below demonstrates how `stripFromPath: false` modifies a `ProxiedRequest`.
+
+| `Request["href"]`    | `Route["from.pattern"]` | `Route["to.url"]` | `ProxiedRequest["href"]`      |
+| -------------------- | ----------------------- | ----------------- | ----------------------------- |
+| `https://ex.com/api` | `ex.com/*`              | `proxied.com`     | `https://proxied.com/api`     |
+| `https://ex.com/api` | `ex.com/*`              | `proxied.com/api` | `https://proxied.com/api/api` |
+| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com`     | `https://proxied.com/api`     |
+| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com/api` | `https://proxied.com/api/api` |
+
+:::info Tip
+
+Set the `global.debug` configuration variable to inspect the the `x-proxyflare-proxied-pathname` response header for the proxied pathname.
+
+:::

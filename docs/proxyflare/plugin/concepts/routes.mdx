@@ -1,0 +1,26 @@
+---
+title: What is a route?
+description: Learn how Proxyflare defines a route
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - routes
+slug: routes
+sidebar_position: 0
+---
+
+Proxyflare moves traffic around your domain using `Routes`. A `Route` sends traffic to another service on your domain or elsewhere on the internet by generating a `ProxiedRequest` and handling the proxied response.
+
+The fundamental building blocks of a `Route` are `Route["from"]` and `Route["to"]`.
+
+`Route["from"]` tells Proxyflare to use (or _match_) the `Route` for traffic _from_ the selected part of your domain.
+
+`Route["to"]` tells Proxyflare where to send the matched traffic _to_, which is usually another URL.
+The following articles outline some Proxyflare use cases.
+
+:::info Note
+
+If you're using Typescript, Proxyflare for Pages comes with type definitions and in-editor documentation with deep dives into and examples for every configuration option
+
+:::

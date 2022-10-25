@@ -1,0 +1,76 @@
+---
+title: How does Proxyflare match routes?
+description: Learn how Proxyflare matches routes
+keywords:
+  - flaregun
+  - proxyflare
+  - concepts
+  - routes
+slug: pattern-matching
+sidebar_position: 0
+---
+
+## How Proxyflare matches routes
+
+Proxyflare works with any number of routes by ordering them by pathname specificity of `Route[from.pattern]`. This section explains how pathname specificity is and how understand how Proxyflare prioritizes route Read on to learn about how Proxyflare handles a request to `https://proxyflare.works/api/users/john` with the following configuration.
+
+```ts
+// functions/[[path]].ts
+const routes: Route[] = [
+  {
+    from: { pattern: "proxyflare.works/api/*" },
+    // rest of route config
+  },
+  {
+    from: { pattern: "proxyflare.works/api/users/*" },
+    // rest of route config
+  },
+]
+```
+
+:::warning Spoiler
+
+The latter route wins because it has a higher pathname specificity!
+
+:::
+
+In the example above, the second route is matched for a request to `https://proxyflare.works/api/users/john`, but why? When Proxyflare runs, it sorts `routes` based on the pathname specificity of `Route["from.pattern"]`.
+
+## How Proxyflare matches routes
+
+Pathname specificity increases with pathname depth. The more forward-slash `/` separated parts in the pathname, the higher the specificity. For example, `from.pattern=ex.com/a/b/c` has a pathname depth of three.
+
+Given two patterns with the same pathname depth, the one with the the longer trailing slug wins.
+For example, given `from.pattern=ex.com/a/b/c*` and `from.pattern=ex.com/a/b/cccc*`, the latter wins.
+
+For patterns that would be identical if wildcards were removed, rank is allocated in order of:
+
+1. Absolute path `ex.com/a`
+2. Inline wildcard `ex.com/a*`
+3. Slash wildcard `ex.com/a/*`
+
+The table below shows this strategy on a list of routes with complex `Route["from.pattern"]`s listed by pathname specificity.
+The last column shows an incoming request that would match each pattern.
+
+| Specificity | `Route["from.pattern"]`  | Example Matching Request        |
+| ----------- | ------------------------ | ------------------------------- |
+| 14          | ex.com/shallow/deeper    | ex.com/shallow/deeper           |
+| 13          | ex.com/shallow/deeper\*  | ex.com/shallow/deeper-in        |
+| 12          | ex.com/shallow/deeper/\* | ex.com/shallow/deeper/down      |
+| 11          | ex.com/shallow/deep      | ex.com/shallow/deep             |
+| 10          | ex.com/shallow/deep\*    | ex.com/shallow/deep-in          |
+| 9           | ex.com/shallow/deep/\*   | ex.com/shallow/deep/down        |
+| 8           | ex.com/shallower         | ex.com/shallower                |
+| 7           | ex.com/shallower\*       | ex.com/shallower-yet            |
+| 6           | ex.com/shallower/\*      | ex.com/shallower/still          |
+| 5           | ex.com/shallow           | ex.com/shallow                  |
+| 4           | ex.com/shallow\*         | ex.com/shallow-lakes            |
+| 3           | ex.com/shallow/\*        | ex.com/shallow/water            |
+| 2           | ex.com/                  | ex.com/                         |
+| 1           | ex.com/\*                | ex.com/anything-still-unmatched |
+
+:::info Tip
+
+Set the `global.debug` configuration variable to inspect the the `x-proxyflare-matched-pathname` response header for the matched pathname.
+
+:::

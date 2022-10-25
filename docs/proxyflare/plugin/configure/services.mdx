@@ -11,53 +11,66 @@ slug: services
 sidebar_position: 0
 ---
 
-## Proxy to a web service
+## On another domain
 
-Proxyflare can send incoming traffic on your domain to anywhere on the internet. The route below sends traffic on `https://flaregun.net/example` to `https://example.com`.
-
-For example, traffic on `https://flaregun.net/example/page` gets sent to `https://example.com/page`.
+Proxyflare can send incoming traffic on your domain to other places on the internet. Let's build a simple route to move traffic from our domain to `my-api.com`
 
 ```ts
 // functions/[[path]].ts
-const apiRoute = {
-  from: { pattern: "flaregun.net/api/*" },
+const apiRoute: Route = {
+  from: { pattern: "proxyflare.works/api/*" },
   to: { url: "my-api.com" },
 }
 
 const routes = [apiRoute]
 ```
 
-Notice the wildcard pathname in `from.pattern`. Proxyflare works with absolute pathnames like `flaregun.net/my-form` and wildcard pathnames like `flaregun.net/api/*`.
-In the wildcard example, traffic on `/api` and `/api/users` is proxied.
+In the above `apiRoute`, Proxyflare sends traffic from `proxyflare.works/api/*` to `my-api.com`.
+
+Notice the wildcard pathname in `apiRoute["from.pattern"]`. This means that traffic on subpaths of `proxyflare.works/api/` such as `proxyflare.works/api/users/1` goes to `my-api.com/users/1`. If `apiRoute["from.pattern"]` didn't include a wildcard, subpaths of `apiRoute["from.pattern"]` wouldn't match `apiRoute`.
 
 :::info Note
 
-<i>https:</i> is assumed if a protocol is not present in `to.url`
+<i>https:</i> is assumed unless <i>http:</i> is specified in the <code>
+  Route["to.url"]
+</code> URL
 
 :::
 
-The following route configuration sends traffic on `flaregun.net/api/*` to the service listening on `flaregun.net:8787`.
+## On a custom port
 
-For example, incoming requests to `https://flaregun.net/api/users` and `https://*www*.flaregun.net/api/users` are both sent to `https://flaregun.net:8787/users`.
-To disable loose matching of `www` and `root domain` traffic, set `strictRootSubdomain = true`.
-
-For example, traffic on `https://flaregun.net/example/page` gets sent to `https://example.com/page`.
+Proxyflare can send traffic from your domain to other services running on custom ports (e.g. other than `80` or `443`). The following `Route` sends traffic on `proxyflare.works/api/*` to the service listening on `flaregun.net:8787`.
 
 ```ts
 // functions/[[path]].ts
-const apiRoute = {
+const apiRoute: Route = {
   // optional field to describe the route
-  description: "send my api traffic to port 8787",
+  description: "forward api traffic to the flaregun api",
   from: {
-    pattern: "flaregun.net/api/*",
+    pattern: "proxyflare.works/api/*",
+    // match requests on both proxyflare.works and www.proxyflare.works
     strictRootSubdomain: false,
   },
   to: { url: "flaregun.net:8787" },
   headers: {
-    // request headers to pass along with the proxied request
+    // request headers to pass along with the `ProxiedRequest`
     request: { Authorization: "Bearer token" },
   },
 }
 
 const routes = [apiRoute]
 ```
+
+TODO: Fix this once `strictRootSubdomain` -> `alsoMatchWWWSubdomain`, or alsoMatchSubdomains: ['www']
+
+To disable loose matching of `www` and `root domain` traffic, set `strictRootSubdomain = true`. For example, incoming requests to `https://proxyflare.works/api/users` and `https://*www*.proxyflare.works/api/users` are both sent to `https://flaregun.net:8787/users`.
+
+:::caution Is your service available?
+
+Proxyflare uses the internet to move traffic, which means _any service it proxies must also be accessible on the internet_.
+
+A quick way to tell if your service is accessible is to disconnect from all VPNs and navigate to your service in a browser. If you can't connect, you will need to modify your firewall rules to expose your service to the internet.
+
+For example, an AWS service deployed at `my-api.ec2.amazonaws.com:8787` would have to create a [Security group rule](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that opens port 8787 on the EC2 virtual machine before using Proxyflare. Once `my-api.ec2.amazonaws.com:8787` is accessible from a browser, Proxyflare can connect it to your domain.
+
+:::
