@@ -1,5 +1,5 @@
 ---
-title: Proxyflare for Pages Getting Started
+title: Getting Started
 description: Get started with Proxyflare for Pages
 keywords:
   - flaregun
@@ -7,41 +7,9 @@ keywords:
   - reverse proxy
   - cloudflare pages
   - docs
-slug: index
+slug: getting-started
+sidebar_position: 2
 ---
-
-import VersionedLink from "@site/src/components/VersionedLink"
-import {
-  CustomTOCList,
-  CustomTOCListSection,
-  CustomTOCListHead,
-  CustomTOCListContent,
-} from "@site/src/components/CustomTOCList"
-
-# Getting Started
-
-<CustomTOCList>
-  <CustomTOCListSection>
-    <CustomTOCListHead>Articles</CustomTOCListHead>
-    <CustomTOCListContent>
-      <VersionedLink to="/proxyflare/plugin/configure/services">
-        Proxy to a web service
-      </VersionedLink>
-    </CustomTOCListContent>
-    <CustomTOCListContent>
-      <VersionedLink to="/proxyflare/plugin/configure/websites">
-        Proxy to a web site
-      </VersionedLink>
-    </CustomTOCListContent>
-    <CustomTOCListContent>
-      <VersionedLink to="/proxyflare/plugin/configure/redirects">
-        Redirect to another location
-      </VersionedLink>
-    </CustomTOCListContent>
-  </CustomTOCListSection>
-</CustomTOCList>
-
-## Introduction
 
 This package allows developers to use Proxyflare on any website deployed with [Cloudflare Pages](https://developers.cloudflare.com/pages).
 
@@ -112,7 +80,7 @@ to disable `debug` when you are done configuring Proxyflare.
 
 `x-proxyflare-matched-pathname: string` is the pathname of the matched `Route["from.pattern"]`
 
-`x-proxyflare-proxied-pathname: "string"` is the pathname of the `ProxiedRequest`
+`x-proxyflare-proxied-pathname: string` is the pathname of the `ProxiedRequest`
 
 :::
 

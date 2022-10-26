@@ -1,0 +1,24 @@
+---
+title: Debugging headers
+description: Proxyflare configuration options
+keywords:
+  - flaregun
+  - proxyflare
+  - docs
+  - API
+  - Configuration Options
+slug: debugging-headers
+sidebar_position: 1
+---
+
+Enabling `Configuration["global.debug"]` attaches the following debug headers to Proxyflare responses. Make sure to disable debug when you are done configuring Proxyflare.
+
+- `x-proxyflare: "running"` signals that Proxyflare is installed and operational on your domain
+
+- `x-proxyflare-error: string` describes an error if it occured, usually because of a configuration issue
+
+- `x-proxyflare-matched-index: number | "none"` is a zero-indexed `Route` that matched the request or "none"
+
+- `x-proxyflare-matched-pathname: string` is the pathname of the matched `Route["from.pattern"]`
+
+- `x-proxyflare-proxied-pathname: string` is the pathname of the `ProxiedRequest`

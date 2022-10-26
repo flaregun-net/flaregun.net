@@ -1,17 +1,15 @@
 ---
-description: Proxyflare API reference
+title: Configuration options
+description: Proxyflare configuration options
 keywords:
   - flaregun
   - proxyflare
   - docs
   - API
-  - API reference
-sidebar_position: 15
+  - Configuration Options
+slug: configuration-options
+sidebar_position: 1
 ---
-
-import TOCInline from "@theme/TOCInline";
-
-# API Reference
 
 :::info Note
 
@@ -20,13 +18,15 @@ and in-editor documentation for each configuration option.
 
 :::
 
+## Scaffolding
+
 For Proxyflare for Cloudflare Pages, a basic configuration is as follows:
 
 ```ts
 // functions/[[path]].ts
-import proxyflare from "@flaregun-net/proxyflare-for-pages";
+import proxyflare from "@flaregun-net/proxyflare-for-pages"
 
-const routes = [];
+const routes = []
 
 export const onRequest = [
   proxyflare({
@@ -36,8 +36,10 @@ export const onRequest = [
     },
   }),
   // your other middleware
-];
+]
 ```
+
+## Configuration
 
 The `Configuration` is shaped like:
 
@@ -49,7 +51,7 @@ export type Configuration = {
      *
      * @defaultValue `false`
      */
-    disable?: boolean;
+    disable?: boolean
     /**
      * Enable `debug` to attach the following debug headers to Proxyflare responses.  Make sure to disable `debug` when you are done configuring Proxyflare.
      *
@@ -63,11 +65,13 @@ export type Configuration = {
      *
      * @defaultValue `false`
      */
-    debug?: boolean;
-  };
-  routes: Route[];
-};
+    debug?: boolean
+  }
+  routes: Route[]
+}
 ```
+
+## Route
 
 A `Route` is shaped like:
 
@@ -76,7 +80,7 @@ export type Route = {
   /**
    * A short message describing the purpose of the route
    */
-  description?: string;
+  description?: string
   from: {
     /**
      * The [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name#Example) to match against incoming traffic to determine
@@ -108,7 +112,7 @@ export type Route = {
      * from.pattern: `admin.a.com/absolute`
      * ❌ NOT MATCHED
      */
-    pattern: string;
+    pattern: string
     /**
      * By default, Proxyflare strips the `from.pattern` path from the proxied url. Disable this option to include it.
      *
@@ -128,7 +132,7 @@ export type Route = {
      * to.url: `b.com`
      * -> proxies to `b.com/api/api/b`
      */
-    stripFromPath?: boolean;
+    stripFromPath?: boolean
     /**
      * By default, Proxyflare loosely matches `www` subdomain and root domain requests.
      * Incoming `www` traffic will match root domain routes and vice versa.
@@ -151,7 +155,7 @@ export type Route = {
      * to.url: `example.com`
      * ❌ NOT MATCHED
      */
-    strictRootSubdomain?: boolean;
+    strictRootSubdomain?: boolean
     /**
      * By default, Proxyflare ignores request methods when matching requests to a route. To match only specific request methods, enumerate the allowed methods here.
      * Request methods that are not listed will not be matched.
@@ -165,15 +169,15 @@ export type Route = {
      * to.url: `b.com`
      * ❌ NOT MATCHED
      */
-    methods?: Methods[];
-  };
+    methods?: Methods[]
+  }
   to: {
     /**
      * The url of the service to proxy traffic to. The url may by `http://` or `https://` and may include a port.
      *
      * For example, `to.url: http://a.com:3000` will send traffic to port `3000` on `a.com`.
      */
-    url: string;
+    url: string
     /**
      * By default, Proxyflare returns the status code of the proxied response.
      * Provide a status code to override this. Status code is additionally used for redirects.
@@ -188,7 +192,7 @@ export type Route = {
      * to.statusCode: 301
      * ✅ Permanently redirect traffic to example.com
      */
-    statusCode?: number;
+    statusCode?: number
     /**
      * By default, Proxyflare assumes the proxied service isn't a website. Enable this for Proxyflare to do website-specific processing on incoming traffic.
      *
@@ -199,7 +203,7 @@ export type Route = {
      * `website:true` treats the website like a traditional server-side rendered website (i.e. WordPress).
      *
      */
-    website?: "spa" | boolean;
+    website?: "spa" | boolean
     /**
      * By default, Proxyflare automatically rewrites website links for convenience.
      *
@@ -209,7 +213,7 @@ export type Route = {
      *
      * @defaultValue true
      */
-    rewriteLinks?: boolean;
+    rewriteLinks?: boolean
     /**
      * Most websites make additional requests for stylesheets, images, and other static
      * content required to render, format, and populate the page. Enumerate resource requests
@@ -241,13 +245,13 @@ export type Route = {
      * to.resources: `["a.com/images/*", "a.com/static/lib/jquery.js"]`
      * ✅ Proxies the script to `my-site.com`
      */
-    resources?: string[];
+    resources?: string[]
     /**
      * Proxied request timeout in milliseconds
      * @defaultValue 30000 (30 seconds)
      */
-    timeoutMs?: number;
-  };
+    timeoutMs?: number
+  }
   headers?: {
     /**
      * Request headers to append to proxied requests
@@ -255,14 +259,14 @@ export type Route = {
      * @example
      * headers.request: `{ "hello-server" : "👋" }`
      */
-    request?: Record<string, string>;
+    request?: Record<string, string>
     /**
      * Response headers to append to proxied responses
      *
      * @example
      * headers.response: `{ "hello-browser" : "👋" }`
      */
-    response?: Record<string, string>;
-  };
-};
+    response?: Record<string, string>
+  }
+}
 ```
