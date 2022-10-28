@@ -11,28 +11,65 @@ slug: getting-started
 sidebar_position: 2
 ---
 
-This package allows developers to use Proxyflare on any website deployed with [Cloudflare Pages](https://developers.cloudflare.com/pages).
+Proxyflare is a reverse proxy that makes moving traffic around your domain and across the internet easy.
 
-## Concepts
+This package provides Proxyflare to websites deployed with [Cloudflare Pages](https://developers.cloudflare.com/pages).
 
-Proxyflare moves traffic around your domain using `Routes`. A `Route` sends traffic to another service on your domain or elsewhere on the internet by generating a `ProxiedRequest` and handling the proxied response.
+:::info Powered by Typescript
 
-The fundamental building blocks of a `Route` are `Route["from"]` and `Route["to"]`.
-
-`Route["from"]` tells Proxyflare to use (or _match_) the `Route` for traffic _from_ the selected part of your domain.
-
-`Route["to"]` tells Proxyflare where to send the matched traffic _to_, which is usually another URL.
-The following articles outline some Proxyflare use cases.
-
-:::info Note
-
-If you're using Typescript, Proxyflare for Pages comes with type definitions and in-editor documentation with deep dives into and examples for every configuration option
+For Typescript users, Proxyflare for Pages comes with type definitions and in-editor documentation.
 
 :::
 
-## Get started
+## Use cases
 
-### Install
+### Proxy traffic to another service
+
+Proxy traffic from a part of your domain to another service on the same domain or elsewhere on the internet
+
+#### Examples
+
+1. Move traffic from `https://yoursite.com/api/*` to `https://your-hosted-api.com`
+1. Host a service on `https://torrents.yoursite.com/*` to `http://yoursite.com:41321`
+
+#### Notes
+
+- Proxyflare is compatible with websockets
+- Proxied services should be available on the public internet
+- Proxying services on both standard and custom ports is supported (e.g. `80`, `443`, `8787`, etc.)
+
+### Mount a hosted website on your domain
+
+#### Examples
+
+1. Mount your React-powered documentation hosted at `https://hosted-docs.com` on `https://yoursite.com/docs/*`
+1. Mount a WordPress site hosted at `https://some-wordpress-blog.com` on `https://yoursite.com/blog/*`
+
+#### Notes
+
+- Mounted websites should configure the base url to match its mounted pathname
+- Website resources must be carefully added to `Route["to.website.resources"]`
+
+### Redirect traffic from one place to another
+
+1. Version an API (e.g. redirect `/v2/api`)
+1. Redirect stale content URLs
+
+#### Notes
+
+- Redirects are wildcard-compatible
+- Any 300-level status code is supported
+
+### Serve text files through Proxyflare
+
+1. Publish unique `robots.txt` and other website metadata files around your domain
+
+#### Notes
+
+- Custom response headers are supported to set `Content-Type` for text, JSON, or others
+- Text files should be no larger than 16KB
+
+## Install
 
 Install `@flaregun-net/proxyflare-for-pages` using your preferred Javascript package manager.
 
@@ -42,7 +79,7 @@ npm install @flaregun-net/proxyflare-for-pages
 yarn add @flaregun-net/proxyflare-for-pages
 ```
 
-### Plug in
+## Plug in
 
 In your Cloudflare Pages project, create `functions/[[path]].ts`. If your project already has a `functions/[[path]].ts` that exports a single `onRequest` object, convert it to a list of plugins.
 
@@ -65,7 +102,7 @@ export const onRequest = [
 ]
 ```
 
-This is a barebones Proxyflare configuration with `debug` enabled that will help us set up Proxyflare.
+This is a barebones Proxyflare configuration with `debug` enabled that will help with set up and configuration.
 
 :::info Note
 
@@ -81,299 +118,5 @@ to disable `debug` when you are done configuring Proxyflare.
 `x-proxyflare-matched-pathname: string` is the pathname of the matched `Route["from.pattern"]`
 
 `x-proxyflare-proxied-pathname: string` is the pathname of the `ProxiedRequest`
-
-:::
-
-## Configure
-
-The following section describes a few common `Route` types. To learn more, read the TODO full documentaion link.
-
-### Proxy to another web service
-
-#### On another domain
-
-Proxyflare can send incoming traffic on your domain to other places on the internet. Let's build a simple route to move traffic from our domain to `my-api.com`
-
-```ts
-// functions/[[path]].ts
-const apiRoute: Route = {
-  from: { pattern: "proxyflare.works/api/*" },
-  to: { url: "my-api.com" },
-}
-
-const routes = [apiRoute]
-```
-
-In the above `apiRoute`, Proxyflare sends traffic from `proxyflare.works/api/*` to `my-api.com`.
-
-Notice the wildcard pathname in `apiRoute["from.pattern"]`. This means that traffic on subpaths of `proxyflare.works/api/` such as `proxyflare.works/api/users/1` goes to `my-api.com/users/1`. If `apiRoute["from.pattern"]` didn't include a wildcard, subpaths of `apiRoute["from.pattern"]` wouldn't match `apiRoute`.
-
-:::info Note
-
-<i>https:</i> is assumed unless <i>http:</i> is specified in the <code>
-  Route["to.url"]
-</code> URL
-
-:::
-
-#### On a custom port on a domain
-
-Proxyflare can send traffic from your domain to other services running on custom ports (e.g. other than `80` or `443`). The following `Route` sends traffic on `proxyflare.works/api/*` to the service listening on `flaregun.net:8787`.
-
-```ts
-// functions/[[path]].ts
-const apiRoute: Route = {
-  // optional field to describe the route
-  description: "forward api traffic to the flaregun api",
-  from: {
-    pattern: "proxyflare.works/api/*",
-    // match requests on both proxyflare.works and www.proxyflare.works
-    strictRootSubdomain: false,
-  },
-  to: { url: "flaregun.net:8787" },
-  headers: {
-    // request headers to pass along with the `ProxiedRequest`
-    request: { Authorization: "Bearer token" },
-  },
-}
-
-const routes = [apiRoute]
-```
-
-TODO: Fix this once `strictRootSubdomain` -> `alsoMatchWWWSubdomain`, or alsoMatchSubdomains: ['www']
-
-To disable loose matching of `www` and `root domain` traffic, set `strictRootSubdomain = true`. For example, incoming requests to `https://proxyflare.works/api/users` and `https://*www*.proxyflare.works/api/users` are both sent to `https://flaregun.net:8787/users`.
-
-:::caution Is your service available?
-
-Proxyflare uses the internet to move traffic, which means _any service it proxies must also be accessible on the internet_.
-
-A quick way to tell if your service is accessible is to disconnect from all VPNs and navigate to your service in a browser. If you can't connect, you will need to modify your firewall rules to expose your service to the internet.
-
-For example, an AWS service deployed at `my-api.ec2.amazonaws.com:8787` would have to create a [Security group rule](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that opens port 8787 on the EC2 virtual machine before using Proxyflare. Once `my-api.ec2.amazonaws.com:8787` is accessible from a browser, Proxyflare can connect it to your domain.
-
-:::
-
-### Proxy to another website
-
-Imagine we have separate documentation and blogging sites that we want to mount on `proxyflare.works/docs` and `proxyflare.works/blog`. Proxyflare can proxy content rich websites with a little additional setup.
-
-You'll need to be aware of the following concepts described below:
-
-1. On your website, set the `baseUrl` or equivalent configuration option
-1. In your Proxyflare configuration, set `Route["to.website.mode"]`
-1. In your Proxyflare configuration, set `Route["to.website.resources"]`
-
-#### Setting the base URL for your website
-
-Most modern website engines such as WordPress and Docusaurus allow you to set the base URL. The base URL is the root path after the host. For example, `/docs/` is the base URL of the Docusaurus-powered website mounted on https://proxyflare.works/docs.
-
-In order for your website to route correctly and generate accurate links, its base URL must match your Proxyflare `Route["from.pattern"]`. For our own documentation site, we set:
-
-- In _docusaurus.config.js_, `baseUrl = /blog/`
-- In our Proxyflare route, `Route["from.pattern"]: proxyflare.works/blog/*`
-
-To learn how to set the base URL for your site, please refer to the website engine's documentation.
-
-- [In Docusaurus](https://docusaurus.io/docs/api/docusaurus-config#baseUrl), set `baseURL`
-- [In WordPress](https://wordpress.org/support/article/changing-the-site-url/), set `siteurl`
-- [In Redocly](https://redocly.com/docs/developer-portal/settings/custom-domain/), set a custom domain
-- [In Django](https://pypi.org/project/django-base-url/), set `django-base-url`
-
-#### Route["to.website.mode"]: true | "spa"
-
-This option determines how Proxyflare handles website requests. If your website engine outputs statically rendered content, such as WordPress or Django, no configuration is needed (the default value `true` will be used).
-
-For websites and website engines that run on modern single page app frameworks like React, Angular, and Vue, set `to.website.mode="spa"` to leverage its client-side router.
-
-:::info Note
-
-Check your website engine documentation if you aren't sure whether it statically renders content or utilizes client-side routing.
-
-:::
-
-#### Route["to.website.resources"]: string[]
-
-When a web page loads, the browser makes additional requests for page resources like images, scripts, and stylesheets. If any of these resources fail to load, the website may appear partially loaded or even broken. To ensure a website loads fully, Proxyflare needs to know how to route resource requests to the right service.
-
-For example, when `https://proxyflare.works/blog` loads, the browser makes the following resouce request for a stylesheet: `GET https://proxyflare.works/wp-content/style.css`. But without more information, Proxyflare won't know whether `ProxiedRequest` should go to the blog service or the origin. To ensure the resource is served, we must tell Proxyflare to make `ProxiedRequest` to the blog service.
-
-```ts
-// functions/[[path]].ts
-const blogRoute: Route = {
-  from: { pattern: "proxyflare.works/blog/*" },
-  to: {
-    url: "https://wordpress-on-proxyflare.xyz",
-    website: {
-      resources: [
-        "proxyflare.works/wp-content/*",
-        "proxyflare.works/wp-includes/*",
-      ],
-    },
-  },
-}
-
-const routes = [blogRoute]
-```
-
-To help Proxyflare identify the resource request, we include the stylesheet in `blogRoute["to.website.resources"]`. But rather than listing the full URL `(proxyflare.works/wp-content/style.css)`, we can use wildcard patterns to send all resource traffic from `proxyflare.works/wp-content/*` and `proxyflare.works/wp-includes/*` to the WordPress blog on `wordpress-on-proxyflare.xyz`.
-
-But how did we know to add these particular patterns in `Route["to.website.resources"]`? The quickest way is to open your browser's `Developer Tools > Network` to identify failing requests for website resources like images, scripts, and stylesheets.
-
-:::info
-
-If your website appears partially loaded or broken, one or more static resources may not be correctly configured in `Route["to.website.resources"]`
-
-:::
-
-ADD GIFS HERE
-
-Here's another `Route` that mounts our [Docusaurus](https://docusaurus.io/)-powered [documentation website](https://docusaurus-on-proxyflare.vercel.app) on `proxyflare.works/docs/*`.
-
-```ts
-// functions/[[path]].ts
-const docsRoute: Route = {
-  from: { pattern: "proxyflare.works/docs/*" },
-  to: {
-    url: "https://docusaurus-on-proxyflare.vercel.app",
-    website: {
-      mode: "spa",
-      resources: [
-        "proxyflare.works/docs/img/*",
-        "proxyflare.works/docs/assets/*",
-        "proxyflare.works/docs/manifest.json",
-      ],
-    },
-  },
-}
-
-const routes = [docsRoute]
-```
-
-:::caution CHALLENGE
-
-Inspect the `Network` tab on https://proxyflare.works/docs to see if you can identify why the three patterns in `docsRoute["to.website.resources"]` are listed.
-
-:::
-
-### Redirect to another web service
-
-Proxyflare can redirect traffic on absolute or wildcard pathnames on your domain to other places on the internet.
-
-```ts
-// functions/[[path]].ts
-const redirectRoute: Route = {
-  from: { pattern: "proxyflare.works/redirect" },
-  to: {
-    url: "example.com",
-    statusCode: 301,
-  },
-}
-
-const routes = [redirectRoute]
-```
-
-This route redirects traffic on `proxyflare.works/redirect` to `example.com` because it contains a `3xx` `statusCode`. Providing a `statusCode` is useful for redirects and if you want to hard code the response status on a route.
-
-## How Proxyflare matches routes
-
-Proxyflare works with any number of routes by ordering them by pathname specificity of `Route[from.pattern]`. This section explains how pathname specificity is and how understand how Proxyflare prioritizes route Read on to learn about how Proxyflare handles a request to `https://proxyflare.works/api/users/john` with the following configuration.
-
-```ts
-// functions/[[path]].ts
-const routes: Route[] = [
-  {
-    from: { pattern: "proxyflare.works/api/*" },
-    // rest of route config
-  },
-  {
-    from: { pattern: "proxyflare.works/api/users/*" },
-    // rest of route config
-  },
-]
-```
-
-:::warning Spoiler
-
-The latter route wins because it has a higher pathname specificity!
-
-:::
-
-In the example above, the second route is matched for a request to `https://proxyflare.works/api/users/john`, but why? When Proxyflare runs, it sorts `routes` based on the pathname specificity of `Route["from.pattern"]`.
-
-## How Proxyflare matches routes
-
-Pathname specificity increases with pathname depth. The more forward-slash `/` separated parts in the pathname, the higher the specificity. For example, `from.pattern=ex.com/a/b/c` has a pathname depth of three.
-
-Given two patterns with the same pathname depth, the one with the the longer trailing slug wins.
-For example, given `from.pattern=ex.com/a/b/c*` and `from.pattern=ex.com/a/b/cccc*`, the latter wins.
-
-For patterns that would be identical if wildcards were removed, rank is allocated in order of:
-
-1. Absolute path `ex.com/a`
-2. Inline wildcard `ex.com/a*`
-3. Slash wildcard `ex.com/a/*`
-
-The table below shows this strategy on a list of routes with complex `Route["from.pattern"]`s listed by pathname specificity.
-The last column shows an incoming request that would match each pattern.
-
-| Specificity | `Route["from.pattern"]`  | Example Matching Request        |
-| ----------- | ------------------------ | ------------------------------- |
-| 14          | ex.com/shallow/deeper    | ex.com/shallow/deeper           |
-| 13          | ex.com/shallow/deeper\*  | ex.com/shallow/deeper-in        |
-| 12          | ex.com/shallow/deeper/\* | ex.com/shallow/deeper/down      |
-| 11          | ex.com/shallow/deep      | ex.com/shallow/deep             |
-| 10          | ex.com/shallow/deep\*    | ex.com/shallow/deep-in          |
-| 9           | ex.com/shallow/deep/\*   | ex.com/shallow/deep/down        |
-| 8           | ex.com/shallower         | ex.com/shallower                |
-| 7           | ex.com/shallower\*       | ex.com/shallower-yet            |
-| 6           | ex.com/shallower/\*      | ex.com/shallower/still          |
-| 5           | ex.com/shallow           | ex.com/shallow                  |
-| 4           | ex.com/shallow\*         | ex.com/shallow-lakes            |
-| 3           | ex.com/shallow/\*        | ex.com/shallow/water            |
-| 2           | ex.com/                  | ex.com/                         |
-| 1           | ex.com/\*                | ex.com/anything-still-unmatched |
-
-:::info Tip
-
-Set the `global.debug` configuration variable to inspect the the `x-proxyflare-matched-pathname` response header for the matched pathname.
-
-:::
-
-## How Proxyflare proxies requests
-
-Once Proxyflare matches a configuration `Route` to an incoming request, it constructs the `ProxiedRequest` based on three parameters:
-
-1. `Request`
-1. `Route["from.pattern"]`
-1. `Route["to.url"]`
-
-The general formula is:
-
-```
-ProxiedRequest["href"] = Route["to.url"].origin + ( Request["pathname"] + ( Route["to.url"].pathname - Route["from.pattern"].pathname ))
-```
-
-| `Request["href"]`    | `Route["from.pattern"]` | `Route["to.url"]` | `ProxiedRequest["href"]`      |
-| -------------------- | ----------------------- | ----------------- | ----------------------------- |
-| `https://ex.com/api` | `ex.com/*`              | `proxied.com`     | `https://proxied.com/api`     |
-| `https://ex.com/api` | `ex.com/*`              | `proxied.com/api` | `https://proxied.com/api/api` |
-| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com`     | `https://proxied.com`         |
-| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com/api` | `https://proxied.com/api`     |
-
-Depending on your requirements, you might want to include the pathname of `Route["from.pattern"]` in the `ProxiedRequest`. To do this, set `stripFromPath: false` on your `Route`.
-
-The table below demonstrates how `stripFromPath: false` modifies a `ProxiedRequest`.
-
-| `Request["href"]`    | `Route["from.pattern"]` | `Route["to.url"]` | `ProxiedRequest["href"]`      |
-| -------------------- | ----------------------- | ----------------- | ----------------------------- |
-| `https://ex.com/api` | `ex.com/*`              | `proxied.com`     | `https://proxied.com/api`     |
-| `https://ex.com/api` | `ex.com/*`              | `proxied.com/api` | `https://proxied.com/api/api` |
-| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com`     | `https://proxied.com/api`     |
-| `https://ex.com/api` | `ex.com/api/*`          | `proxied.com/api` | `https://proxied.com/api/api` |
-
-:::info Tip
-
-Set the `global.debug` configuration variable to inspect the the `x-proxyflare-proxied-pathname` response header for the proxied pathname.
 
 :::
