@@ -12,11 +12,9 @@ import { useAllDocsData } from "@docusaurus/plugin-content-docs/client"
 import {
   HtmlClassNameProvider,
   isRegexpStringMatch,
-  useDynamicCallback,
   usePluralForm,
-  useSearchPage,
-  useTitleFormatter
 } from "@docusaurus/theme-common"
+import { useTitleFormatter } from "@docusaurus/theme-common/internal"
 import Translate, { translate } from "@docusaurus/Translate"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import { useProduct } from "@site/src/utils/useProduct"
@@ -26,6 +24,8 @@ import algoliaSearch from "algoliasearch/lite"
 import clsx from "clsx"
 import React, { useEffect, useReducer, useRef, useState } from "react"
 import styles from "./styles.module.css"
+
+const searchQuery = "not implemented"
 // Very simple pluralization: probably good enough for now
 function useDocumentsFoundPlural() {
   const { selectMessage } = usePluralForm()
@@ -123,7 +123,9 @@ function SearchPageContent() {
   } = themeConfig
   const documentsFoundPlural = useDocumentsFoundPlural()
   const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers()
-  const { searchQuery, setSearchQuery } = useSearchPage()
+  // this used to be useSearchPage from 2.beta but it got removed.
+  // Reimplement it if we need it
+  // const { searchQuery, setSearchQuery } = useSearchPage()
   const initialSearchResultState = {
     items: [],
     query: null,
@@ -257,7 +259,7 @@ function SearchPageContent() {
           message: "Search the documentation",
           description: "The search page title for empty query",
         })
-  const makeSearch = useDynamicCallback((page = 0) => {
+  const makeSearch = (page = 0) => {
     algoliaHelper.addDisjunctiveFacetRefinement("docusaurus_tag", "default")
     algoliaHelper.addDisjunctiveFacetRefinement("language", currentLocale)
     Object.entries(docsSearchVersionsHelpers.searchVersions).forEach(
@@ -269,7 +271,7 @@ function SearchPageContent() {
       },
     )
     algoliaHelper.setQuery(searchQuery).setPage(page).search()
-  })
+  }
   useEffect(() => {
     if (!loaderRef) {
       return undefined
@@ -333,7 +335,7 @@ function SearchPageContent() {
                 message: "Search",
                 description: "The ARIA label for search page input",
               })}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => console.log("not implemented")}
               value={searchQuery}
               autoComplete="off"
               autoFocus
@@ -480,7 +482,7 @@ function SearchPageContent() {
 export default function SearchPage() {
   return (
     <HtmlClassNameProvider className="search-page-wrapper">
-        <SearchPageContent />
+      <SearchPageContent />
     </HtmlClassNameProvider>
   )
 }

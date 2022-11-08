@@ -10,9 +10,9 @@ export const useProduct = () => {
   const productSlug =
     isBrowser && window.location.pathname.includes(`/${edgeflare}/`)
       ? edgeflare
-      : window.location.pathname.includes(`/${proxyflare}/`)
+      : isBrowser && window.location.pathname.includes(`/${proxyflare}/`)
       ? proxyflare
-      : undefined
+      : proxyflare
 
   return {
     productSlug,

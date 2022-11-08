@@ -4,11 +4,11 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+import { useThemeConfig } from "@docusaurus/theme-common"
 import {
   useFilteredAndTreeifiedTOC,
-  useThemeConfig,
   useTOCHighlight,
-} from "@docusaurus/theme-common"
+} from "@docusaurus/theme-common/internal" // Recursive component rendering the toc tree
 import React, { useMemo } from "react"
 
 /* eslint-disable jsx-a11y/control-has-associated-label */

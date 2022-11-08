@@ -8,7 +8,7 @@ import { DocSearchButton, useDocSearchKeyboardEvents } from "@docsearch/react"
 import Head from "@docusaurus/Head"
 import Link from "@docusaurus/Link"
 import { useHistory } from "@docusaurus/router"
-import { isRegexpStringMatch, useSearchPage } from "@docusaurus/theme-common"
+import { isRegexpStringMatch } from "@docusaurus/theme-common"
 import { useAlgoliaContextualFacetFilters } from "@docusaurus/theme-search-algolia/client"
 import Translate, { translate } from "@docusaurus/Translate"
 import { useBaseUrlUtils } from "@docusaurus/useBaseUrl"
@@ -36,9 +36,13 @@ function Hit({ hit, children }) {
 // Customization END
 
 function ResultsFooter({ state, onClose }) {
-  const { generateSearchPageLink } = useSearchPage()
+  // this used to be useSearchPage from 2.beta but it got removed.
+  // Reimplement it if we need it
+  // const { generateSearchPageLink } = useSearchPage()
+  // <Link to={generateSearchPageLink(state.query)} onClick={onClose}>
+
   return (
-    <Link to={generateSearchPageLink(state.query)} onClick={onClose}>
+    <Link to={"not-implemented"} onClick={onClose}>
       <Translate
         id="theme.SearchBar.seeAll"
         values={{ count: state.context.nbHits }}
