@@ -15,7 +15,7 @@ import {
   useDynamicCallback,
   usePluralForm,
   useSearchPage,
-  useTitleFormatter,
+  useTitleFormatter
 } from "@docusaurus/theme-common"
 import Translate, { translate } from "@docusaurus/Translate"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
@@ -480,7 +480,7 @@ function SearchPageContent() {
 export default function SearchPage() {
   return (
     <HtmlClassNameProvider className="search-page-wrapper">
-      <SearchPageContent />
+        <SearchPageContent />
     </HtmlClassNameProvider>
   )
 }

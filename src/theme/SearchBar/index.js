@@ -13,6 +13,7 @@ import { useAlgoliaContextualFacetFilters } from "@docusaurus/theme-search-algol
 import Translate, { translate } from "@docusaurus/Translate"
 import { useBaseUrlUtils } from "@docusaurus/useBaseUrl"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import useIsBrowser from "@docusaurus/useIsBrowser"
 import { useProduct } from "@site/src/utils/useProduct"
 import React, { Fragment, useCallback, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
@@ -65,6 +66,7 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
     ...props.searchParameters,
     facetFilters,
   }
+  const isBrowser = useIsBrowser()
   const { withBaseUrl } = useBaseUrlUtils()
   const history = useHistory()
   const searchContainer = useRef(null)
@@ -110,7 +112,7 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
     navigate({ itemUrl }) {
       // Algolia results could contain URL's from other domains which cannot
       // be served through history and should navigate with window.location
-      if (isRegexpStringMatch(externalUrlRegex, itemUrl)) {
+      if (isBrowser && isRegexpStringMatch(externalUrlRegex, itemUrl)) {
         window.location.href = itemUrl
       } else {
         history.push(itemUrl)
@@ -187,6 +189,7 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
 
       {isOpen &&
         DocSearchModal &&
+        isBrowser &&
         searchContainer.current &&
         createPortal(
           <DocSearchModal

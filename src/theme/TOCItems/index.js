@@ -4,18 +4,18 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, { useMemo } from "react";
-import { useThemeConfig } from "@docusaurus/theme-common";
 import {
-  useTOCHighlight,
   useFilteredAndTreeifiedTOC,
-} from "@docusaurus/theme-common/internal"; // Recursive component rendering the toc tree
+  useThemeConfig,
+  useTOCHighlight,
+} from "@docusaurus/theme-common"
+import React, { useMemo } from "react"
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 function TOCItemList({ toc, className, linkClassName, isChild }) {
   if (!toc.length) {
-    return null;
+    return null
   }
 
   return (
@@ -39,7 +39,7 @@ function TOCItemList({ toc, className, linkClassName, isChild }) {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 
 export default function TOCItems({
@@ -51,24 +51,24 @@ export default function TOCItems({
   maxHeadingLevel: maxHeadingLevelOption,
   ...props
 }) {
-  const themeConfig = useThemeConfig();
+  const themeConfig = useThemeConfig()
   const minHeadingLevel =
-    minHeadingLevelOption ?? themeConfig.tableOfContents.minHeadingLevel;
+    minHeadingLevelOption ?? themeConfig.tableOfContents.minHeadingLevel
   const maxHeadingLevel =
-    maxHeadingLevelOption ?? themeConfig.tableOfContents.maxHeadingLevel;
+    maxHeadingLevelOption ?? themeConfig.tableOfContents.maxHeadingLevel
   // In the event of re-swizzling, make sure to change the tocTree declaration aboe to `let`
   let tocTree = useFilteredAndTreeifiedTOC({
     toc,
     minHeadingLevel,
     maxHeadingLevel,
-  });
+  })
 
   // Customization START
   // In the event of re-swizzling, need to copy below snippet and add back in the newly swizzled TOCItems component
   // This block should alwways come after the `tocTree` variable which holds results from `useFilteredAndTreeifiedTOC`
   // make sure to change the tocTree declaration aboe to `let`
   if (typeof props.filterTOC === "function") {
-    tocTree = props.filterTOC(tocTree);
+    tocTree = props.filterTOC(tocTree)
   }
   // Customization END
 
@@ -79,12 +79,12 @@ export default function TOCItems({
         linkActiveClassName,
         minHeadingLevel,
         maxHeadingLevel,
-      };
+      }
     }
 
-    return undefined;
-  }, [linkClassName, linkActiveClassName, minHeadingLevel, maxHeadingLevel]);
-  useTOCHighlight(tocHighlightConfig);
+    return undefined
+  }, [linkClassName, linkActiveClassName, minHeadingLevel, maxHeadingLevel])
+  useTOCHighlight(tocHighlightConfig)
   return (
     <TOCItemList
       toc={tocTree}
@@ -92,5 +92,5 @@ export default function TOCItems({
       linkClassName={linkClassName}
       {...props}
     />
-  );
+  )
 }
