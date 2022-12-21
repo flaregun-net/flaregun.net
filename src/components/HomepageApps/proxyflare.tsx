@@ -1,20 +1,19 @@
 import Link from "@docusaurus/Link"
 import VersionedLink from "@site/src/components/VersionedLink"
 import ProxyflareIcon from "@site/static/img/proxyflare.svg"
+import clsx from "clsx"
 import React from "react"
 import styles from "./styles.module.scss"
 
 export function Proxyflare() {
   return (
     <div className="card">
-      <div className="card__header">
+      <div className={clsx("card__header", styles.appHeading)}>
         <div className={styles.textIconLink}>
           <ProxyflareIcon width={24} height={24} />
           <h3>Proxyflare</h3>
         </div>
-        <div className={styles.tagline}>
-          Move traffic around your domain with ease
-        </div>
+        <p>Move traffic around your domain with ease</p>
       </div>
       <div className="card__body">
         <p>

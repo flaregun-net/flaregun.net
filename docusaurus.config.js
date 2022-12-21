@@ -17,7 +17,7 @@ const config = {
   trailingSlash: true,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
-  favicon: "/docs/img/favicon-32x32.png",
+  favicon: "/img/favicon-32x32.png",
   organizationName: "flaregun",
   projectName: "flaregun",
   staticDirectories: ["static", "public"],
@@ -32,7 +32,7 @@ const config = {
           // https://docusaurus.io/docs/docs-introduction#docs-only-mode
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: ({ docPath }) =>
-            `https://github.com/flaregun-net/flaregun-net/docs/edit/master/docs/${docPath}`,
+            `https://github.com/flaregun-net/flaregun.net/edit/master/docs/${docPath}`,
           docItemComponent: require.resolve(
             "./src/components/CustomDocItem/index.tsx",
           ),
@@ -40,7 +40,7 @@ const config = {
           lastVersion: "current",
           versions: {
             current: {
-              label: "v1.x",
+              label: "v0.x",
               badge: true,
               path: "latest",
             },
@@ -62,7 +62,7 @@ const config = {
         path: "wiki",
         routeBasePath: "wiki",
         editUrl: ({ docPath }) =>
-          `https://github.com/flaregun-net/flaregun-net/edit/master/docs/${docPath}`,
+          `https://github.com/flaregun-net/flaregun.net/edit/master/docs/${docPath}`,
         editCurrentVersion: true,
         docItemComponent: require.resolve(
           "./src/components/CustomDocItem/CustomDocItemWiki.tsx",
@@ -122,10 +122,10 @@ const config = {
         // Optional: Algolia search parameters
         // searchParameters: {},
       },
-      announcementBar: {
-        id: "announcementBar-1", // Increment on change
-        content: `⭐️ Stay in touch by following us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/flaregun_net" >Twitter</a>`,
-      },
+      // announcementBar: {
+      //   id: "announcementBar-1", // Increment on change
+      //   content: `⭐️ Stay in touch by following us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/flaregun_net" >Twitter</a>`,
+      // },
       navbar: {
         hideOnScroll: true,
         title: "Flaregun",
@@ -169,6 +169,12 @@ const config = {
             position: "right",
           },
           {
+            href: "https://github.com/flaregun-net",
+            position: "right",
+            className: "header-github-link",
+            "aria-label": "Flaregun on Github",
+          },
+          {
             href: "https://discord.gg/YcDwujEH",
             position: "right",
             className: "header-discord-link",
@@ -181,10 +187,6 @@ const config = {
             "aria-label": "Flaregun on Twitter",
           },
         ],
-      },
-      footer: {
-        style: "dark",
-        copyright: `Copyright © ${new Date().getFullYear()} Flaregun, Inc.`,
       },
     }),
 }

@@ -8,15 +8,7 @@ export function HomepageDiscord() {
     <div className="hero hero--dark">
       <div className="container">
         <div className="row">
-          <div
-            className="col col--12"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className="col col--12 flex-center">
             <h3 className="hero__title">Join in the conversation</h3>
             <p className="hero__subtitle">
               Questions or feedback? Hop in our Discord to chat.

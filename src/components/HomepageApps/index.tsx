@@ -4,7 +4,7 @@ import { Proxyflare } from "./proxyflare"
 
 export function HomepageApps() {
   return (
-    <div className="hero shadow--lw">
+    <section className="section">
       <div className="container">
         <div className="row">
           <div className="col col--offset-1 col--5">
@@ -15,6 +15,6 @@ export function HomepageApps() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

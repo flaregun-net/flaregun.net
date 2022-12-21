@@ -5,27 +5,26 @@ import styles from "./styles.module.scss"
 
 export function HomepageHeader() {
   return (
-    <header className="hero">
+    <header className="hero" style={{ padding: "0 1rem" }}>
       <div className={clsx(styles.heroBanner)}>
         <img
           src={flaregun}
           alt="Flaregun"
           style={{ position: "relative", left: 20 }}
         />
-        <h2 className={clsx("hero__title", styles.heroTitle)}>
+        <h2 className="hero__title">
           Convenient applications for your
           <span className={clsx(styles.underline)}>
             Cloudflare powered domain
           </span>
         </h2>
-        <h3 className={clsx(styles.heroTitle)} style={{ fontWeight: 400 }}>
+        <h3>
           ⚡ Make hard networking problems
           <span className={clsx(styles.underline, styles["red-underline"])}>
             easy.
           </span>
         </h3>
       </div>
-      <p className="hero__subtitle"></p>
     </header>
   )
 }

@@ -657,7 +657,16 @@ div[class*=codeBlockTitle_] {
 }
 
 .card {
-  padding: 12px
+  padding: 12px;
+  margin: 0.5rem 0;
+
+  &:first-child {
+    margin-top: 0rem;
+  }
+
+  &:last-child {
+    margin-bottom: 1rem;
+  }
 }
 
 .video-frame {
@@ -683,4 +692,23 @@ div[class*=codeBlockTitle_] {
 
 .prism-code .token-line {
   white-space: pre-wrap;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 200;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.button {
+  @media screen and (max-width: 400px) {
+    margin-bottom: 0.5rem;
+  }
+
 }

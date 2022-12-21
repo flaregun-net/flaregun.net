@@ -1,17 +1,18 @@
 import VersionedLink from "@site/src/components/VersionedLink"
 import EdgeflareIcon from "@site/static/img/edgeflare.svg"
+import clsx from "clsx"
 import React from "react"
 import styles from "./styles.module.scss"
 
 export function Edgeflare() {
   return (
     <div className="card">
-      <div className="card__header">
+      <div className={clsx("card__header", styles.appHeading)}>
         <div className={styles.textIconLink}>
           <EdgeflareIcon width={24} height={24} />
           <h3>Edgeflare</h3>
         </div>
-        <div className={styles.tagline}>Maintenance mode at the edge</div>
+        <p>Maintenance mode at the edge</p>
       </div>
       <div className="card__body">
         <p>
