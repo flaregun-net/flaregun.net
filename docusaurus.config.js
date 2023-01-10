@@ -91,10 +91,11 @@ const config = {
     //     },
     //   ],
   ],
-
+  // SEO https://github.com/gimdongwoo/Docusaurus/blob/master/website/docs/seo.md
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: "img/flaregun.png",
       docs: {
         sidebar: {
           hideable: true,
