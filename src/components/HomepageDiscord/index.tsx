@@ -1,6 +1,6 @@
+import React from 'react'
 import Link from "@docusaurus/Link"
 import DiscordIcon from "@site/static/icons/discord.svg"
-import React from "react"
 import styles from "./styles.module.scss"
 
 export function HomepageDiscord() {
@@ -15,7 +15,7 @@ export function HomepageDiscord() {
             </p>
             <Link
               className="button button--primary button--inline-block"
-              href="https://discord.gg/YcDwujEH"
+              href="https://discord.gg/ZqeZsA3qCT"
               rel="noopener noreferrer"
             >
               <div className={styles.textIconLink}>

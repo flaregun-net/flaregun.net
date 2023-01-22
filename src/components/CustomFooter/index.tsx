@@ -1,7 +1,7 @@
+import React from 'react'
 import Link from "@docusaurus/Link"
 import GithubIcon from "@site/static/icons/github.svg"
 import TwitterIcon from "@site/static/icons/twitter.svg"
-import React from "react"
 import styles from "./styles.module.scss"
 
 const CustomFooter = () => (
@@ -40,7 +40,7 @@ const CustomFooter = () => (
       </div>
       {/* <div className={styles["socialBrands"]}>
         <Link
-          href={"https://discord.gg/YcDwujEH"}
+          href={"https://discord.gg/ZqeZsA3qCT"}
           rel="noopener noreferrer"
           aria-label={"Discord"}
         >
