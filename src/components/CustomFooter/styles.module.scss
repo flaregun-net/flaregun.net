@@ -4,10 +4,20 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1rem 0;
+  background: #8360c3;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2ebf91, #8360c3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 
   @mixin custom-footer-wrapper__vertical() {
     flex-direction: column;
-    .logo-wrapper, .copyright, .footerSocialIconsWrapper {
+
+    .logo-wrapper,
+    .copyright,
+    .footerSocialIconsWrapper {
       padding: 0.5rem 0;
     }
   }
@@ -23,6 +33,7 @@
   .logo-wrapper {
     width: 108px;
     height: 32px;
+
     img {
       width: 100%;
       height: 100%;
@@ -32,30 +43,38 @@
   .dark-theme-logo {
     display: none;
   }
-  
+
   .footerSocialIconsWrapper {
     display: flex;
     align-items: center;
+
     .socialBrands {
       margin: 0 12px;
       opacity: 0.8;
+
       &:hover {
         opacity: 1;
       }
+
       &:first-child {
         margin-left: 0;
       }
+
       &:last-child {
         margin-right: 0;
       }
     }
   }
 }
+
 html[data-theme='dark'] {
   .custom-footer-wrapper {
+    padding: 1.5rem;
+
     .dark-theme-logo {
       display: initial;
     }
+
     .light-theme-logo {
       display: none;
     }
