@@ -4,7 +4,7 @@ import { Proxyflare } from "./proxyflare"
 
 export function HomepageApps() {
   return (
-    <section className="section">
+    <section className="section" style={{ marginBottom: 80 }}>
       <div className="container">
         <div className="row">
           <div className="col col--offset-1 col--5">

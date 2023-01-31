@@ -145,7 +145,7 @@ export type Route = {
      */
     methods?: Methods[]
   }
-  to: ToURL | ToText
+  to: ToURL | ToText | ToR2Bucket
   headers?: {
     /**
      * Request headers to append to proxied requests
@@ -256,6 +256,20 @@ type ToBase = {
   timeoutMs?: number
 }
 
+type ToR2Bucket = ToBase & {
+  /**
+   * Mount a private R2 bucket using the S3 API on any part of your domain by providing the bucket metadata and a valid [R2 API token](https://dash.cloudflare.com/?account=r2/overview/api-tokens).
+   * @example
+   * Mount `my-cats-bucket` on `a.com/cats`
+   * Request: `a.com/cats/my-cat-1.png`
+   * from.pattern: `a.com/cats/*`
+   * to.r2Bucket: R2BucketOptions
+   */
+  r2Bucket?: R2BucketOptions
+  url?: never
+  text?: never
+}
+
 type ToText = ToBase & {
   url?: never
   /**
@@ -298,6 +312,17 @@ type EarlyHints =
   | {
       mode: ("provide-images" | "provide-stylesheets" | "provide-scripts")[]
     }
+```
+
+### R2BucketOptions
+
+```ts
+export interface R2BucketOptions {
+  accountId: string
+  bucketName: string
+  accessKeyId: string
+  secretAccessKey: string
+}
 ```
 
 ### CORSOptions

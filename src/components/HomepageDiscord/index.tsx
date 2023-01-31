@@ -5,10 +5,7 @@ import styles from "./styles.module.scss"
 
 export function HomepageDiscord() {
   return (
-    <div
-      style={{ marginTop: 40 }}
-      className={clsx(["hero hero--dark", styles.wrapper])}
-    >
+    <div className={clsx(["hero hero--dark", styles.wrapper])}>
       <div className="container">
         <div className="row">
           <div className="col col--12 flex-center">
