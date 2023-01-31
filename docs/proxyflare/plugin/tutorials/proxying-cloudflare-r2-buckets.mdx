@@ -1,0 +1,70 @@
+---
+title: How do I proxy my Cloudflare R2 bucket?
+description: Learn how to proxy a public or private Cloudflare R2 bucket with Proxyflare
+keywords:
+  - flaregun
+  - proxyflare
+  - reverse proxy
+  - cloudflare r2
+  - object storage
+  - private bucket
+  - public bucket
+  - docs
+slug: proxying-cloudflare-r2-buckets
+sidebar_position: 5
+---
+
+Proxyflare can proxy traffic to your Cloudflare R2 bucket from any part of your domain.
+
+If you aren't familiar with R2, it's Cloudflare's object storage solution — analagous to Amazon S3 — but affordable and way faster. To learn more about Cloudflare R2, refer to the [documentation](https://developers.cloudflare.com/r2/).
+
+## Bucket visibility
+
+R2 buckets are private and can only be accessed using an
+[R2 API token](https://dash.cloudflare.com/?account=r2/overview/api-tokens). You can make your bucket public by setting the bucket visibility in the [R2 dashboard](https://dash.cloudflare.com/?account=r2/overview). Proxyflare supports proxying traffic to both public and private buckets.
+
+## Proxy a public bucket
+
+If your bucket is already public, you may proxy it using the common `Route["to.url"]` syntax.
+
+```ts title="functions/_middleware.ts"
+const publicR2BucketRoute: Route = {
+  from: {
+    pattern: "proxyflare.works/cat-pics/*",
+  },
+  to: {
+    url: "https://pub-ec6768.r2.dev",
+  },
+}
+
+const routes = [publicR2BucketRoute]
+```
+
+## Proxy a private bucket
+
+If your bucket is private, you may proxy traffic to it using `Route["to.r2Bucket"]` configuration.
+
+```ts title="functions/_middleware.ts"
+const privateR2BucketRoute: Route = {
+  from: {
+    pattern: "proxyflare.works/cat-pics/*",
+  },
+  to: {
+    r2Bucket: {
+      accountId: env.R2_ACCOUNT_ID,
+      accessKeyId: env.R2_ACCESS_KEY_ID,
+      secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+      bucketName: env.R2_BUCKET_NAME,
+    },
+  },
+}
+
+const routes = [privateR2BucketRoute]
+```
+
+Populate `env.R2_ACCOUNT_ID`, `env.R2_ACCESS_KEY_ID`, `env.R2_SECRET_ACCESS_KEY`, and `env.R2_BUCKET_NAME` with the corresponding information from your account and [R2 API token](https://dash.cloudflare.com/?account=r2/overview/api-tokens).
+
+:::caution Protect your secrets
+
+Never hardcode your R2 secrets directly into your `Configuration`. Instead, use [environment variables](/docs/latest/proxyflare/plugin/tutorials/using-environment-variables) to safely protect your sensitive information.
+:::

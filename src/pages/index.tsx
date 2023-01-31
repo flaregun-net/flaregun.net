@@ -1,6 +1,5 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import CustomFooter from "@site/src/components/CustomFooter"
-
 import Layout from "@theme/Layout"
 import React from "react"
 import { HomepageApps } from "../components/HomepageApps"

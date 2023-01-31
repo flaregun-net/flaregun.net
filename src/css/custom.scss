@@ -215,6 +215,11 @@
   --ifm-footer-padding-vertical: 3rem;
 }
 
+.navbar {
+  box-shadow: none;
+  background: var(--ifm-color-none) !important;
+}
+
 /* Docusaurus Specific Styles */
 .header-github-link {
   &::before {
